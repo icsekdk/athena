@@ -1,0 +1,298 @@
+// ============================================================================
+// hipaa_164_506.dl — §164.506: Uses and disclosures to carry out
+//                    treatment, payment, or health care operations
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.3 (pages 50–55)
+//
+// Structure:
+//   164.506     — top-level OR of (a), (b), (c)
+//   164.506(a)  — standard permitted uses (not requiring authorization)
+//   164.506(b)  — consent for TPO
+//   164.506(c)  — implementation specification (OR of c_1 through c_5)
+// ============================================================================
+
+// =============================================
+// §164.506 — Top-level: OR of sub-sections
+// =============================================
+// PDF: permitted_by_164_506(A) :- permitted_by_164_506_a(A);
+//                                  permitted_by_164_506_b(A);
+//                                  permitted_by_164_506_c(A).
+.decl permitted_by_164_506(DECL_ARGS, e: Expl)
+
+permitted_by_164_506(ARGS, E) :- permitted_by_164_506_a(ARGS, E).
+permitted_by_164_506(ARGS, E) :- permitted_by_164_506_b(ARGS, E).
+permitted_by_164_506(ARGS, E) :- permitted_by_164_506_c(ARGS, E).
+
+// =============================================
+// §164.506(a) — Standard permitted uses and disclosures
+// =============================================
+// "Except with respect to uses or disclosures that require an authorization
+//  under sections 164.508(a)(2) and (3), a covered entity may use or disclose
+//  protected health information for treatment, payment, or health care
+//  operations as set forth in paragraph (c) of this section, provided that
+//  such use or disclosure is consistent with other applicable requirements
+//  of this subpart."
+//
+// PDF (page 50):
+//   permitted_by_164_506_a(A) :-
+//     \+ require_authorization_by_164_508(A),
+//     is_from_coveredEntity(A),
+//     is_for_eitherPurpose(A),
+//     permitted_by_164_506_c(A),
+//     writeln('HIPAA rule 164_506_a;').
+//
+// Translation: negation of 164.508 stub + covered entity + TPO purpose + 506(c)
+.decl permitted_by_164_506_a(DECL_ARGS, e: Expl)
+
+// is_recipient_relevant_to_tpo: the receiver is actually part of carrying out the
+// disclosing covered entity's treatment/payment/operations activity -- another
+// covered entity, a business associate, the subject's personal representative, or
+// the subject themselves (e.g. a provider messaging the patient their own results).
+.decl is_recipient_relevant_to_tpo(p1: Principal, p2: Principal, q: Principal)
+
+// Each disjunct needs a positive body literal to ground Q for Datalog safety
+// (Souffle requires every head variable bound within that rule's own body,
+// regardless of how the predicate happens to be called elsewhere) --
+// msg_contains(_, Q, _) is used for that: "Q appears as a disclosure subject
+// somewhere in the fact base," which is legally inert (imposes no
+// HIPAA-relevant condition) and is guaranteed true for the very Q the caller
+// is already evaluating, since the caller's own msg_contains(m, q, t)
+// supplies it.
+is_recipient_relevant_to_tpo(P1, Q, Q) :- is_covered_entity(P1), msg_contains(_, Q, _).
+is_recipient_relevant_to_tpo(P1, P2, Q) :- is_covered_entity(P1), is_covered_entity(P2), msg_contains(_, Q, _).
+is_recipient_relevant_to_tpo(P1, P2, Q) :- is_covered_entity(P1), is_business_associate_of(P2, P1), msg_contains(_, Q, _).
+is_recipient_relevant_to_tpo(P1, P2, Q) :- is_covered_entity(P1), is_personal_representative(P2, Q).
+
+// Incidental-disclosure gate: a disclosure that IS incident to some other
+// otherwise-permitted activity must route through _iii's already-existing
+// safeguards-gated pathway (permitted_by_164_502_a_1_iii, which checks
+// permitted_by_164_530_c/lacks_reasonable_safeguards), not claim _ii's
+// unconditional TPO permission instead. Reuses is_incident_to_use --
+// already a real, askable oracle (hipaa_164_502.dl) gating _iii itself --
+// rather than adding a new, overlapping predicate. §164.530(c)(2)(ii)'s own
+// text supports safeguards applying to incidental disclosures broadly
+// ("...made pursuant to an otherwise permitted or required use or
+// disclosure"), not just within _iii's own pathway; this gate is what
+// actually gives that text an effect on _ii.
+permitted_by_164_506_a(ARGS,
+    $Step1("164.506(a): standard TPO use/disclosure (no authorization required)", E)) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    !require_authorization_by_164_508(ARGS),
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_tpo(u),
+    is_recipient_relevant_to_tpo(p1, p2, q),
+    !is_incident_to_use(ARGS),
+    permitted_by_164_506_c(ARGS, E).
+
+// =============================================
+// §164.506(b) — Consent for TPO
+// =============================================
+// §164.506(b)(1): "A covered entity may obtain consent of the individual
+//  to use or disclose protected health information to carry out treatment,
+//  payment, or health care operations."
+//
+// PDF (page 51):
+//   permitted_by_164_506_b(A) :-
+//     is_for_eitherPurpose(A),
+//     is_consentedby_about(A).
+//
+// Norm φ+_{164.506b1}: activerole(p1, covered-entity) ∧
+//   obtained-consent-164.506b(p1, p2, (q, t), u) ∧
+//   (t ∈_T phi) ∧
+//   (u ∈_U treatment ∨ u ∈_U payment ∨ u ∈_U healthcare-operations)
+.decl permitted_by_164_506_b(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_b(ARGS,
+    $Leaf("164.506(b)(1): consent obtained for TPO")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_tpo(u),
+    obtained_consent_506b(p1, p2, q, t, u).
+
+// §164.506(b)(2): "Consent, under paragraph (b) of this section, shall not
+//  be effective to permit a use or disclosure of protected health information
+//  when an authorization, under §164.508, is required..."
+// Handled implicitly: if authorization is required (164.508 stub fires),
+// then 164.506(a) is blocked by the negation, and 164.506(b) would not
+// supersede the authorization requirement. No explicit rule needed.
+
+// =============================================
+// §164.506(c) — Implementation Specification
+// =============================================
+// PDF: permitted_by_164_506_c(A) :- permitted_by_164_506_c_1(A);
+//                                    permitted_by_164_506_c_2(A);
+//                                    permitted_by_164_506_c_3(A);
+//                                    permitted_by_164_506_c_4(A);
+//                                    permitted_by_164_506_c_5(A).
+.decl permitted_by_164_506_c(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_c(ARGS, E) :- permitted_by_164_506_c_1(ARGS, E).
+permitted_by_164_506_c(ARGS, E) :- permitted_by_164_506_c_2(ARGS, E).
+permitted_by_164_506_c(ARGS, E) :- permitted_by_164_506_c_3(ARGS, E).
+permitted_by_164_506_c(ARGS, E) :- permitted_by_164_506_c_4(ARGS, E).
+permitted_by_164_506_c(ARGS, E) :- permitted_by_164_506_c_5(ARGS, E).
+
+// =============================================
+// §164.506(c)(1) — Own treatment, payment, or healthcare operations
+// =============================================
+// "A covered entity may use or disclose protected health information
+//  for its own treatment, payment, or health care operations."
+//
+// PDF (page 52):
+//   permitted_by_164_506_c_1(A) :-
+//     is_for_eitherPurpose(A), is_phi(A), is_msg_to_within(A).
+//
+// Norm φ+_{164.506c1}: activerole(p1, covered-entity) ∧ (t ∈_T phi) ∧
+//   ((u ∈_U treatment(p1)) ∨ (u ∈_U payment(p1)) ∨
+//    (u ∈_U healthcare-operations(p1)))
+//
+// Note: "its own" means the purpose relates to p1's operations.
+// We interpret this as: p2 is within p1's organization, OR p1 is using
+// the info internally (sending within).
+.decl permitted_by_164_506_c_1(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_c_1(ARGS,
+    $Leaf("164.506(c)(1): covered entity's own TPO")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_tpo(u),
+    // "its own" — the message stays within the organization
+    (organization_member(p2, p1) ; p1 = p2).
+
+// =============================================
+// §164.506(c)(2) — Treatment activities of a health care provider
+// =============================================
+// "A covered entity may disclose protected health information for
+//  treatment activities of a health care provider."
+//
+// PDF (page 52):
+//   permitted_by_164_506_c_2(A) :-
+//     is_for_treatment(A), is_phi(A), is_to_healthCareProvider(A).
+//
+// Norm φ+_{164.506c2}: activerole(p1, covered-entity) ∧
+//   activerole(p2, provider(q)) ∧ (t ∈_T phi) ∧ (u ∈_U treatment(p2))
+//
+// The literal CFR text says "a health care provider" with no qualifier
+// limiting it to a provider already treating this specific patient, so no
+// relationship constraint is added here. provider_of is declared below but
+// intentionally unused for that reason. The text also specifically requires
+// "treatment activities of A HEALTH CARE PROVIDER" -- a health plan or
+// clearinghouse doesn't have "treatment activities," so the recipient here
+// is restricted to is_health_care_provider(p2) rather than any covered entity.
+.decl permitted_by_164_506_c_2(DECL_ARGS, e: Expl)
+
+// Provider of subject -- declared, intentionally unused (see note above).
+.decl provider_of(provider: Principal, patient: Principal)
+
+permitted_by_164_506_c_2(ARGS,
+    $Leaf("164.506(c)(2): treatment activities of health care provider")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    is_health_care_provider(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_treatment(u).
+
+// =============================================
+// §164.506(c)(3) — Payment activities of receiving entity
+// =============================================
+// "A covered entity may disclose protected health information to another
+//  covered entity or a health care provider for the payment activities of
+//  the entity that receives the information."
+//
+// PDF (page 53):
+//   permitted_by_164_506_c_3(A) :-
+//     is_for_payment(A), is_phi(A),
+//     (is_to_healthCareProvider(A); is_to_coveredEntity(A)).
+//
+// Norm φ+_{164.506c3}: activerole(p1, covered-entity) ∧
+//   (activerole(p2, covered-entity) ∨ activerole(p2, provider(q))) ∧
+//   (t ∈_T phi) ∧ (u ∈_U payment(p2))
+.decl permitted_by_164_506_c_3(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_c_3(ARGS,
+    $Leaf("164.506(c)(3): payment activities of receiving entity")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    (is_covered_entity(p2) ; is_health_care_provider(p2)),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_payment(u).
+
+// =============================================
+// §164.506(c)(4) — Healthcare operations between covered entities
+// =============================================
+// "A covered entity may disclose protected health information to another
+//  covered entity for health care operations activities of the entity that
+//  receives the information, if each entity either has or had a relationship
+//  with the individual who is the subject..."
+//
+// PDF (pages 53–54):
+//   permitted_by_164_506_c_4(A) :-
+//     is_from_coveredEntity(A), is_to_coveredEntity(A),
+//     is_for_healthCareOperations(A),
+//     is_belief_from_about_pertainingToRelationship(A),
+//     is_msg_about_to_inRelation(A),
+//     satisfy_164_506_c_4(A).
+//
+// Norm φ+_{164.506c4}: activerole(p1, covered-entity) ∧
+//   activerole(p2, covered-entity) ∧ (t ∈_T phi) ∧
+//   (∃r1:rel. ◇inrelationship(p1, r1, q) ∧ pertains-to(t, r1)) ∧
+//   (∃r2:rel. ◇inrelationship(p2, r2, q) ∧ pertains-to(t, r2)) ∧
+//   ((u ∈_U healthcare-operations-paras-1-2(p2)) ∨
+//    (u ∈_U healthcare-fraud-abuse-detection) ∨
+//    (u ∈_U healthcare-fraud-abuse-compliance))
+.decl permitted_by_164_506_c_4(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_c_4(ARGS,
+    $Leaf("164.506(c)(4): healthcare ops between related covered entities")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    is_covered_entity(p2),
+    p1 != p2,
+    is_phi(t),
+    msg_contains(m, q, t),
+    // Both entities have/had relationship with the subject
+    // and the PHI pertains to those relationships
+    inrelationship(p1, R1, q),
+    pertains_to(t, R1),
+    inrelationship(p2, R2, q),
+    pertains_to(t, R2),
+    // Purpose is healthcare operations paras (1)/(2), fraud detection, or compliance
+    (is_for_hc_ops_paras_1_2(u) ; is_for_fraud_detection(u) ; is_for_compliance(u)).
+
+// =============================================
+// §164.506(c)(5) — Organized health care arrangement
+// =============================================
+// "A covered entity that participates in an organized health care arrangement
+//  may disclose protected health information about an individual to another
+//  covered entity that participates in the organized health care arrangement
+//  for any health care operations activities of the organized health care
+//  arrangement."
+//
+// PDF (page 55):
+//   permitted_by_164_506_c_5(A) :- debug('164.506_c_5: Not Implemented yet;').
+//
+// Norm φ+_{164.506c5}: ∃p. belongstorole(p, organized-healthcare-arrangement) ∧
+//   activerole(p1, covered-entity) ∧ activerole(p1, participant(p)) ∧
+//   activerole(p2, covered-entity) ∧ activerole(p2, participant(p)) ∧
+//   (t ∈_T phi) ∧ (u ∈_U healthcare-operations(p))
+.decl permitted_by_164_506_c_5(DECL_ARGS, e: Expl)
+
+permitted_by_164_506_c_5(ARGS,
+    $Leaf("164.506(c)(5): organized health care arrangement")) :-
+    disclosure_attempted(p1, p2, q, m, t, u),
+    is_covered_entity(p1),
+    is_covered_entity(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_hc_ops(u),
+    // Both participate in the same OHCA
+    participates_in_ohca(p1, Arr),
+    participates_in_ohca(p2, Arr).

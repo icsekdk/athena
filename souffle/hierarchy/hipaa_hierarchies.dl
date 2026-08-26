@@ -1,0 +1,340 @@
+// ============================================================================
+// hipaa_hierarchies.dl — Role, attribute, and purpose hierarchies
+// ============================================================================
+// Defines hierarchical relationships with transitive closure so that
+// e.g. activerole(P, "doctor") implies has_role(P, "provider") and
+// has_role(P, "covered-entity").
+//
+// Reference: HIPAA_FORMALIZATION.pdf uses activerole(p, role) extensively.
+// The hierarchy captures specialization: doctor < provider < covered-entity.
+// ============================================================================
+
+// =============================================
+// Role Hierarchy
+// =============================================
+
+// role_isa(child, parent): child is a specialization of parent
+.decl role_isa(child: Role, parent: Role)
+
+// HIPAA-specific role hierarchy
+// Health care providers
+role_isa("psychiatrist", "doctor").
+role_isa("doctor", "provider").
+role_isa("nurse", "provider").
+role_isa("nurse-practitioner", "provider").
+role_isa("pharmacist", "provider").
+role_isa("lab-technician", "provider").
+role_isa("provider", "covered-entity").
+
+// Health plans
+role_isa("health-insurance-issuer", "health-plan").
+role_isa("HMO", "health-plan").
+role_isa("group-health-plan", "health-plan").
+role_isa("health-plan", "covered-entity").
+
+// Health care clearinghouses
+role_isa("clearinghouse", "covered-entity").
+
+// Hospitals are both providers and covered entities
+// hospital → provider → covered-entity (via transitivity)
+role_isa("hospital", "provider").
+
+// Business associates
+role_isa("billing-company", "business-associate").
+role_isa("cloud-storage", "business-associate").
+role_isa("transcription-service", "business-associate").
+
+// Oversight and government
+role_isa("oversight-agency", "government-entity").
+role_isa("public-health-authority", "government-entity").
+role_isa("law-enforcement-official", "government-entity").
+
+// Note: a public health authority or government agency is NOT an
+// unconditional covered-entity subtype here. The CFR's covered-entity
+// definition (45 CFR 160.103) is health plan, health care clearinghouse, or
+// health care provider conducting specified electronic transactions -- not
+// "any government or public-health entity." A public health authority or
+// government agency that IS also a genuine covered entity (runs a
+// hospital/clinic/health plan) should carry that role directly -- e.g.
+// activerole(P, "hospital") -- rather than inheriting covered-entity status
+// from its public-health/government role.
+
+// Guardian types (for §164.502(g))
+role_isa("parent", "guardian-type").
+role_isa("legal-guardian", "guardian-type").
+role_isa("loco-parentis", "guardian-type").
+
+// §164.510: Directory/care involvement roles
+role_isa("clergy", "individual").
+
+// §164.512: Additional government/specialized roles
+role_isa("coroner", "government-entity").
+role_isa("medical-examiner", "government-entity").
+role_isa("funeral-director", "individual").
+role_isa("organ-procurement-organization", "individual").
+role_isa("researcher", "individual").
+role_isa("correctional-institution", "government-entity").
+role_isa("authorized-federal-official", "government-entity").
+role_isa("DoS-official", "government-entity").
+role_isa("DVA", "government-entity").
+role_isa("component-of-DVA", "government-entity").
+role_isa("component-of-DoS", "government-entity").
+role_isa("government-authority", "government-entity").
+
+// Transitive closure of role hierarchy
+.decl role_subtype(child: Role, ancestor: Role)
+role_subtype(C, P) :- role_isa(C, P).
+role_subtype(C, A) :- role_isa(C, P), role_subtype(P, A).
+
+// === Active role assignments (base facts — populated from hipaa_facts.dl) ===
+.decl activerole(p: Principal, r: Role)
+
+// Check if principal has role r (directly or via hierarchy)
+.decl has_role(p: Principal, r: Role)
+has_role(P, R) :- activerole(P, R).
+has_role(P, R) :- activerole(P, R2), role_subtype(R2, R).
+
+// === Belonging to a category (age/status groups for the subject q) ===
+// Used for: adult, minor, emancipated-minor, unemancipated-minor, deceased, etc.
+.decl belongstorole(p: Principal, r: Role)
+
+.decl belongs_to(p: Principal, r: Role)
+belongs_to(P, R) :- belongstorole(P, R).
+belongs_to(P, R) :- belongstorole(P, R2), role_subtype(R2, R).
+
+// =============================================
+// Attribute Hierarchy
+// =============================================
+
+// attr_isa(child, parent): child is a subtype of parent
+.decl attr_isa(child: Attribute, parent: Attribute)
+
+// HIPAA attribute hierarchy
+// PHI subtypes (Protected Health Information)
+attr_isa("psychotherapy-notes", "phi").
+attr_isa("genetic-info", "phi").
+attr_isa("substance-abuse-records", "phi").
+attr_isa("hiv-status", "phi").
+attr_isa("blood-test-results", "phi").
+attr_isa("diagnosis", "phi").
+attr_isa("prescription", "phi").
+attr_isa("medical-record", "phi").
+attr_isa("billing-record", "phi").
+attr_isa("lab-results", "phi").
+attr_isa("treatment-plan", "phi").
+attr_isa("patient-name", "phi").
+attr_isa("patient-location", "phi").
+attr_isa("patient-condition", "phi").
+attr_isa("religious-affiliation", "phi").
+
+// De-identified information is NOT phi — it's a separate category
+// dii (de-identified information) has its own subtypes
+attr_isa("statistical-data", "dii").
+attr_isa("anonymized-record", "dii").
+
+// Directory information (§164.510)
+attr_isa("patient-name", "directory-information").
+attr_isa("patient-location", "directory-information").
+attr_isa("patient-condition", "directory-information").
+attr_isa("religious-affiliation", "directory-information").
+
+// Information limited by §164.512(f)(2)(i) for crime victim disclosures
+attr_isa("suspected-perpetrator-info", "info-164-512f2i").
+
+// §164.512(b)(1)(v): Workplace findings
+attr_isa("workplace-injury-findings", "phi").
+attr_isa("medical-surveillance-findings", "phi").
+
+// §164.512(b)(1)(vi): School immunization records
+attr_isa("immunization-records", "phi").
+
+// §164.512(f)(2): Limited identifying information for law enforcement
+attr_isa("name-and-address", "phi").
+attr_isa("date-and-place-of-birth", "phi").
+attr_isa("social-security-number", "phi").
+attr_isa("ABO-blood-type-and-rh-factor", "phi").
+attr_isa("type-of-injury", "phi").
+attr_isa("date-and-time-of-treatment", "phi").
+attr_isa("date-and-time-of-death", "phi").
+attr_isa("distinguishing-physical-characteristics", "phi").
+
+// §164.512(j)(1)(ii)(A): Violent crime admission -- disclosure content limit
+attr_isa("crime-admission-statement", "phi").
+
+// §164.514(d)(5): Entire medical record -- distinct from the generic
+// "medical-record" attribute used elsewhere as a general PHI placeholder
+attr_isa("entire-medical-record", "phi").
+
+// §164.512(k)(7): NICS firearm background check -- limited demographic info
+attr_isa("nics-demographic-info", "phi").
+
+// §164.514(e): Limited data set types
+attr_isa("limited-data-set", "phi").
+
+// §164.514(f): Fundraising attribute types
+attr_isa("demographic-info", "phi").
+attr_isa("healthcare-dates", "phi").
+
+// Transitive closure
+.decl attr_subtype(child: Attribute, ancestor: Attribute)
+attr_subtype(C, P) :- attr_isa(C, P).
+attr_subtype(C, A) :- attr_isa(C, P), attr_subtype(P, A).
+
+// =============================================
+// Purpose Hierarchy
+// =============================================
+
+// purpose_isa(child, parent): child is a sub-purpose of parent
+.decl purpose_isa(child: Purpose, parent: Purpose)
+
+// Treatment sub-purposes
+purpose_isa("surgery", "treatment").
+purpose_isa("administer-medication", "treatment").
+purpose_isa("administer-blood-test", "treatment").
+purpose_isa("referral", "treatment").
+purpose_isa("consultation", "treatment").
+purpose_isa("emergency-treatment", "treatment").
+
+// Payment sub-purposes
+purpose_isa("billing", "payment").
+purpose_isa("claims-processing", "payment").
+purpose_isa("eligibility-determination", "payment").
+purpose_isa("reimbursement", "payment").
+purpose_isa("collections", "payment").
+
+// Healthcare operations sub-purposes
+purpose_isa("quality-assessment", "healthcare-operations").
+purpose_isa("quality-improvement", "healthcare-operations").
+purpose_isa("case-management", "healthcare-operations").
+purpose_isa("care-coordination", "healthcare-operations").
+purpose_isa("competency-assurance", "healthcare-operations").
+purpose_isa("fraud-detection", "healthcare-operations").
+purpose_isa("compliance-audit", "healthcare-operations").
+purpose_isa("business-planning", "healthcare-operations").
+purpose_isa("accreditation", "healthcare-operations").
+purpose_isa("training-programs", "healthcare-operations").
+// Underwriting is health care operations per 45 CFR 164.501(6) ("...
+// provided that the requirements of § 164.514(g) are met, if applicable").
+// Without this entry, no underwriting-purpose disclosure could ever be
+// positively permitted at all (not just genetic-info ones), contradicting
+// the CFR's assumption that ordinary underwriting is a normal HC-ops
+// activity subject to §514(g)'s and §502(a)(5)(i)'s specific restrictions,
+// not a blanket denial.
+purpose_isa("underwriting-and-related-purposes", "healthcare-operations").
+
+// All known purposes (for grounding unbound purpose variables)
+.decl known_purpose(u: Purpose)
+known_purpose(U) :- purpose_isa(U, _).
+known_purpose(U) :- purpose_isa(_, U).
+known_purpose("treatment").
+known_purpose("payment").
+known_purpose("healthcare-operations").
+known_purpose("marketing").
+known_purpose("research").
+known_purpose("create-deidentified-info").
+known_purpose("compliance-investigation").
+known_purpose("report-unlawful-conduct").
+known_purpose("determine-legal-options").
+known_purpose("directory").
+known_purpose("right-of-access").
+known_purpose("patient-access").
+
+// §164.528 purposes
+known_purpose("accounting-of-disclosures").
+
+// §164.508 purposes
+known_purpose("legal-defense").
+
+// §164.510 purposes
+known_purpose("notification-164-510b").
+known_purpose("assist-notification-164-510b").
+
+// §164.512 purposes
+known_purpose("disease-prevention-or-control").
+known_purpose("public-health-surveillance").
+known_purpose("public-health-investigation").
+known_purpose("public-health-intervention").
+known_purpose("reports-of-child-abuse").
+known_purpose("reports-of-abuse").
+known_purpose("fda-quality-safety-effectiveness").
+known_purpose("notify-for-public-health-intervention").
+known_purpose("obligation-to-record-workplace-injury").
+known_purpose("obligation-to-perform-medical-surveillance").
+known_purpose("school-immunization-proof").
+known_purpose("health-oversight").
+known_purpose("judicial-administrative-proceeding").
+known_purpose("law-enforcement").
+known_purpose("law-enforcement-identification-or-location").
+known_purpose("suspicious-death-notification").
+known_purpose("report-crime-on-premises").
+known_purpose("alert-law-enforcement-of-crime").
+known_purpose("identification-of-deceased").
+known_purpose("determining-cause-of-death").
+known_purpose("funeral-director-duties").
+known_purpose("facilitate-organ-donation-transplantation").
+known_purpose("lessen-health-threat").
+known_purpose("identify-apprehend").
+known_purpose("national-security-activities").
+known_purpose("provision-of-protective-services").
+known_purpose("conduct-investigations-18USC871-and-879").
+known_purpose("security-clearance-EO-10450-and-12698").
+known_purpose("determine-availability-for-foreign-service").
+known_purpose("determine-family-accompaniment-FSA").
+known_purpose("eligibility-determination-for-veterans-benefits").
+known_purpose("provision-of-veterans-benefits").
+known_purpose("foreign-military-mission").
+known_purpose("government-program-coordination").
+known_purpose("nics-firearm-background-check-reporting").
+known_purpose("workers-compensation").
+
+// §164.514 purposes
+known_purpose("fundraising").
+known_purpose("underwriting-and-related-purposes").
+known_purpose("public-health").
+
+// §164.504(f) purposes
+known_purpose("plan-administration").
+
+// Transitive closure
+.decl purpose_subtype(child: Purpose, ancestor: Purpose)
+purpose_subtype(C, P) :- purpose_isa(C, P).
+purpose_subtype(C, A) :- purpose_isa(C, P), purpose_subtype(P, A).
+
+// =============================================
+// Message contents
+// =============================================
+
+// msg_contains(m, q, t): message m contains attribute t about subject q
+// Note: "contains" is a reserved word in Soufflé, so we use "msg_contains"
+.decl msg_contains(m: Message, q: Principal, t: Attribute)
+
+// msg_contains_identifier(m, idcat): message m includes the Safe Harbor identifier
+// category idcat (one of the 18 in 164.514(b)(2)(i)) -- an observable extraction
+// target (which identifiers are literally present), not a legal conclusion. See
+// hipaa_164_514.dl's safe_harbor_deidentified, which derives from this relation's
+// ABSENCE for a given message rather than being asked as its own oracle. (Named
+// "idcat" not "cat" -- the latter collides with Soufflé's built-in string-
+// concatenation functor.)
+.decl msg_contains_identifier(m: Message, idcat: IdentifierCategory)
+
+// =============================================
+// Organizational relationships
+// =============================================
+
+// organization_member(member, org): member belongs to org
+.decl organization_member(member: Principal, org: Principal)
+
+// Relationships for §164.506(c)(4)
+.decl inrelationship(entity: Principal, rel: Rel, subject: Principal)
+
+// pertains_to: attribute pertains to a relationship
+.decl pertains_to(t: Attribute, rel: Rel)
+
+// Organized health care arrangement participation (§164.506(c)(5))
+.decl participates_in_ohca(entity: Principal, arrangement: Principal)
+
+// Employee/workforce member relationship (for §164.502(j))
+.decl is_employee_of(employee: Principal, employer: Principal)
+
+// Business associate relationship
+.decl is_business_associate_of(ba: Principal, ce: Principal)

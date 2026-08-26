@@ -1,0 +1,305 @@
+// ============================================================================
+// hipaa_macros.dl — Helper predicates translating PDF macros
+// ============================================================================
+// The PDF formalization uses macros like is_from_coveredEntity(A),
+// is_phi(A), is_for_treatment(A), etc. These are translated to Soufflé
+// helper predicates that check roles, attributes, and purposes using
+// the hierarchy transitive closures.
+//
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.1 (top-level formula)
+// and throughout §164.502 and §164.506.
+// ============================================================================
+
+// =============================================
+// Entity role checks
+// =============================================
+
+// is_covered_entity(P): P is a covered entity (or subtype thereof)
+.decl is_covered_entity(p: Principal)
+is_covered_entity(P) :- has_role(P, "covered-entity").
+
+// is_health_care_provider(P): P is a health care provider
+.decl is_health_care_provider(p: Principal)
+is_health_care_provider(P) :- has_role(P, "provider").
+
+// is_health_plan(P): P is a health plan
+.decl is_health_plan(p: Principal)
+is_health_plan(P) :- has_role(P, "health-plan").
+
+// is_business_associate(P): P is a business associate
+.decl is_business_associate(p: Principal)
+is_business_associate(P) :- has_role(P, "business-associate").
+
+// is_secretary(P): P is the HHS Secretary
+.decl is_secretary(p: Principal)
+is_secretary(P) :- activerole(P, "secretary").
+
+// is_law_enforcement(P): P holds the durable, disclosure-independent role of law
+// enforcement official (formal role label "law-enforcement-official" only).
+.decl is_law_enforcement(p: Principal)
+is_law_enforcement(P) :- has_role(P, "law-enforcement-official").
+
+// is_law_enforcement_for(P1, P2, Q, T, U): P2 counts as law enforcement FOR THIS SPECIFIC
+// DISCLOSURE (p1, p2, q, t, u) -- either because P2 durably holds the role (any
+// disclosure), or because P2 is verified as acting in a law-enforcement capacity for
+// this particular matter (see receiver_is_acting_as_law_enforcement's own comment).
+.decl is_law_enforcement_for(p1: Principal, p2: Principal, q: Principal,
+    t: Attribute, u: Purpose)
+// disclosure_attempted(P1, P2, Q, _, T, U) grounds P1/Q/T/U for Datalog safety (every
+// head variable must be bound within this rule's own body) -- same pattern already used
+// by is_sale_of_phi and violates_underwriting_restriction in this codebase. It is also
+// the semantically exact condition: "P2 counts as law enforcement for this disclosure"
+// should require that disclosure to actually exist, which it always does at every real
+// call site.
+is_law_enforcement_for(P1, P2, Q, T, U) :-
+    disclosure_attempted(P1, P2, Q, _, T, U),
+    is_law_enforcement(P2).
+is_law_enforcement_for(P1, P2, Q, T, U) :-
+    receiver_is_acting_as_law_enforcement(P1, P2, Q, T, U),
+    is_for_law_enforcement(U).
+
+// receiver_is_acting_as_law_enforcement: oracle. Was P2 acting in a
+// law-enforcement capacity for this specific disclosure (investigating,
+// prosecuting, or otherwise exercising law-enforcement authority over
+// this matter), independent of P2's formal role label?
+.decl receiver_is_acting_as_law_enforcement(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_oversight_agency(P): P is an oversight agency
+.decl is_oversight_agency(p: Principal)
+is_oversight_agency(P) :- has_role(P, "oversight-agency").
+
+// is_public_health_authority(P): P is a public health authority
+.decl is_public_health_authority(p: Principal)
+is_public_health_authority(P) :- has_role(P, "public-health-authority").
+
+// =============================================
+// Attribute checks
+// =============================================
+
+// is_phi(T): attribute T is protected health information (or a subtype)
+.decl is_phi(t: Attribute)
+is_phi("phi").
+is_phi(T) :- attr_subtype(T, "phi").
+
+// is_dii(M, T): message M's content of attribute type T is de-identified information.
+// Message-scoped, not attribute-type-scoped: whether a disclosure is de-identified is a
+// property of that specific message's content, not a permanent trait of an attribute type.
+// See hipaa_164_514.dl for the rules that populate is_dii from safe-harbor/expert-determination
+// evidence. The two rules below are the message-independent cases (a bare "dii" attribute,
+// or a type that is inherently non-identifying per the attr_isa hierarchy, e.g.
+// "statistical-data"/"anonymized-record") -- joined against msg_contains purely to bind M,
+// since these truths genuinely don't vary by message.
+.decl is_dii(m: Message, t: Attribute)
+is_dii(M, "dii") :- msg_contains(M, _, "dii").
+is_dii(M, T) :- msg_contains(M, _, T), attr_subtype(T, "dii").
+
+// is_psychotherapy_notes(T): attribute is psychotherapy notes
+.decl is_psychotherapy_notes(t: Attribute)
+is_psychotherapy_notes("psychotherapy-notes").
+is_psychotherapy_notes(T) :- attr_subtype(T, "psychotherapy-notes").
+
+// is_directory_info(T): attribute is directory information (§164.510)
+.decl is_directory_info(t: Attribute)
+is_directory_info("directory-information").
+is_directory_info(T) :- attr_subtype(T, "directory-information").
+
+// =============================================
+// Purpose checks
+// =============================================
+
+// is_for_treatment(U): purpose is treatment (or sub-purpose)
+.decl is_for_treatment(u: Purpose)
+is_for_treatment("treatment").
+is_for_treatment(U) :- purpose_subtype(U, "treatment").
+
+// is_for_payment(U): purpose is payment (or sub-purpose)
+.decl is_for_payment(u: Purpose)
+is_for_payment("payment").
+is_for_payment(U) :- purpose_subtype(U, "payment").
+
+// is_for_hc_ops(U): purpose is healthcare operations (or sub-purpose)
+.decl is_for_hc_ops(u: Purpose)
+is_for_hc_ops("healthcare-operations").
+is_for_hc_ops(U) :- purpose_subtype(U, "healthcare-operations").
+
+// is_for_tpo(U): purpose is treatment, payment, or healthcare operations
+// This is the PDF's is_for_eitherPurpose macro
+.decl is_for_tpo(u: Purpose)
+is_for_tpo(U) :- is_for_treatment(U).
+is_for_tpo(U) :- is_for_payment(U).
+is_for_tpo(U) :- is_for_hc_ops(U).
+
+// is_for_fraud_detection(U): healthcare fraud and abuse detection
+.decl is_for_fraud_detection(u: Purpose)
+is_for_fraud_detection("fraud-detection").
+is_for_fraud_detection(U) :- purpose_subtype(U, "fraud-detection").
+
+// is_for_compliance(U): compliance purposes
+.decl is_for_compliance(u: Purpose)
+is_for_compliance("compliance-audit").
+is_for_compliance(U) :- purpose_subtype(U, "compliance-audit").
+
+// is_for_hc_ops_paras_1_2(U): healthcare operations limited to paragraphs (1) or (2)
+// of the definition — quality assessment, quality improvement, case management,
+// care coordination, competency assurance, accreditation
+.decl is_for_hc_ops_paras_1_2(u: Purpose)
+is_for_hc_ops_paras_1_2("quality-assessment").
+is_for_hc_ops_paras_1_2("quality-improvement").
+is_for_hc_ops_paras_1_2("case-management").
+is_for_hc_ops_paras_1_2("care-coordination").
+is_for_hc_ops_paras_1_2("competency-assurance").
+is_for_hc_ops_paras_1_2("accreditation").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "quality-assessment").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "quality-improvement").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "case-management").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "care-coordination").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "competency-assurance").
+is_for_hc_ops_paras_1_2(U) :- purpose_subtype(U, "accreditation").
+
+// =============================================
+// Personal representative macro (§164.502(g))
+// =============================================
+// PDF reference: pages 41–46, macro activerole(p, personal-representative(q))
+// This is a complex macro combining §502(g)(1)–(g)(5).
+
+// has_authority_to_act(P, Q): oracle — P has legal authority over Q's healthcare
+.decl has_authority_to_act(p: Principal, q: Principal)
+
+// is_guardian(P, Q): P is parent, legal guardian, or loco parentis of Q
+.decl is_guardian(p: Principal, q: Principal)
+
+// personal_representative(P, Q): P may act as personal representative of Q
+// Combines §502(g)(2) (adults/emancipated minors), (g)(3) (unemancipated minors),
+// and (g)(4) (deceased individuals).
+.decl is_personal_representative(p: Principal, q: Principal)
+
+// §502(g)(2): Adults and emancipated minors
+// If P has authority to act on behalf of Q who is adult or emancipated minor,
+// P is Q's personal representative (unless abuse exception applies)
+is_personal_representative(P, Q) :-
+    has_authority_to_act(P, Q),
+    (belongs_to(Q, "adult") ; belongs_to(Q, "emancipated-minor")),
+    !abuse_exception(P, Q).
+
+// §502(g)(3): Unemancipated minors with guardian
+// Parent/guardian/loco-parentis of unemancipated minor is personal representative
+// unless minor exception or abuse exception applies
+is_personal_representative(P, Q) :-
+    is_guardian(P, Q),
+    belongs_to(Q, "unemancipated-minor"),
+    has_authority_to_act(P, Q),
+    !minor_acts_as_individual(P, Q),
+    !abuse_exception(P, Q).
+
+// §502(g)(4): Deceased individuals
+// Executor, administrator, or person with authority over estate
+is_personal_representative(P, Q) :-
+    (activerole(P, "executor") ; activerole(P, "administrator")),
+    belongs_to(Q, "deceased"),
+    has_authority_to_act(P, Q),
+    !abuse_exception(P, Q).
+
+// §502(g)(4) extended: any person with legal authority to act for a deceased
+// individual — including parent/guardian of a deceased minor child — qualifies
+// as personal representative per 45 CFR §164.502(g)(4) ("other person has
+// authority to act on behalf of a deceased individual or of the individual's
+// estate"). is_guardian is used as the authority signal here.
+is_personal_representative(P, Q) :-
+    is_guardian(P, Q),
+    belongs_to(Q, "deceased"),
+    has_authority_to_act(P, Q),
+    !abuse_exception(P, Q).
+
+// === Abuse exception for personal representative (§502(g)(5)) ===
+// Covered entity may deny personal representative status if:
+// (i) reasonable belief of abuse/neglect and
+// (ii) not in best interest of individual
+.decl abuse_exception(p: Principal, q: Principal)
+// This is an oracle — facts must be asserted explicitly
+
+// === Minor exception (§502(g)(3)(i)) ===
+// Minor acts as individual (not through personal representative) when:
+// (A) minor consented, (B) minor may lawfully obtain care alone, or
+// (C) parent assented to confidentiality agreement
+.decl minor_acts_as_individual(guardian: Principal, minor: Principal)
+// Oracle — asserted explicitly in facts
+
+// =============================================
+// Oracle predicates (asserted as facts)
+// =============================================
+// These predicates have semantics given by oracles in the PDF formalization.
+// They are populated as EDB facts in hipaa_facts.dl.
+
+// is_reply_to_request: the disclosure is in reply to a valid request (§164.502(a)(2)(i))
+.decl is_reply_to_request(DECL_ARGS)
+
+// is_for_ba_purpose: purpose relates to creating or receiving PHI on behalf of CE (§502(e))
+.decl is_for_ba_purpose(u: Purpose)
+is_for_ba_purpose(U) :- is_for_tpo(U).
+is_for_ba_purpose("billing").
+is_for_ba_purpose("claims-processing").
+is_for_ba_purpose(U) :- purpose_subtype(U, "billing").
+is_for_ba_purpose(U) :- purpose_subtype(U, "claims-processing").
+// Legal services and judicial proceedings are healthcare operations (45 CFR 164.501).
+// A CE disclosing PHI to a BA law firm for administrative/legal proceedings is a
+// permitted CE→BA disclosure under §164.502(e) when a BAA is in place.
+is_for_ba_purpose("legal-defense").
+is_for_ba_purpose("judicial-administrative-proceeding").
+
+// believes_minimum_necessary: covered entity believes disclosure is minimum necessary
+.decl believes_minimum_necessary(p1: Principal, p2: Principal,
+    q: Principal, m: Message, t: Attribute, u: Purpose)
+
+// obtained_consent_506b: consent obtained for TPO under §164.506(b)
+.decl obtained_consent_506b(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// satisfactory_assurances: BA has provided satisfactory assurances (§164.502(e)(2))
+.decl satisfactory_assurances(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_unlawful_conduct: good-faith belief of unlawful conduct (§164.502(j)(1)(i))
+.decl believes_unlawful_conduct(employee: Principal, employer: Principal)
+
+// believes_victim_of_crime: belief that employee is victim of criminal act (§164.502(j)(2))
+.decl believes_victim_of_crime(employee: Principal, employer: Principal)
+
+// is_about_suspected_perpetrator: PHI is about suspected perpetrator (§164.502(j)(2)(i))
+.decl is_about_suspected_perpetrator(m: Message, q: Principal)
+
+// permitted_by_other_law: permitted by other applicable law (§164.502(g)(3)(ii)(A))
+.decl permitted_by_other_law(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// prohibited_by_other_law: prohibited by other law (§164.502(g)(3)(ii)(B))
+.decl prohibited_by_other_law(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// ce_wrongly_denied_access: CE denied an individual's §164.524 access request
+// with no valid denial ground. EDB predicate -- populated by ground facts
+// injected from connector/llm1_extractor.py based on narrative keyword
+// matching (access-denial phrases without a recognized §164.524(a)(2)/(a)(3)
+// ground), not derived by any .dl rule. Negated in hipaa_top.dl's top-level
+// gate.
+.decl ce_wrongly_denied_access(p1: Principal, p2: Principal, q: Principal, t: Attribute)
+
+// sent_via_non_requested_channel: CE sent PHI via a channel the individual did not
+// request (§164.522(b)). Carries m (the message) because two different messages of
+// the same attribute type to the same recipient (one honoring a confidential-
+// communication request, one not) must be distinguishable.
+.decl sent_via_non_requested_channel(p1: Principal, p2: Principal, q: Principal, m: Message, t: Attribute)
+
+// lacks_authorized_relationship: workforce member accessed PHI without a legitimate treatment
+// or operational need (insider/snooping violations). Negation guard blocks TPO pathway.
+.decl lacks_authorized_relationship(p1: Principal, p2: Principal, q: Principal, t: Attribute)
+
+// inconsistent_with_notice_of_privacy_practices: this disclosure conflicts with the
+// covered entity's own posted §164.520 notice of privacy practices (e.g. the notice
+// states PHI will not be used/disclosed for a category of purpose, or via a channel,
+// that this disclosure actually uses). §164.502(i) ("may not use or disclose... in a
+// manner inconsistent with such notice") is a negative constraint, not an affirmative
+// permission. Oracle EDB -- what a CE's notice actually says is document content
+// outside this system's own derivation, matching ce_wrongly_denied_access's
+// evidentiary shape. Negated in hipaa_top.dl's top-level gate.
+.decl inconsistent_with_notice_of_privacy_practices(DECL_ARGS)

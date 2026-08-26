@@ -1,0 +1,308 @@
+// ============================================================================
+// hipaa_164_510.dl — §164.510: Uses and disclosures requiring an
+//                    opportunity for the individual to agree or object
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.5 (pages 63–69)
+//
+// Structure:
+//   164.510     — top-level: OR of (a) and (b)
+//   164.510(a)  — facility directories
+//   164.510(b)  — disclosures for involvement in care and notification
+// ============================================================================
+
+// =============================================
+// §164.510 — Top-level
+// =============================================
+// PDF (page 63):
+//   permitted_by_164_510(A) :- is_phi(A),
+//     (permitted_by_164_510_a(A); permitted_by_164_510_b(A)).
+
+permitted_by_164_510(ARGS,
+    $Step1("164.510: permitted via facility directory or care involvement", E)) :-
+    is_phi(t),
+    msg_contains(m, q, t),
+    permitted_by_164_510_a(ARGS, E).
+
+permitted_by_164_510(ARGS,
+    $Step1("164.510: permitted via care involvement/notification", E)) :-
+    is_phi(t),
+    msg_contains(m, q, t),
+    permitted_by_164_510_b(ARGS, E).
+
+// =============================================
+// §164.510(a) — Facility directories
+// =============================================
+// PDF (pages 63–65):
+//   permitted_by_164_510_a(A) :-
+//     permitted_by_164_510_a_1_ii(A),
+//     (phi-_510a2 \/ (phi+_510a3i ^ phi-_510a3ii))
+
+// Oracle predicates for §164.510(a)
+
+// has_not_objected_to_directory: individual has not objected since given opportunity
+// Translates temporal phi-_510a2
+.decl has_not_objected_to_directory(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_directory_request_by_name: someone asked for individual by name
+.decl is_directory_request_by_name(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// consistent_with_prior_preference: consistent with individual's prior expressed preference
+.decl consistent_with_prior_preference(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_in_best_interest_directory: CE believes disclosure is in best interest
+.decl believes_in_best_interest_directory(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_for_directory(U): purpose is directory
+.decl is_for_directory(u: Purpose)
+is_for_directory("directory").
+is_for_directory(U) :- purpose_subtype(U, "directory").
+
+// is_clergy(P): person is a member of clergy
+.decl is_clergy(p: Principal)
+is_clergy(P) :- activerole(P, "clergy").
+
+.decl permitted_by_164_510_a(DECL_ARGS, e: Expl)
+
+// §164.510(a)(1)(ii): Directory disclosures
+// PDF (page 64): phi+_510a1ii
+// To clergy: all directory info. To others who ask by name: minus religious affiliation.
+// Combined with negative norm phi-_510a2 (no objection) or emergency exception phi+_510a3i.
+permitted_by_164_510_a(ARGS,
+    $Leaf("164.510(a): directory disclosure to clergy (all directory info)")) :-
+    is_covered_entity(p1),
+    is_directory_info(t),
+    msg_contains(m, q, t),
+    is_for_directory(u),
+    is_clergy(p2),
+    has_not_objected_to_directory(p1, p2, q, t, u).
+
+permitted_by_164_510_a(ARGS,
+    $Leaf("164.510(a): directory disclosure to person asking by name (no religious affiliation)")) :-
+    is_covered_entity(p1),
+    is_directory_info(t),
+    t != "religious-affiliation",
+    msg_contains(m, q, t),
+    is_for_directory(u),
+    is_directory_request_by_name(p2, p1, q, t, u),
+    has_not_objected_to_directory(p1, p2, q, t, u).
+
+// §164.510(a)(3)(i): Emergency/incapacity exception for directory
+// When opportunity to object cannot practicably be provided
+// (incapacity or emergency), may still disclose if consistent with prior
+// preference and in best interest
+permitted_by_164_510_a(ARGS,
+    $Leaf("164.510(a)(3): directory disclosure — incapacity/emergency exception")) :-
+    is_covered_entity(p1),
+    is_directory_info(t),
+    msg_contains(m, q, t),
+    is_for_directory(u),
+    (belongs_to(q, "incapacitated") ; belongs_to(q, "emergency-treatment")),
+    consistent_with_prior_preference(p1, p2, q, t, u),
+    believes_in_best_interest_directory(p1, p2, q, t, u).
+
+// =============================================
+// §164.510(b) — Involvement in care and notification
+// =============================================
+// PDF (pages 66–69)
+.decl permitted_by_164_510_b(DECL_ARGS, e: Expl)
+
+permitted_by_164_510_b(ARGS, E) :- permitted_by_164_510_b_1(ARGS, E).
+permitted_by_164_510_b(ARGS, E) :- permitted_by_164_510_b_4(ARGS, E).
+permitted_by_164_510_b(ARGS, E) :- permitted_by_164_510_b_5(ARGS, E).
+
+// =============================================
+// §164.510(b)(1) — Disclosure to family/friends/identified persons
+// =============================================
+.decl permitted_by_164_510_b_1(DECL_ARGS, e: Expl)
+
+permitted_by_164_510_b_1(ARGS, E) :- permitted_by_164_510_b_1_i(ARGS, E).
+permitted_by_164_510_b_1(ARGS, E) :- permitted_by_164_510_b_1_ii(ARGS, E).
+
+// Oracle predicates for care involvement
+
+// is_family_member(P, Q): P is a family member of Q
+.decl is_family_member(p: Principal, q: Principal)
+
+// is_close_personal_friend(P, Q): P is a close personal friend of Q
+.decl is_close_personal_friend(p: Principal, q: Principal)
+
+// is_identified_by_individual(P, Q): Q has identified P for care involvement
+.decl is_identified_by_individual(p: Principal, q: Principal)
+
+// is_responsible_for_care(P, Q): P is responsible for Q's care
+.decl is_responsible_for_care(p: Principal, q: Principal)
+
+// relevant_to_involvement(T, P, Q): info T is relevant to P's involvement in Q's care
+.decl relevant_to_involvement(t: Attribute, p: Principal, q: Principal)
+
+// Care involvement recipient check
+.decl is_care_involvement_recipient(p2: Principal, q: Principal)
+is_care_involvement_recipient(P2, Q) :- is_family_member(P2, Q).
+is_care_involvement_recipient(P2, Q) :- is_close_personal_friend(P2, Q).
+is_care_involvement_recipient(P2, Q) :- is_identified_by_individual(P2, Q).
+is_care_involvement_recipient(P2, Q) :- is_personal_representative(P2, Q).
+
+// §164.510(b)(1)(i): Directly relevant to person's involvement in care/payment
+// PDF (page 66): phi+_510b1i
+.decl permitted_by_164_510_b_1_i(DECL_ARGS, e: Expl)
+
+permitted_by_164_510_b_1_i(ARGS,
+    $Leaf("164.510(b)(1)(i): relevant to care involvement of family/friend")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_care_involvement_recipient(p2, q),
+    relevant_to_involvement(t, p2, q),
+    // Must satisfy (b)(2) or (b)(3) conditions
+    (individual_agrees_or_no_objection_510b2(p1, p2, q, t, u) ;
+     professional_judgment_510b3(p1, p2, q, t, u)).
+
+// §164.510(b)(1)(ii): Notification of location/condition/death
+// PDF (page 67): phi+_510b1ii
+.decl permitted_by_164_510_b_1_ii(DECL_ARGS, e: Expl)
+
+// is_for_notification(U): purpose is notification under 510(b)
+.decl is_for_notification(u: Purpose)
+is_for_notification("notification-164-510b").
+is_for_notification("assist-notification-164-510b").
+
+// is_location_condition_death(T): attribute is location, condition, or death info
+.decl is_location_condition_death(t: Attribute)
+is_location_condition_death("patient-location").
+is_location_condition_death("patient-condition").
+is_location_condition_death(T) :- attr_subtype(T, "patient-location").
+is_location_condition_death(T) :- attr_subtype(T, "patient-condition").
+
+permitted_by_164_510_b_1_ii(ARGS,
+    $Leaf("164.510(b)(1)(ii): notification of location/condition/death to family/personal-rep")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_location_condition_death(t),
+    is_for_notification(u),
+    (is_family_member(p2, q) ;
+     is_personal_representative(p2, q) ;
+     is_responsible_for_care(p2, q)),
+    // Must satisfy (b)(2) or (b)(3) conditions
+    (individual_agrees_or_no_objection_510b2(p1, p2, q, t, u) ;
+     professional_judgment_510b3(p1, p2, q, t, u)).
+
+// =============================================
+// §164.510(b)(2) — Individual present with capacity
+// =============================================
+// PDF (page 67–68): phi-_510b2
+// When individual is present and has capacity:
+// (i) agreement, (ii) no objection, or (iii) professional judgment
+
+// has_obtained_agreement_510b2: individual has agreed
+.decl has_obtained_agreement_510b2(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// has_provided_opportunity_no_objection_510b2: individual given opportunity, did not object
+.decl has_provided_opportunity_no_objection_510b2(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// professional_judgment_no_objection_510b2: CE infers individual does not object
+.decl professional_judgment_no_objection_510b2(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+.decl individual_agrees_or_no_objection_510b2(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+individual_agrees_or_no_objection_510b2(P1, P2, Q, T, U) :-
+    has_obtained_agreement_510b2(P1, P2, Q, T, U).
+individual_agrees_or_no_objection_510b2(P1, P2, Q, T, U) :-
+    has_provided_opportunity_no_objection_510b2(P1, P2, Q, T, U).
+individual_agrees_or_no_objection_510b2(P1, P2, Q, T, U) :-
+    professional_judgment_no_objection_510b2(P1, P2, Q, T, U).
+
+// =============================================
+// §164.510(b)(3) — Individual NOT present or incapacitated
+// =============================================
+// PDF (page 68–69): phi-_510b3
+// CE may, in exercise of professional judgment, determine disclosure is
+// in best interest, and disclose only info directly relevant to involvement.
+
+// professional_judgment_best_interest_510b3: CE exercises professional judgment
+.decl professional_judgment_best_interest_510b3(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+.decl professional_judgment_510b3(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+professional_judgment_510b3(P1, P2, Q, T, U) :-
+    (!belongs_to(Q, "present") ;
+     belongs_to(Q, "incapacitated") ;
+     belongs_to(Q, "emergency-treatment")),
+    professional_judgment_best_interest_510b3(P1, P2, Q, T, U),
+    relevant_to_involvement(T, P2, Q).
+
+// =============================================
+// §164.510(b)(4) — Disaster relief
+// =============================================
+// PDF (page 69): phi+_510b4
+// Disclosure to authorized public/private entity for disaster relief
+// to coordinate disclosures permitted by (b)(1)(ii).
+.decl permitted_by_164_510_b_4(DECL_ARGS, e: Expl)
+
+// is_authorized_for_disaster_relief(P): entity authorized by law or charter
+.decl is_authorized_for_disaster_relief(p: Principal)
+
+// prof_judgment_not_interfere_emergency: CE determines requirements don't
+// interfere with emergency response
+.decl prof_judgment_not_interfere_emergency(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_510_b_4(ARGS,
+    $Leaf("164.510(b)(4): disaster relief disclosure to authorized entity")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_authorized_for_disaster_relief(p2),
+    is_for_notification(u),
+    // Subject to (b)(2) and (b)(3) conditions, unless professional judgment
+    // determines requirements would interfere with emergency response
+    (individual_agrees_or_no_objection_510b2(p1, p2, q, t, u) ;
+     professional_judgment_510b3(p1, p2, q, t, u) ;
+     prof_judgment_not_interfere_emergency(p1, p2, q, t, u)).
+
+// =============================================
+// §164.510(b)(5) — Uses and disclosures when the individual is deceased
+// =============================================
+// CFR text: "If the individual is deceased, a covered entity may
+// disclose to a family member, or other persons identified in paragraph
+// (b)(1) of this section who were involved in the individual's care or
+// payment for health care prior to the individual's death, protected
+// health information of the individual that is relevant to such person's
+// involvement, unless doing so is inconsistent with any prior expressed
+// preference of the individual that is known to the covered entity."
+//
+// Reuses is_care_involvement_recipient and relevant_to_involvement from
+// (b)(1)(i) since (b)(5) explicitly cross-references "persons identified
+// in paragraph (b)(1)." The "unless inconsistent" clause is a permissive
+// default with a negative exception -- same shape as §164.530(c) -- so
+// it's modeled as a negated fact, not a required positive one, to
+// preserve "allowed unless proven otherwise."
+
+// inconsistent_with_prior_preference: oracle -- disclosure would be
+// inconsistent with a prior expressed preference of the (now deceased)
+// individual, known to the covered entity.
+.decl inconsistent_with_prior_preference(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+.decl permitted_by_164_510_b_5(DECL_ARGS, e: Expl)
+
+permitted_by_164_510_b_5(ARGS,
+    $Leaf("164.510(b)(5): disclosure to family/involved person after individual's death")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    belongs_to(q, "deceased"),
+    is_care_involvement_recipient(p2, q),
+    relevant_to_involvement(t, p2, q),
+    known_purpose(u),
+    !inconsistent_with_prior_preference(p1, p2, q, t, u).

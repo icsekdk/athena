@@ -1,0 +1,731 @@
+// ============================================================================
+// hipaa_164_502.dl — §164.502: Uses and disclosures of PHI: General rules
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.2 (pages 28–50)
+//
+// Structure:
+//   164.502        — top-level OR of (a) through (j)
+//   164.502(a)     — permitted uses (a)(1) and required disclosures (a)(2)
+//   164.502(b)     — minimum necessary standard
+//   164.502(c)     — restriction agreements
+//   164.502(d)     — de-identified information
+//   164.502(e)     — business associates
+//   164.502(f)     — deceased individuals (no rule — treated same as living)
+//   164.502(g)     — personal representatives (handled in hipaa_macros.dl)
+//   164.502(h)     — health care provider/plan communication
+//   164.502(i)     — notice consistency
+//   164.502(j)     — whistleblower and crime victim protections
+// ============================================================================
+
+// =============================================
+// §164.502 — Top-level: OR of sub-sections a through j
+// =============================================
+// PDF (pages 28–29):
+//   permitted_by_164_502(A) :-
+//     permitted_by_164_502_a(A); ...; permitted_by_164_502_j(A).
+//
+// Sections (b) through (j) are constraints, exceptions, or special cases
+// that either restrict or independently permit disclosures.
+// Section (f) is omitted (deceased = living). Section (g) is in macros.
+.decl permitted_by_164_502(DECL_ARGS, e: Expl)
+
+permitted_by_164_502(ARGS, E) :- permitted_by_164_502_a(ARGS, E).
+// §502(b): minimum necessary is a constraint, not an independent permission path.
+// It is enforced as a guard within §502(a) rules. See minimum_necessary_satisfied.
+// §502(c): restriction agreements is a negative constraint, not an independent
+// permission path either, see that section's own comment below and
+// hipaa_164_522.dl's violates_restriction_agreement.
+permitted_by_164_502(ARGS, E) :- permitted_by_164_502_d(ARGS, E).
+permitted_by_164_502(ARGS, E) :- permitted_by_164_502_e(ARGS, E).
+// §164.504(f): plan_documents_amended_164_504_f /
+// plan_sponsor_certified_compliance / is_for_plan_administration_function feed
+// excluded_164_502_e_1_ii clause (B) below, which only suppresses the §502(e)
+// business-associate safeguard-assurances requirement for this disclosure. A
+// plan sponsor is not normally modeled as a business associate of the plan
+// (is_business_associate_of would be false), so without a direct branch here a
+// fully §164.504(f)-compliant plan-to-sponsor disclosure would fall through
+// with no permission path at all. §164.504(f) is itself an affirmative grant
+// ("the plan MAY disclose... if the plan documents are amended..."), not merely
+// an exception to another standard, so it needs its own OR-branch.
+permitted_by_164_502(ARGS,
+    $Leaf("164.504(f): group health plan disclosure to plan sponsor for plan administration")) :-
+    permitted_by_164_504_f(ARGS).
+// §502(f): no rule — deceased treated same as living
+// §502(g): personal representatives handled in macros
+// §502(h): provider/plan communication is a negative constraint, not an
+// independent permission path either, see that section's own comment below
+// and hipaa_164_522.dl's sent_via_non_requested_channel derivation.
+// §502(i): notice consistency is a negative constraint, not an independent
+// permission path, see that section's own comment below.
+permitted_by_164_502(ARGS, E) :- permitted_by_164_502_j(ARGS, E).
+
+// =============================================
+// §164.502(i) — Notice consistency
+// =============================================
+// "A covered entity that is required by §164.520 to have a notice may not
+//  use or disclose protected health information in a manner inconsistent
+//  with such notice."
+//
+// This is a negative constraint, not an affirmative permission path:
+// modeled as a top-level negated guard
+// (inconsistent_with_notice_of_privacy_practices, hipaa_macros.dl /
+// hipaa_top.dl), matching every other cross-cutting negative norm. See
+// hipaa_stubs.dl.
+
+// =============================================
+// §164.502(a) — Covered entity may not use/disclose PHI except as permitted
+// =============================================
+// Gatekeeper: requires is_covered_entity(p1) and is_phi(t), then
+// dispatches to (a)(1) permitted uses or (a)(2) required disclosures.
+//
+// PDF (page 29):
+//   permitted_by_164_502_a(A) :-
+//     is_from_coveredEntity(A), is_phi(A),
+//     (permitted_by_160_C(A);
+//      permitted_by_164_502_a_1(A);
+//      required_by_164_502_a_2(A)).
+.decl permitted_by_164_502_a(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a(ARGS, $Step1("164.502(a): permitted use by covered entity", E)) :-
+    is_covered_entity(p1), is_phi(t), msg_contains(m, q, t),
+    permitted_by_164_502_a_1(ARGS, E).
+
+permitted_by_164_502_a(ARGS, $Step1("164.502(a): required disclosure by covered entity", E)) :-
+    is_covered_entity(p1), is_phi(t), msg_contains(m, q, t),
+    required_by_164_502_a_2(ARGS, E).
+
+// Also permitted under subpart C of part 160
+permitted_by_164_502_a(ARGS, $Leaf("164.502(a): permitted under 160.C")) :-
+    is_covered_entity(p1), is_phi(t), msg_contains(m, q, t),
+    permitted_by_160_C(ARGS).
+
+// =============================================
+// §164.502(a)(1) — Permitted uses and disclosures (OR of i–vi)
+// =============================================
+// PDF (page 29):
+//   permitted_by_164_502_a_1(A) :-
+//     permitted_by_164_502_a_1_i(A);    % to the individual
+//     permitted_by_164_502_a_1_ii(A);   % for TPO per §164.506
+//     permitted_by_164_502_a_1_iii(A);  % incident to use
+//     permitted_by_164_502_a_1_iv(A);   % authorization per §164.508
+//     permitted_by_164_502_a_1_v(A);    % agreement per §164.510
+//     permitted_by_164_502_a_1_vi(A).   % per §164.512/514
+.decl permitted_by_164_502_a_1(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_i(ARGS, E).
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_ii(ARGS, E).
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_iii(ARGS, E).
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_iv(ARGS, E).
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_v(ARGS, E).
+permitted_by_164_502_a_1(ARGS, E) :- permitted_by_164_502_a_1_vi(ARGS, E).
+
+// ---------------------------------------------
+// §164.502(a)(1)(i) — To the individual
+// ---------------------------------------------
+// "To the individual"
+// PDF (page 30):
+//   permitted_by_164_502_a_1_i(A) :-
+//     (is_to_concernedIndividual(A); is_from_concernedIndividual(A)),
+//     writeln('HIPAA rule 164_502_a_1_i;').
+//
+// Norm φ+_{164.502a1i}: activerole(p1, covered-entity) ∧
+//   (p2 ≈ q) ∧ (t ∈_T phi)
+// where (p2 ≈ q) ≜ activerole(p2, personal-representative(q)) ∨ (p2 = q)
+.decl permitted_by_164_502_a_1_i(DECL_ARGS, e: Expl)
+
+// NOTE: no exclusion for is_access_request here. §164.524 grants the
+// individual a right to *compel* access (subject to its own denial grounds),
+// but the plain text of §164.502(a)(1)(i) is an independent, unconditional
+// permission to disclose to the individual — the source PDF formalization
+// (page 30 norm above) does not condition it on whether a formal access
+// request is also in play. A CE may deny a formal §524 access request on
+// its own grounds and still be independently permitted to voluntarily
+// disclose to the individual under this pathway.
+permitted_by_164_502_a_1_i(ARGS,
+    $Leaf("164.502(a)(1)(i): disclosure to the individual or personal representative")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    known_purpose(u),
+    (p2 = q ; is_personal_representative(p2, q)),
+    // A defective authorization cannot unlock the unconditional individual path.
+    !is_defective_authorization(m, p2, p1, q, t, u).
+
+// ---------------------------------------------
+// §164.502(a)(1)(ii) — For TPO per §164.506
+// ---------------------------------------------
+// "For treatment, payment, or health care operations, as permitted by
+//  and in compliance with §164.506"
+//
+// PDF (page 30):
+//   permitted_by_164_502_a_1_ii(A) :-
+//     is_for_eitherPurpose(A), permitted_by_164_506(A),
+//     writeln('HIPAA rule 164_502_a_1_ii;').
+.decl permitted_by_164_502_a_1_ii(DECL_ARGS, e: Expl)
+
+// "Authorized relationship" is a TPO concept -- the guard's own comment
+// (hipaa_macros.dl) describes it as blocking a workforce member from using
+// PHI without a legitimate treatment or operational need, which is squarely
+// a §164.506 question, not a §164.510/§164.512/§164.508/individual-access
+// one. Note permitted_by_164_506_a already has its own purpose-built, more
+// precise relevance check (is_recipient_relevant_to_tpo, hipaa_164_506.dl)
+// for its own sub-pathway; this guard additionally covers §164.506(b)/(c)
+// and is kept as a second, independent check at this level (both must
+// hold) rather than folded into is_recipient_relevant_to_tpo, since the two
+// encode different evidence (a derived structural fact about CE/BA/
+// representative status vs. a raw narrative-grounded oracle fact about
+// workforce-member conduct).
+permitted_by_164_502_a_1_ii(ARGS,
+    $Step1("164.502(a)(1)(ii): TPO per 164.506", E)) :-
+    is_for_tpo(u),
+    !lacks_authorized_relationship(p1, p2, q, t),
+    permitted_by_164_506(ARGS, E).
+
+// ---------------------------------------------
+// §164.502(a)(1)(iii) — Incident to use/disclosure
+// ---------------------------------------------
+// "Incident to a use or disclosure otherwise permitted or required by this
+//  subpart, provided that the covered entity has complied with the applicable
+//  requirements of §164.502(b), §164.514(d), and §164.530(c)"
+//
+// PDF (page 30):
+//   permitted_by_164_502_a_1_iii(A) :-
+//     is_for_incidentToUse(A), permitted_by_164_502_b(A),
+//     permitted_by_164_514_d(A), permitted_by_164_530_c(A),
+//     writeln('HIPAA rule 164_502_a_1_iii;').
+//
+// Note: "incident to use" is an oracle — it means the disclosure was incidental
+// to a primary permitted use. We model it as a fact.
+.decl is_incident_to_use(DECL_ARGS)
+.decl permitted_by_164_502_a_1_iii(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a_1_iii(ARGS,
+    $Leaf("164.502(a)(1)(iii): incident to otherwise permitted use/disclosure")) :-
+    is_incident_to_use(ARGS),
+    minimum_necessary_satisfied(ARGS),
+    permitted_by_164_514_d(ARGS),
+    permitted_by_164_530_c(ARGS).
+
+// ---------------------------------------------
+// §164.502(a)(1)(iv) — Valid authorization per §164.508
+// ---------------------------------------------
+// "Pursuant to and in compliance with a valid authorization under §164.508"
+//
+// PDF (page 31):
+//   permitted_by_164_502_a_1_iv(A) :-
+//     require_authorization_by_164_508(A),
+//     writeln('HIPAA rule 164_502_a_1_iv;').
+.decl permitted_by_164_502_a_1_iv(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a_1_iv(ARGS,
+    $Leaf("164.502(a)(1)(iv): valid authorization per 164.508")) :-
+    obtained_authorization_164_508(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t).
+
+// ---------------------------------------------
+// §164.502(a)(1)(v) — Agreement per §164.510
+// ---------------------------------------------
+// "Pursuant to an agreement under, or as otherwise permitted by, §164.510"
+//
+// PDF (page 31):
+//   permitted_by_164_502_a_1_v(A) :-
+//     permitted_by_164_510(A), writeln('HIPAA rule 164_502_a_1_v;').
+.decl permitted_by_164_502_a_1_v(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a_1_v(ARGS,
+    $Step1("164.502(a)(1)(v): agreement or permission per 164.510", E)) :-
+    permitted_by_164_510(ARGS, E).
+
+// ---------------------------------------------
+// §164.502(a)(1)(vi) — Per §164.512, §164.514(e)(f)(g)
+// ---------------------------------------------
+// "As permitted by and in compliance with this section, §164.512,
+//  or §164.514(e), (f), or (g)."
+//
+// PDF (page 31):
+//   permitted_by_164_502_a_1_vi(A) :-
+//     permitted_by_164_512(A); permitted_by_164_514_e(A);
+//     permitted_by_164_514_f(A); permitted_by_164_514_g(A).
+.decl permitted_by_164_502_a_1_vi(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_a_1_vi(ARGS,
+    $Step1("164.502(a)(1)(vi): per 164.512", E)) :-
+    permitted_by_164_512(ARGS, E).
+permitted_by_164_502_a_1_vi(ARGS,
+    $Step1("164.502(a)(1)(vi): per 164.514(e)", E)) :-
+    permitted_by_164_514_e(ARGS, E).
+permitted_by_164_502_a_1_vi(ARGS,
+    $Step1("164.502(a)(1)(vi): per 164.514(f)", E)) :-
+    permitted_by_164_514_f(ARGS, E).
+permitted_by_164_502_a_1_vi(ARGS,
+    $Step1("164.502(a)(1)(vi): per 164.514(g)", E)) :-
+    permitted_by_164_514_g(ARGS, E).
+
+// =============================================
+// §164.502(a)(2) — Required disclosures
+// =============================================
+// PDF (page 31):
+//   required_by_164_502_a_2(A) :-
+//     required_by_164_502_a_2_i(A); required_by_164_502_a_2_ii(A).
+.decl required_by_164_502_a_2(DECL_ARGS, e: Expl)
+
+required_by_164_502_a_2(ARGS, E) :- required_by_164_502_a_2_i(ARGS, E).
+required_by_164_502_a_2(ARGS, E) :- required_by_164_502_a_2_ii(ARGS, E).
+
+// §164.502(a)(2)(i): To an individual, when requested under §164.524 or §164.528
+// PDF (page 32):
+//   required_by_164_502_a_2_i(A) :-
+//     is_to_concernedIndividual(A), is_replyTo_request(A),
+//     (required_by_164_524(A); required_by_164_528(A)),
+//     writeln('HIPAA rule 164_502_a_2_i;').
+.decl required_by_164_502_a_2_i(DECL_ARGS, e: Expl)
+
+required_by_164_502_a_2_i(ARGS,
+    $Leaf("164.502(a)(2)(i): required disclosure to individual per 164.524/528")) :-
+    (p2 = q ; is_personal_representative(p2, q)),
+    is_reply_to_request(ARGS),
+    (required_by_164_524(ARGS) ; required_by_164_528(ARGS)),
+    is_phi(t),
+    msg_contains(m, q, t).
+
+// §164.502(a)(2)(ii): To the Secretary for compliance investigation
+// PDF (page 32):
+//   required_by_164_502_a_2_ii(A) :-
+//     is_to_secretary(A), is_for_investigation(A),
+//     permitted_by_160_C(A),
+//     writeln('HIPAA rule 164_502_a_2_ii;').
+//
+// Norm φ+_{164.502a2ii}: activerole(p1, covered-entity) ∧
+//   activerole(p2, Secretary) ∧ (t ∈_T phi) ∧
+//   (u ∈_U compliance-investigation(p1))
+.decl is_for_investigation(u: Purpose)
+is_for_investigation("compliance-investigation").
+is_for_investigation(U) :- purpose_subtype(U, "compliance-investigation").
+
+.decl required_by_164_502_a_2_ii(DECL_ARGS, e: Expl)
+
+// Note: PDF also requires permitted_by_160_C(A). Since that is a stub (empty),
+// adding it here would block this rule entirely until §160.C is formalized.
+// We include it commented as a reminder, and use a separate oracle instead.
+.decl secretary_investigation_authorized(DECL_ARGS)
+
+required_by_164_502_a_2_ii(ARGS,
+    $Leaf("164.502(a)(2)(ii): required disclosure to Secretary for investigation")) :-
+    is_covered_entity(p1),
+    is_secretary(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_investigation(u),
+    secretary_investigation_authorized(ARGS).
+    // PDF also requires: permitted_by_160_C(ARGS)
+    // Stubbed as oracle until §160.C is formalized
+
+// =============================================
+// §164.502(a)(5)(i) — Genetic information used for underwriting (prohibited)
+// =============================================
+// "Notwithstanding any other provision of this subpart, a health plan,
+//  excluding an issuer of a long-term care policy ..., shall not use or
+//  disclose protected health information that is genetic information for
+//  underwriting purposes."
+//
+// "Notwithstanding any other provision" makes this an absolute
+// prohibition that must override ANY positive permission pathway, not
+// just gate a new one -- same architectural placement as
+// require_authorization_by_164_508 and violates_underwriting_restriction
+// (§514(g)), wired as a top-level negated guard in hipaa_top.dl.
+//
+// "Underwriting purposes" reuses is_for_underwriting(u), the same
+// classifier introduced for §514(g) -- the two provisions are textually
+// linked (§514(g) itself cross-references this prohibition) and the CFR's
+// (a)(5)(i)(A)(1)-(4) definition (eligibility/enrollment rules, premium
+// computation, pre-existing-condition exclusions, contract creation/
+// renewal/replacement) is the same broad concept as §514(g)'s
+// "underwriting, premium rating, or other activities relating to the
+// creation, renewal, or replacement of a contract."
+
+// is_long_term_care_policy_issuer: oracle -- health plan is excluded from
+// this prohibition per the CFR's carve-out to the "health plan" definition
+.decl is_long_term_care_policy_issuer(p: Principal)
+
+// is_medical_appropriateness_determination(U): §502(a)(5)(i)(B) exception
+// -- underwriting purposes does NOT include determinations of medical
+// appropriateness where an individual seeks a benefit under the plan
+.decl is_medical_appropriateness_determination(u: Purpose)
+
+.decl uses_genetic_info_for_underwriting(DECL_ARGS)
+
+uses_genetic_info_for_underwriting(ARGS) :-
+    disclosure_attempted(ARGS),
+    is_health_plan(p1),
+    !is_long_term_care_policy_issuer(p1),
+    (t = "genetic-info" ; attr_subtype(t, "genetic-info")),
+    is_for_underwriting(u),
+    !is_medical_appropriateness_determination(u).
+
+// =============================================
+// §164.502(b) — Minimum necessary standard
+// =============================================
+// This is a CONSTRAINT, not an independent permission path.
+// "A covered entity must make reasonable efforts to limit protected health
+//  information to the minimum necessary to accomplish the intended purpose."
+//
+// PDF (page 33):
+//   permitted_by_164_502_b_1(A) :-
+//     is_from_coveredEntity(A), is_to_coveredEntity(A),
+//     is_belief_from_minimum(A), writeln('HIPAA rule 164_502_b_1;').
+//
+// minimum_necessary_satisfied is true if:
+// (1) the entity believes it is minimum necessary, OR
+// (2) an exception under (b)(2) applies.
+.decl minimum_necessary_satisfied(DECL_ARGS)
+
+// §502(b)(1): entity believes minimum necessary
+// §514(d)(5): an entire medical record additionally requires specific
+// justification, even when otherwise believed minimum necessary. Only
+// bites is_entire_medical_record(t) disclosures; does not affect the
+// generic "medical-record" attribute used elsewhere.
+minimum_necessary_satisfied(ARGS) :-
+    believes_minimum_necessary(ARGS),
+    (!is_entire_medical_record(t) ; full_record_specifically_justified(p1, p2, q, t, u)).
+
+// §502(b)(2): exceptions — minimum necessary does not apply to:
+minimum_necessary_satisfied(ARGS) :-
+    excluded_164_502_b_2(ARGS).
+
+.decl excluded_164_502_b_2(DECL_ARGS)
+
+// §502(b)(2)(i): Disclosures to or requests by a health care provider for treatment
+// PDF (page 33): excluded_164_502_b_2_i(A) :-
+//   is_for_treatment(A), is_to_healthCareProvider(A).
+// Norm φ+_{164.502b2i}: activerole(p2, provider) ∧ (u ∈_U treatment)
+excluded_164_502_b_2(ARGS) :-
+    is_covered_entity(p1),
+    is_health_care_provider(p2),
+    is_for_treatment(u),
+    is_phi(t), msg_contains(m, q, t).
+
+// §502(b)(2)(ii): Uses or disclosures made to the individual
+// PDF (page 34): excluded_164_502_b_2_ii(A) :-
+//   (permitted_by_164_502_a_1_i(A); required_by_164_502_a_2_i(A)).
+// Norm φ+_{164.502b2ii} ≜ φ+_{164.502a1i}
+excluded_164_502_b_2(ARGS) :-
+    is_covered_entity(p1),
+    (p2 = q ; is_personal_representative(p2, q)),
+    known_purpose(u),
+    is_phi(t), msg_contains(m, q, t).
+
+// §502(b)(2)(iii): Uses or disclosures made pursuant to authorization under §164.508
+// PDF (page 34): excluded_164_502_b_2_iii(A) :-
+//   is_for_obtainingAuthorization(A).
+// Norm φ+_{164.502b2iii} ≜ φ+_{164.502a1iv}
+excluded_164_502_b_2(ARGS) :-
+    obtained_authorization_164_508(p1, p2, q, t, u),
+    is_phi(t), msg_contains(m, q, t).
+
+// §502(b)(2)(iv): Disclosures made to the Secretary per subpart C of part 160
+// PDF (page 34): excluded_164_502_b_2_iv(A) :-
+//   is_to_secretary(A), permitted_by_160_C(A).
+// Norm φ+_{164.502b2iv} ≜ φ+_{164.502a2ii}
+excluded_164_502_b_2(ARGS) :-
+    is_secretary(p2),
+    permitted_by_160_C(ARGS).
+
+// §502(b)(2)(v): Uses or disclosures required by law (§164.512(a))
+// PDF (page 35): excluded_164_502_b_2_v(A) :-
+//   required_by_164_512_a(A).
+excluded_164_502_b_2(ARGS) :-
+    required_by_164_512_a(ARGS).
+
+// §502(b)(2)(vi): Uses or disclosures required for compliance
+// PDF (page 35): excluded_164_502_b_2_vi(A) :-
+//   required_by_164_502_a_2(A).
+excluded_164_502_b_2(ARGS) :-
+    required_by_164_502_a_2(ARGS, _).
+
+// =============================================
+// §164.502(c) — Restriction agreements
+// =============================================
+// "A covered entity that has agreed to a restriction pursuant to
+//  §164.522(a)(1) may not use or disclose the protected health information
+//  covered by the restriction in violation of such restriction, except as
+//  otherwise provided in §164.522(a)."
+//
+// This is not modeled as a positive OR-branch of permitted_by_164_502: the
+// CFR text is a negative constraint ("may not... in violation of"), not an
+// affirmative permission. §164.522(a)'s substance is the top-level negated
+// guard violates_restriction_agreement (hipaa_164_522.dl, wired into
+// hipaa_top.dl's is_disclosure_allowed), which is architecturally correct
+// for a negative constraint the same way
+// require_authorization_by_164_508/violates_underwriting_restriction/
+// uses_genetic_info_for_underwriting already are.
+
+// =============================================
+// §164.502(d) — De-identified information
+// =============================================
+// PDF (pages 35–37):
+//   permitted_by_164_502_d(A) :- permitted_by_164_502_d_1(A);
+//                                 permitted_by_164_502_d_2(A).
+
+.decl permitted_by_164_502_d(DECL_ARGS, e: Expl)
+
+// §502(d)(1): A covered entity may use PHI to create de-identified info
+// or disclose PHI to a business associate for such purpose.
+// PDF (page 36):
+//   permitted_by_164_502_d_1(A) :-
+//     is_phi(A), is_from_coveredEntity(A), is_to_businessAssociateOf(A),
+//     is_for_createDeidentifiedInfo(A).
+//
+// Norm φ+_{164.502d1}: activerole(p1, covered-entity) ∧
+//   activerole(p2, business-associate(p1)) ∧ (t ∈_T phi) ∧
+//   (u ∈_U create-deidentified-info)
+.decl is_for_create_deidentified_info(u: Purpose)
+is_for_create_deidentified_info("create-deidentified-info").
+
+permitted_by_164_502_d(ARGS,
+    $Leaf("164.502(d)(1): disclose to BA to create de-identified info")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_business_associate_of(p2, p1),
+    is_for_create_deidentified_info(u).
+
+// §502(d)(2): De-identified info (dii) may be freely disclosed
+// Information meeting §164.514(a)/(b) de-identification standards is not PHI.
+// In our model, dii attributes bypass the PHI rules entirely.
+// is_dii(m, t) — message-scoped (see hipaa_macros.dl) — so this fires only for THIS
+// message's own de-identification evidence, not any other message of the same type.
+permitted_by_164_502_d(ARGS,
+    $Leaf("164.502(d)(2): de-identified information is not PHI")) :-
+    is_covered_entity(p1),
+    msg_contains(m, q, t),
+    is_dii(m, t),
+    disclosure_attempted(ARGS).
+
+// =============================================
+// §164.502(e) — Business associates
+// =============================================
+// "A covered entity may disclose protected health information to a business
+//  associate and may allow a business associate to create or receive protected
+//  health information on its behalf, if the covered entity obtains satisfactory
+//  assurance that the business associate will appropriately safeguard the
+//  information."
+//
+// PDF (pages 37–40):
+//   permitted_by_164_502_e_1_i(A) :-
+//     is_phi(A),
+//     ((is_from_coveredEntity(A), is_to_businessAssociateOf(A), ...);
+//      (is_to_coveredEntity(A), is_from_businessAssociateOf(A), ...)),
+//     (is_for_createProtectedHealthInfo(A);
+//      is_for_receiveProtectedHealthInfo(A)),
+//     writeln('HIPAA rule 164_502_e_1_i;').
+//
+// Norm φ+_{164.502e1i}: activerole(p1, covered-entity) ∧
+//   activerole(p2, business-associate(p1)) ∧ (t ∈_T phi) ∧
+//   satisfactory-assurances-will-safeguard-info(p1, p2, (q, t), u)
+.decl permitted_by_164_502_e(DECL_ARGS, e: Expl)
+
+// Disclosure FROM covered entity TO business associate
+// PDF also checks: is_for_createProtectedHealthInfo(A) ; is_for_receiveProtectedHealthInfo(A)
+// Translated as: purpose must relate to BA operations on behalf of the CE
+permitted_by_164_502_e(ARGS,
+    $Leaf("164.502(e)(1)(i): disclosure to business associate with safeguard assurances")) :-
+    is_covered_entity(p1),
+    is_business_associate_of(p2, p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_ba_purpose(u),
+    satisfactory_assurances(p1, p2, q, t, u),
+    !excluded_164_502_e_1_ii(ARGS).
+
+// Disclosure FROM business associate TO covered entity
+permitted_by_164_502_e(ARGS,
+    $Leaf("164.502(e)(1)(i): disclosure from business associate to covered entity")) :-
+    is_covered_entity(p2),
+    is_business_associate_of(p1, p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_ba_purpose(u),
+    satisfactory_assurances(p2, p1, q, t, u),
+    !excluded_164_502_e_1_ii(ARGS).
+
+// §502(e)(1)(ii): Exceptions — this standard does not apply to:
+.decl excluded_164_502_e_1_ii(DECL_ARGS)
+
+// (A) Disclosures by covered entity to provider concerning treatment of individual
+// Norm φ-_{164.502e1iiA}: ¬(activerole(p1, covered-entity) ∧
+//   activerole(p2, provider(q)) ∧ (u ∈_U treatment))
+excluded_164_502_e_1_ii(ARGS) :-
+    is_covered_entity(p1),
+    is_health_care_provider(p2),
+    is_for_treatment(u),
+    is_phi(t), msg_contains(m, q, t).
+
+// (B) Disclosures to group health plan / health insurance issuer / HMO
+//     with respect to plan sponsor, per §164.504(f)
+// role_isa("health-insurance-issuer", "health-plan") in
+// hierarchy/hipaa_hierarchies.dl already makes is_health_plan(p1) true for
+// any health-insurance-issuer, so no separate has_role check is needed here.
+//
+// permitted_by_164_504_f sits inside a NEGATIVE exclusion predicate
+// (excluded_164_502_e_1_ii), so a positive-shaped check here is correct.
+//
+// "(f)(1) A group health plan... may disclose [PHI] to a plan sponsor... only if
+//  the plan documents are amended to restrict [such] uses and disclosures...
+//  consistent with the requirements of this subpart. (f)(2)(ii) The plan
+//  documents... must... (B) Provide adequate separation between the group health
+//  plan and the plan sponsor [access restricted to plan administration
+//  functions]... (D) Not permit the use or disclosure of [PHI] for employment-
+//  related actions and decisions or in connection with any other benefit or
+//  employee benefit plan of the plan sponsor. (f)(3) The group health plan may
+//  not disclose... to the plan sponsor unless [the certification requirements of
+//  (f)(2)(ii)] are met."
+excluded_164_502_e_1_ii(ARGS) :-
+    is_health_plan(p1),
+    permitted_by_164_504_f(ARGS),
+    is_phi(t), msg_contains(m, q, t).
+
+// plan_documents_amended_164_504_f: oracle -- the group health plan's plan
+// documents have been amended per §164.504(f)(2)(ii) (adequate firewall between
+// plan and sponsor, no employment-related use, individual rights preserved,
+// noncompliance-reporting mechanism, etc.) -- a persistent fact about the
+// plan/sponsor relationship, not scoped to one message, matching how
+// is_business_associate_of already models persistent relationship facts.
+.decl plan_documents_amended_164_504_f(plan: Principal, sponsor: Principal)
+
+// plan_sponsor_certified_compliance: oracle -- the plan sponsor has certified to
+// the group health plan, per §164.504(f)(2)(ii)/(f)(3), that the plan documents
+// have been amended and it will comply with the restrictions -- required before
+// any disclosure to the sponsor is permitted at all.
+.decl plan_sponsor_certified_compliance(plan: Principal, sponsor: Principal)
+
+// is_for_plan_administration_function(U): the disclosure's purpose is a genuine
+// plan administration function -- §164.504(f)(2)(ii)(D) specifically excludes
+// employment-related actions/decisions and use in connection with any other
+// benefit plan, so this is a closed, narrower category than healthcare-operations
+// generally.
+.decl is_for_plan_administration_function(u: Purpose)
+is_for_plan_administration_function("plan-administration").
+is_for_plan_administration_function(U) :- purpose_subtype(U, "plan-administration").
+
+permitted_by_164_504_f(ARGS) :-
+    disclosure_attempted(ARGS),
+    plan_documents_amended_164_504_f(p1, p2),
+    plan_sponsor_certified_compliance(p1, p2),
+    is_for_plan_administration_function(u).
+
+// (C) Government program providing public benefits
+// Reuses is_government_benefits_program -- the same purpose-built oracle
+// used for "government program providing public benefits" in
+// hipaa_164_512.dl's §164.512(k)(6) -- for both p1 (the government health
+// plan) and p2 (the other agency administering the program), paralleling
+// §164.512(k)(6)(i)'s own p1/p2 shape.
+excluded_164_502_e_1_ii(ARGS) :-
+    is_health_plan(p1),
+    is_government_benefits_program(p1),
+    is_government_benefits_program(p2),
+    known_purpose(u),
+    is_phi(t), msg_contains(m, q, t).
+
+// =============================================
+// §164.502(h) — Health care provider or health plan communication
+// =============================================
+// "A covered health care provider or health plan must comply with the
+//  applicable requirements of §164.522(b) in communicating PHI."
+//
+// This text has zero affirmative permission content of its own: "must
+// comply with §164.522(b)" is purely a negative constraint, and the
+// remaining clause (sender is a provider or health plan, disclosing PHI) is
+// true of the overwhelming majority of ordinary disclosures, so it is not
+// modeled as a positive OR-branch of permitted_by_164_502. §164.522(b)'s
+// actual substance is the top-level negated guard
+// sent_via_non_requested_channel (hipaa_164_522.dl, declared in
+// hipaa_macros.dl).
+
+// =============================================
+// §164.502(j) — Whistleblower and crime victim protections
+// =============================================
+// PDF (pages 47–50):
+//   permitted_by_164_502_j(A) :- permitted_by_164_502_j_1(A);
+//                                 permitted_by_164_502_j_2(A).
+.decl permitted_by_164_502_j(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_j(ARGS, E) :- permitted_by_164_502_j_1(ARGS, E).
+permitted_by_164_502_j(ARGS, E) :- permitted_by_164_502_j_2(ARGS, E).
+
+// §502(j)(1): Whistleblower protection
+// "A covered entity is not considered to have violated the requirements of
+//  this subpart if a member of its workforce or a business associate discloses
+//  protected health information, provided that:
+//  (i) The workforce member or business associate believes in good faith that
+//      the covered entity has engaged in unlawful conduct...; and
+//  (ii) The disclosure is to: (A) oversight agency, public health authority,
+//       or accreditation organization, or (B) an attorney."
+//
+// Norm φ+_{164.502j1}: ∃p'_1. belongstorole(p'_1, covered-entity) ∧
+//   (activerole(p1, workforce-member(p'_1)) ∨
+//    activerole(p1, business-associate(p'_1))) ∧
+//   believes-unlawful-unethical-or-dangerous(p1, p'_1) ∧
+//   (disclosure is to oversight/attorney) ∧ (t ∈_T phi)
+.decl permitted_by_164_502_j_1(DECL_ARGS, e: Expl)
+
+permitted_by_164_502_j_1(ARGS,
+    $Leaf("164.502(j)(1): whistleblower — good faith belief of unlawful conduct")) :-
+    // p1 is employee or BA of some covered entity CE
+    (is_employee_of(p1, CE) ; is_business_associate_of(p1, CE)),
+    is_covered_entity(CE),
+    // Good faith belief of unlawful/unethical conduct
+    believes_unlawful_conduct(p1, CE),
+    // Disclosure is to oversight agency, public health authority, or attorney
+    (is_oversight_agency(p2) ;
+     is_public_health_authority(p2) ;
+     activerole(p2, "healthcare-accreditation-org") ;
+     activerole(p2, "attorney")),
+    is_phi(t),
+    msg_contains(m, q, t),
+    known_purpose(u).
+
+// §502(j)(2): Crime victim
+// "A covered entity is not considered to have violated the requirements of
+//  this subpart if a member of its workforce who is the victim of a criminal
+//  act discloses protected health information to a law enforcement official,
+//  provided that:
+//  (i) The PHI disclosed is about the suspected perpetrator; and
+//  (ii) The PHI is limited to the information listed in §164.512(f)(2)(i)."
+//
+// Norm φ+_{164.502j2}: ∃c. (∃p'_1. belongstorole(p'_1, covered-entity) ∧
+//   belongstorole(p1, workforce-member(p'_1))) ∧
+//   activerole(p1, victim-of-crime(c)) ∧
+//   activerole(p2, law-enforcement-official) ∧
+//   belongstorole(q, suspected-perpetrator(c)) ∧
+//   (t ∈_T info-164.512f2i)
+.decl permitted_by_164_502_j_2(DECL_ARGS, e: Expl)
+
+// §502(j)(2)(ii)'s content limit uses is_limited_identifying_info(t) (declared in
+// hipaa_164_512.dl, the same closed list of 8 attribute types §164.512(f)(2)(i)
+// enumerates: name-and-address, date-and-place-of-birth, social-security-number,
+// ABO-blood-type-and-rh-factor, type-of-injury, date-and-time-of-treatment,
+// date-and-time-of-death, distinguishing-physical-characteristics), NOT the
+// "info-164-512f2i" attr_isa tag in hierarchy/hipaa_hierarchies.dl -- that tag only
+// covers the single, unrelated "suspected-perpetrator-info" attribute (confirmed via
+// grep: unused anywhere else) and is not the content-restriction mechanism the rest of
+// the codebase actually uses. Also deliberately NOT permitted_by_164_512_f_2_i -- that
+// predicate additionally requires is_request_for_identification(p2, p1, q, t, u), a
+// law-enforcement-initiated identification request that has no role in this
+// victim-initiated whistleblower pathway.
+permitted_by_164_502_j_2(ARGS,
+    $Leaf("164.502(j)(2): crime victim disclosure to law enforcement")) :-
+    // p1 is employee of some covered entity
+    is_employee_of(p1, CE),
+    is_covered_entity(CE),
+    // p1 believes they are victim of crime by employer
+    believes_victim_of_crime(p1, CE),
+    // p2 is law enforcement
+    is_law_enforcement_for(p1, p2, q, t, u),
+    // PHI is about suspected perpetrator
+    is_about_suspected_perpetrator(m, q),
+    is_phi(t),
+    // §502(j)(2)(ii): content limited to the §164.512(f)(2)(i) identifying-info list.
+    is_limited_identifying_info(t),
+    msg_contains(m, q, t),
+    known_purpose(u).

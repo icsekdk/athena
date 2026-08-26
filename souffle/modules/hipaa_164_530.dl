@@ -1,0 +1,33 @@
+// ============================================================================
+// hipaa_164_530.dl — §164.530(c): Administrative requirements — safeguards
+// ============================================================================
+// §164.530(c)(1) requires covered entities to have appropriate administrative,
+// technical, and physical safeguards in place to protect PHI. §164.530(c)(2)
+// requires reasonably safeguarding PHI from any intentional or unintentional
+// use/disclosure that violates the subpart, and limiting incidental uses and
+// disclosures made pursuant to an otherwise permitted or required use.
+//
+// A covered entity is presumed to have implemented the required safeguards
+// unless the scenario explicitly states non-compliance (lacks_reasonable_safeguards
+// below) -- this is a real negation, not just documented intent: the presumption
+// has a genuine escape hatch via lacks_reasonable_safeguards, a real,
+// LLM-assertable negative fact.
+//
+// permitted_by_164_530_c is declared in hipaa_stubs.dl and is required by
+// permitted_by_164_502_a_1_iii (incident-to-use pathway).
+// ============================================================================
+
+// lacks_reasonable_safeguards: oracle -- narrative evidence that the covered
+// entity does NOT have administrative, technical, or physical safeguards in
+// place, or failed to reasonably limit this specific incidental disclosure
+// (§164.530(c)(1)/(c)(2)). Negated below: default is presumed-compliant
+// (per the comment above), but this predicate gives that presumption a real
+// escape hatch instead of being unconditional.
+.decl lacks_reasonable_safeguards(p1: Principal)
+
+permitted_by_164_530_c(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    disclosure_attempted(ARGS),
+    !lacks_reasonable_safeguards(p1).

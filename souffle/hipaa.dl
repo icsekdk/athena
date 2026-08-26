@@ -1,0 +1,31 @@
+// ============================================================================
+// hipaa.dl -- entry point for the HIPAA formalization
+// ============================================================================
+// Includes every module in the same dependency order the original
+// COMPLIANCEGPT-V1 manifest (connector/regulation_manifest.py,
+// REGULATION_FILES["hipaa"]) used: types/hierarchy/macros/stubs first,
+// section-specific rules next, hipaa_top.dl (the top-level
+// is_disclosure_allowed rule that ties everything together) last.
+//
+// Run with:
+//     souffle -D <output_dir> souffle/hipaa.dl
+// ============================================================================
+
+#include "hierarchy/hipaa_hierarchies.dl"
+
+#include "modules/hipaa_types.dl"
+#include "modules/hipaa_macros.dl"
+#include "modules/hipaa_stubs.dl"
+#include "modules/hipaa_164_506.dl"
+
+#include "modules/hipaa_164_508.dl"
+#include "modules/hipaa_164_510.dl"
+#include "modules/hipaa_164_512.dl"
+#include "modules/hipaa_164_514.dl"
+#include "modules/hipaa_164_522.dl"
+#include "modules/hipaa_164_524.dl"
+#include "modules/hipaa_164_528.dl"
+#include "modules/hipaa_164_530.dl"
+
+#include "modules/hipaa_164_502.dl"
+#include "modules/hipaa_top.dl"

@@ -1,0 +1,70 @@
+// ============================================================================
+// hipaa_164_528.dl — §164.528: Accounting of disclosures of protected
+//                    health information
+// ============================================================================
+// "(a)(1) An individual has a right to receive an accounting of disclosures
+//  of protected health information made by a covered entity in the six
+//  years prior to the date on which the accounting is requested... (c)(2)
+//  The covered entity must provide the first accounting to an individual in
+//  any 12 month period without charge. The covered entity may impose a
+//  reasonable, cost-based fee for each subsequent request... within the 12
+//  month period, provided that the covered entity informs the individual in
+//  advance of the fee and provides the individual with an opportunity to
+//  withdraw or modify the request..."
+//
+// Scope-matched to required_by_164_524 (hipaa_164_524.dl): this predicate answers "was THIS
+// disclosure_attempted tuple -- the covered entity's disclosure of the
+// accounting document itself to the individual -- an owed obligation the CE
+// failed to fulfill?" It deliberately does NOT attempt to derive WHICH past
+// disclosures belong on the accounting list (the §164.528(a)(1)(i)-(ix)
+// exclusion categories: TPO, to-the-individual, incident-to-permitted-use,
+// authorized, directory/notification, national security, correctional/law
+// enforcement, limited-data-set, pre-compliance-date) -- that would require
+// evaluating six years of disclosure history and reconstructing document
+// content, out of scope for a live single-narrative decision system (same
+// reasoning as why §164.524's fee/content depth is oracle-backed, not
+// reconstructed). Both are oracles here for the same reason.
+//
+// Used by: §164.502(a)(2)(i) (required_by_164_502_a_2_i's OR-branch,
+// hipaa_164_502.dl) and §164.508(a)(4)/§502(a)(5)(ii)(B)(2)(vi)'s sale-of-PHI
+// exclusion list (hipaa_164_508.dl) -- both previously depended on this stub
+// always being false, silently treating every accounting-of-disclosures
+// response as an un-required, potentially-a-sale disclosure.
+
+.decl required_by_164_528(DECL_ARGS)
+
+// is_accounting_request: oracle -- individual (or personal representative)
+// has requested an accounting of disclosures under §164.528(a)(1).
+.decl is_accounting_request(p2: Principal, p1: Principal, q: Principal)
+
+// accounting_request_fulfilled: oracle -- the covered entity provided the
+// requested accounting.
+.decl accounting_request_fulfilled(p2: Principal, p1: Principal, q: Principal)
+
+required_by_164_528(ARGS) :-
+    is_covered_entity(p1),
+    (p2 = q ; is_personal_representative(p2, q)),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_accounting_request(p2, p1, q),
+    !accounting_request_fulfilled(p2, p1, q),
+    known_purpose(u).
+
+// §164.528(c)(2): fee violation -- mirrors §164.524(c)(4)'s
+// charged_unreasonable_access_fee gap-fix (hipaa_164_524.dl): a request that
+// WAS fulfilled (!accounting_request_fulfilled fails, primary rule above
+// can never fire) but subject to an impermissible fee -- no advance notice
+// and opportunity to withdraw/modify, or charged at all for the first
+// accounting in a 12-month period -- is still a violation of the
+// individual's §164.528 rights, and without a fee-specific predicate
+// nothing else in the formalization could ever flag it.
+.decl charged_impermissible_accounting_fee(p1: Principal, p2: Principal, q: Principal)
+
+required_by_164_528(ARGS) :-
+    is_covered_entity(p1),
+    (p2 = q ; is_personal_representative(p2, q)),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_accounting_request(p2, p1, q),
+    charged_impermissible_accounting_fee(p1, p2, q),
+    known_purpose(u).

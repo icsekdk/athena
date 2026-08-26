@@ -1,0 +1,66 @@
+// ============================================================================
+// hipaa_types.dl — Type declarations for HIPAA Privacy Rule formalization
+// ============================================================================
+// This file defines all domain types and the ADT explanation tree used
+// throughout the HIPAA compliance checker.
+//
+// Reference: HIPAA_FORMALIZATION.pdf, Chapter 4 (pages 30–122)
+// The PDF's formalization uses sorts: prin (principals), msg (messages),
+// attr (attributes), purp (purposes), data, and time points.
+// ============================================================================
+
+// === Preprocessor macros for the 6-tuple action signature ===
+// The PDF bundles the disclosure action as a single parameter A.
+// We unpack it into (p1, p2, q, m, t, u):
+//   p1 = sender (covered entity)
+//   p2 = receiver
+//   q  = subject principal (the individual the PHI is about)
+//   m  = message identifier
+//   t  = attribute type (what kind of info is in the message)
+//   u  = purpose of the disclosure
+#define ARGS p1, p2, q, m, t, u
+#define DECL_ARGS p1:Principal, p2:Principal, q:Principal, m:Message, t:Attribute, u:Purpose
+
+// === Primitive domain subtypes ===
+
+// Principals: people, organizations, entities
+.type Principal <: symbol
+
+// Roles: covered-entity, provider, health-plan, patient, secretary, etc.
+.type Role <: symbol
+
+// Attribute classes: phi, dii (de-identified), psychotherapy-notes, etc.
+.type Attribute <: symbol
+
+// Purposes: treatment, payment, healthcare-operations, marketing, etc.
+.type Purpose <: symbol
+
+// Message identifiers
+.type Message <: symbol
+
+// Safe Harbor identifier categories (45 CFR 164.514(b)(2)(i), the 18 enumerated
+// identifiers) -- an observable, closed-vocabulary fact about what a message
+// literally contains, as opposed to safe_harbor_deidentified itself (a legal
+// conclusion derived from the ABSENCE of all of these, see hipaa_164_514.dl).
+.type IdentifierCategory <: symbol
+
+// Discrete time points for Kamp-style temporal translation
+// (infrastructure for future sections; §164.502/506 use time-free predicates)
+.type TimePoint <: number
+
+// Relationship identifiers for §164.506(c)(4)
+.type Rel <: symbol
+
+// === ADT: Explanation tree ===
+// Every permission/denial rule carries an Expl value that records WHY
+// the rule fired. This is the ADT pattern from convo_summary.md.
+//
+// Branch names must be globally unique across all ADTs in Soufflé.
+//   Leaf   — base fact or oracle predicate (no sub-explanations)
+//   Step1  — rule with one sub-explanation
+//   Step2  — rule combining two sub-explanations (e.g., positive + negative norm)
+//   Step3  — rule combining three sub-explanations
+.type Expl = Leaf  { reason: symbol }
+           | Step1 { reason: symbol, sub1: Expl }
+           | Step2 { reason: symbol, sub1: Expl, sub2: Expl }
+           | Step3 { reason: symbol, sub1: Expl, sub2: Expl, sub3: Expl }

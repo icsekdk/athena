@@ -1,0 +1,288 @@
+// ============================================================================
+// hipaa_164_514.dl — §164.514: Other requirements relating to uses and
+//                    disclosures of protected health information
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.7 (pages 98–108)
+//
+// Structure:
+//   164.514(a)  — De-identification intent (no formalization needed)
+//   164.514(b)  — De-identification standards
+//   164.514(c)  — Re-identification codes
+//   164.514(d)  — Minimum necessary implementation
+//   164.514(e)  — Limited data sets
+//   164.514(f)  — Fundraising
+//   164.514(g)  — Health plan underwriting restrictions
+// ============================================================================
+
+// =============================================
+// §164.514(a) — De-identification intent
+// =============================================
+// PDF (page 98): "This paragraph appears to state an intent and so
+// requires no formalization."
+// No rules needed.
+
+// =============================================
+// §164.514(b) — De-identification standards
+// =============================================
+// PDF (pages 99–101)
+// A covered entity may determine that health information is not individually
+// identifiable only if: (1) expert determination, or (2) safe harbor (18 identifiers).
+// These are constraints on what counts as de-identified info (dii).
+// In our model, dii attributes are pre-classified; these constraints
+// are checked operationally. We declare oracle predicates for completeness.
+
+// expert_determination_deidentified(M, T): expert has determined message M's content of
+// attribute type T is de-identified. Message-scoped (see is_dii in hipaa_macros.dl) --
+// an expert determination under §164.514(b)(1) is a conclusion about a specific data
+// set/disclosure, not a permanent property of the attribute type; a 1-arity form would
+// let one such determination silently de-identify every other message of the same type,
+// including ones the expert never reviewed.
+// PDF (page 99): phi_514b1
+.decl expert_determination_deidentified(m: Message, t: Attribute)
+
+// safe_harbor_deidentified(M, T): message M's content of attribute type T meets the
+// safe harbor standard (18 identifiers removed). Message-scoped for the same reason as
+// expert_determination_deidentified above -- de-identification is evaluated per
+// disclosure, not per attribute type. Any external fact producer asserting this oracle
+// -- e.g. connector/llm1_extractor.py, outside this checkout -- must emit
+// (message, attribute) pairs, not bare attribute types.
+// PDF (page 100): phi_514b2
+// Kept as a PURE oracle, no rule -- the mere EXISTENCE of any rule for a relation
+// permanently makes it Soufflé-derived rather than Pass-2-askable (parse_rules()'s
+// "defined head" is purely syntactic, not conditional on any runtime gate), so any
+// scenario that genuinely needs this oracle asked and honestly answered TRUE would lose
+// that path entirely. safe_harbor_deidentified_derived below is the real fix -- an
+// ADDITIONAL, separately-named path into is_dii, not a replacement of this one.
+.decl safe_harbor_deidentified(m: Message, t: Attribute)
+
+// safe_harbor_deidentified_derived(M, T): derived from observable identifier-presence
+// facts instead of an oracle: (M, T) holds iff message M contains attribute T and that
+// same message M has no asserted Safe Harbor identifier of any kind.
+// Message-scoped in both the head and the derivation -- consumers must join on the same
+// M whose de-identification is actually in question, not just the attribute type, or a
+// single identifier-free message of a given type would make the entire type
+// de-identified everywhere it appears, including other messages, other subjects, other
+// scenarios in the same fact base that plainly do have identifiers attached.
+// Gated by identifier_extraction_enabled() (asserted by Python only when
+// --identifier-extraction is on) for the same reason safe_harbor_deidentified itself
+// can't carry this rule directly -- without the gate, every scenario using this relation
+// at all would derive it TRUE for free whenever no identifier facts happen to be
+// asserted. When the flag is on, interactive_evaluator.py additionally suppresses the
+// original safe_harbor_deidentified oracle from ever being asked (asserted_structural
+// parameter, see enumerate_open_questions), so only this honest, observable-fact-derived
+// path is used -- the old oracle isn't just left as a redundant fallback.
+.decl identifier_extraction_enabled()
+.decl safe_harbor_deidentified_derived(m: Message, t: Attribute)
+
+safe_harbor_deidentified_derived(M, T) :- identifier_extraction_enabled(), msg_contains(M, _, T), !msg_contains_identifier(M, _).
+
+// §164.514(a): de-identified information is not PHI — connect safe harbor to is_dii
+// so is_disclosure_allowed can fire the §164.514(a) pathway for safe-harbor attributes.
+// Message-scoped (M, T) throughout -- see is_dii in hipaa_macros.dl.
+// Guarded by !reidentification_code_violates_514c (§164.514(c), directly below) on
+// all three paths: a CE that keeps a re-identification code violating (c)(1)/(c)(2)
+// hasn't actually achieved de-identification in the CFR's sense, regardless of which
+// de-identification method it otherwise used -- the data remains re-identifiable
+// through that insecure code, so is_dii must not fire.
+is_dii(M, T) :- safe_harbor_deidentified(M, T), !reidentification_code_violates_514c(M, T).
+is_dii(M, T) :- safe_harbor_deidentified_derived(M, T), !reidentification_code_violates_514c(M, T).
+
+// §164.514(b)(1): expert-determination path -- connects
+// expert_determination_deidentified to is_dii. (b)(1) is an independent,
+// equally valid de-identification method under the CFR alongside the
+// safe-harbor path (b)(2) above.
+is_dii(M, T) :- expert_determination_deidentified(M, T), !reidentification_code_violates_514c(M, T).
+
+// =============================================
+// §164.514(c) — Re-identification codes
+// =============================================
+// "A covered entity may assign a code or other means of record identification
+//  to allow information de-identified under this section to be re-identified
+//  by the covered entity, provided that: (1) Derivation. The code... is not
+//  derived from or related to information about the individual and is not
+//  otherwise capable of being translated so as to identify the individual;
+//  and (2) Security. The covered entity does not use or disclose the code...
+//  for any other purpose, and does not disclose the mechanism for
+//  re-identification."
+//
+// Like §164.502(c)/(h)/(i),
+// this is a negative constraint on an existing status (de-identified), not an
+// independent permission path -- it can only ever prevent is_dii from firing,
+// never grant it on its own, so it's wired as a guard on is_dii's own rules
+// above rather than as a top-level OR-branch or top-level negated guard (its
+// effect is scoped to de-identification specifically, not every disclosure).
+// Oracle EDB -- whether a re-identification code was properly derived/secured
+// is operational/document-content evidence outside this system's derivation.
+.decl reidentification_code_violates_514c(m: Message, t: Attribute)
+
+// =============================================
+// §164.514(d) — Minimum necessary implementation
+// =============================================
+// PDF (pages 101–103)
+// permitted_by_164_514_d is declared in hipaa_stubs.dl
+// This section specifies HOW to implement the minimum necessary standard.
+// Most are organizational policies (oracle predicates).
+
+// identifies_workforce_needing_phi: oracle — CE has identified workforce members
+.decl identifies_workforce_needing_phi(p1: Principal)
+
+// reasonably_limits_phi_access: oracle — CE limits access appropriately
+.decl reasonably_limits_phi_access(p1: Principal)
+
+// implements_policies_for_routine_disclosures: oracle
+.decl implements_policies_for_routine_disclosures(p1: Principal)
+
+// implements_criteria_for_limiting_phi: oracle
+.decl implements_criteria_for_limiting_phi(p1: Principal)
+
+// meets_policies_and_criteria: oracle — specific disclosure meets criteria
+.decl meets_policies_and_criteria(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// full_record_specifically_justified: oracle — entire medical record justified
+.decl full_record_specifically_justified(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_entire_medical_record(T): the complete/whole medical record, per §514(d)(5).
+// Deliberately distinct from the generic "medical-record" attribute used
+// throughout the rest of this codebase as a general PHI placeholder --
+// conflating the two would incorrectly subject existing non-entire-record
+// disclosures to this heightened bar.
+.decl is_entire_medical_record(t: Attribute)
+is_entire_medical_record("entire-medical-record").
+
+// §164.514(d)(1)-(5): Minimum necessary is satisfied when policies are in place
+// and the specific disclosure meets those policies
+permitted_by_164_514_d(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    identifies_workforce_needing_phi(p1),
+    reasonably_limits_phi_access(p1),
+    implements_policies_for_routine_disclosures(p1),
+    implements_criteria_for_limiting_phi(p1),
+    meets_policies_and_criteria(p1, p2, q, t, u).
+
+// Default: covered entity is presumed compliant with §164.514(d) minimum
+// necessary implementation policies absent explicit evidence otherwise.
+// These are organizational policies that exist at the CE level, not per-disclosure
+// facts. The scenario-level engine assumes CEs have these policies in place.
+permitted_by_164_514_d(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    disclosure_attempted(ARGS).
+
+// =============================================
+// §164.514(e) — Limited data sets
+// =============================================
+// PDF (pages 103–106)
+// permitted_by_164_514_e is declared in hipaa_stubs.dl
+
+// is_limited_data_set(T): attribute T qualifies as a limited data set
+// (PHI with 16 direct identifiers removed per §514(e)(2))
+.decl is_limited_data_set(t: Attribute)
+
+// has_limited_data_use_agreement: oracle — CE has data use agreement with recipient
+.decl has_limited_data_use_agreement(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_for_limited_data_set_purpose(U): research, public health, or healthcare ops
+.decl is_for_limited_data_set_purpose(u: Purpose)
+is_for_limited_data_set_purpose(U) :- is_for_research(U).
+is_for_limited_data_set_purpose(U) :- is_for_public_health(U).
+is_for_limited_data_set_purpose(U) :- is_for_hc_ops(U).
+
+permitted_by_164_514_e(ARGS,
+    $Leaf("164.514(e)(1): limited data set with data use agreement")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_limited_data_set(t),
+    is_for_limited_data_set_purpose(u),
+    has_limited_data_use_agreement(p1, p2, q, t, u).
+
+// =============================================
+// §164.514(f) — Fundraising
+// =============================================
+// PDF (pages 107)
+// permitted_by_164_514_f is declared in hipaa_stubs.dl
+
+// is_for_fundraising(U): purpose is fundraising
+.decl is_for_fundraising(u: Purpose)
+is_for_fundraising("fundraising").
+
+// is_demographic_info(T): demographic information
+.decl is_demographic_info(t: Attribute)
+is_demographic_info("demographic-info").
+is_demographic_info(T) :- attr_subtype(T, "demographic-info").
+
+// is_healthcare_dates(T): dates of health care
+.decl is_healthcare_dates(t: Attribute)
+is_healthcare_dates("healthcare-dates").
+is_healthcare_dates(T) :- attr_subtype(T, "healthcare-dates").
+
+// is_related_foundation(P2, P1): P2 is institutionally related foundation of P1
+.decl is_related_foundation(p2: Principal, p1: Principal)
+
+// has_given_fundraising_notice: oracle — CE included fundraising statement in notice
+.decl has_given_fundraising_notice(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// has_opted_out_of_fundraising: oracle — individual elected not to receive
+// further fundraising communications, per §514(f)(2)(iv).
+.decl has_opted_out_of_fundraising(p1: Principal, q: Principal)
+
+permitted_by_164_514_f(ARGS,
+    $Leaf("164.514(f)(1): fundraising with limited PHI types")) :-
+    is_covered_entity(p1),
+    (is_business_associate_of(p2, p1) ; is_related_foundation(p2, p1)),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (is_demographic_info(t) ; is_healthcare_dates(t)),
+    is_for_fundraising(u),
+    has_given_fundraising_notice(p1, p2, q, t, u),
+    !has_opted_out_of_fundraising(p1, q).
+
+// =============================================
+// §164.514(g) — Health plan underwriting restrictions
+// =============================================
+// PDF (pages 107–108)
+// permitted_by_164_514_g is declared in hipaa_stubs.dl
+// Negative norm: health plan receiving PHI for underwriting may not use
+// it for other purposes except as required by law.
+// This is a constraint (negative norm), not an independent permission path.
+// The stub remains empty — it restricts rather than permits.
+
+// health_insurance_placed_with: oracle — insurance was placed with the health plan
+.decl health_insurance_placed_with(entity: Principal, plan: Principal)
+
+// received_phi_for_underwriting: oracle — health plan received this PHI for
+// underwriting/premium-rating/contract-creation purposes
+.decl received_phi_for_underwriting(p1: Principal, q: Principal, t: Attribute)
+
+// is_for_underwriting(U): purpose is underwriting or a related activity
+.decl is_for_underwriting(u: Purpose)
+is_for_underwriting("underwriting-and-related-purposes").
+
+// The negative norm phi-_514g blocks disclosures by health plans that
+// received PHI for underwriting when insurance was NOT placed with them,
+// UNLESS the disclosure is itself for the underwriting purpose or required
+// by law. This must hold even when the same PHI independently matches some
+// other legitimate-looking pathway (e.g. health care operations), which the
+// CFR specifically prohibits when insurance wasn't placed. Wired as a
+// top-level negated guard in hipaa_top.dl (same architectural placement as
+// require_authorization_by_164_508 and minimum_necessary_satisfied) since
+// it must override ANY positive pathway, not just gate a new one.
+.decl violates_underwriting_restriction(DECL_ARGS)
+
+// disclosure_attempted(ARGS) grounds p2/m/u -- negated literals don't
+// ground variables in Soufflé (same pattern as is_sale_of_phi in
+// hipaa_164_508.dl).
+violates_underwriting_restriction(ARGS) :-
+    disclosure_attempted(ARGS),
+    is_health_plan(p1),
+    received_phi_for_underwriting(p1, q, t),
+    !health_insurance_placed_with(q, p1),
+    !is_for_underwriting(u),
+    !is_required_by_law(p1, p2, q, t, u).

@@ -1,0 +1,149 @@
+// ============================================================================
+// hipaa_164_522.dl — §164.522: Rights to request privacy protection
+// ============================================================================
+// (a) Right to request restriction of uses and disclosures
+// (b) Confidential communications requirements
+//
+// Both provisions are negative constraints in the CFR text ("may not disclose...
+// in violation of," "must accommodate...") -- NOT independent affirmative grounds
+// for disclosure. The stubs this module replaces (permitted_by_164_522_a_1,
+// permitted_by_164_522_a, permitted_by_164_522_b, formerly in hipaa_stubs.dl) were
+// wired as positive OR-branches of permitted_by_164_502 (via §502(c) and §502(h)),
+// copied directly from the source PDF formalization without independent
+// verification. Left unfilled they were harmless dead stubs; filled in naively
+// ("true whenever nothing is being violated," which is trivially true for the vast
+// majority of ordinary disclosures with no restriction/confidential-communication
+// request in play at all) they would have made §502(c)/§502(h) into
+// near-universally-true OR-branches, letting `permitted_by_164_502` fire with no
+// other legal basis whatsoever.
+//
+// Instead of filling in the old stubs: §164.522(a) becomes a new
+// top-level negated guard, violates_restriction_agreement, matching the
+// architectural pattern already established for §508/§514(g)/§502(a)(5)(i)
+// (hipaa_top.dl). §164.522(b) becomes the real derivation logic for
+// sent_via_non_requested_channel, an existing top-level guard that already cited
+// §164.522(b) in its own comment but had never been given rules (a bare oracle).
+// permitted_by_164_502_c is retired as a positive branch (see hipaa_164_502.dl);
+// permitted_by_164_502_h no longer depends on a separate §522(b) stub, since the
+// real constraint is enforced by sent_via_non_requested_channel already.
+// ============================================================================
+
+// =============================================
+// §164.522(a) — Restriction agreements
+// =============================================
+// "(a)(1)(i) A covered entity must permit an individual to request that the
+//  covered entity restrict uses or disclosures of protected health information
+//  about the individual to carry out treatment, payment, or health care
+//  operations... or disclosures [for care-involvement/notification purposes under
+//  §164.510(b)]."
+// "(a)(1)(vi) [HITECH] Notwithstanding (a)(1)(ii), a covered entity must agree to
+//  [a requested] restriction... if... the disclosure is to a health plan for
+//  purposes of carrying out payment or health care operations... and the [PHI]
+//  pertains solely to a health care item or service for which the... individual...
+//  has paid the covered entity in full out of pocket."
+// "(a)(2) A covered entity that has agreed to a restriction... may not use or
+//  disclose [PHI] in violation of such restriction, except that, if the individual
+//  who requested the restriction is in need of emergency treatment and the
+//  restricted [PHI] is needed to provide the emergency treatment, the covered
+//  entity may use [it] or may disclose such information to a health care provider
+//  to provide such treatment."
+// "(a)(3) A covered entity may terminate its agreement to a restriction, if...
+//  the individual agrees to or requests the termination... or... the covered
+//  entity informs the individual... except that such termination is only
+//  effective with respect to [PHI] created or received after it has so informed
+//  the individual."
+
+// requested_restriction: oracle -- the individual requested the covered entity
+// restrict use/disclosure of q's attribute t for purpose u, per §164.522(a)(1)(i).
+.decl requested_restriction(p1: Principal, q: Principal, t: Attribute, u: Purpose)
+
+// agreed_to_restriction: oracle -- the covered entity voluntarily agreed to a
+// requested restriction, per §164.522(a)(1)(ii) (agreement is discretionary
+// except for the (a)(1)(vi) mandatory case below).
+.decl agreed_to_restriction(p1: Principal, q: Principal, t: Attribute, u: Purpose)
+
+// paid_out_of_pocket_in_full: oracle -- the individual (or someone on their
+// behalf) has paid the covered entity in full, out of pocket, for the health
+// care item/service this attribute pertains to -- the §164.522(a)(1)(vi)
+// mandatory-restriction trigger.
+.decl paid_out_of_pocket_in_full(q: Principal, t: Attribute)
+
+// restriction_terminated: oracle -- the restriction was terminated per
+// §164.522(a)(3) (individual agreement, or CE-initiated termination). Modeled as
+// fully lifting the restriction going forward; the CFR's own prospective-only
+// nuance for CE-initiated termination (still binding for PHI created/received
+// before the individual was informed) is not separately modeled -- a known
+// simplification, not a silent omission.
+.decl restriction_terminated(p1: Principal, q: Principal, t: Attribute, u: Purpose)
+
+// A requested restriction is binding on the covered entity when either the CE
+// voluntarily agreed to it, or the (a)(1)(vi) mandatory-agreement condition is
+// met for this specific disclosure (recipient is a health plan, purpose is
+// payment or health care operations, and the item/service was paid out of
+// pocket in full) -- and it has not been terminated.
+.decl restriction_binds(DECL_ARGS)
+
+restriction_binds(ARGS) :-
+    disclosure_attempted(ARGS),
+    requested_restriction(p1, q, t, u),
+    agreed_to_restriction(p1, q, t, u),
+    !restriction_terminated(p1, q, t, u).
+
+restriction_binds(ARGS) :-
+    disclosure_attempted(ARGS),
+    requested_restriction(p1, q, t, u),
+    is_health_plan(p2),
+    (is_for_payment(u) ; is_for_hc_ops(u)),
+    paid_out_of_pocket_in_full(q, t),
+    !restriction_terminated(p1, q, t, u).
+
+// §164.522(a)(2)'s emergency-treatment exception: even a binding restriction
+// does not block disclosure to a health care provider for the individual's own
+// emergency treatment.
+.decl permitted_emergency_treatment_exception_522a2(DECL_ARGS)
+
+permitted_emergency_treatment_exception_522a2(ARGS) :-
+    disclosure_attempted(ARGS),
+    is_health_care_provider(p2),
+    u = "emergency-treatment".
+
+// violates_restriction_agreement: the top-level negated guard (wired into
+// hipaa_top.dl's is_disclosure_allowed). True when a restriction binds this
+// exact disclosure and the emergency-treatment exception doesn't apply.
+.decl violates_restriction_agreement(DECL_ARGS)
+
+violates_restriction_agreement(ARGS) :-
+    restriction_binds(ARGS),
+    !permitted_emergency_treatment_exception_522a2(ARGS).
+
+// =============================================
+// §164.522(b) — Confidential communications requirements
+// =============================================
+// "(b)(1) A covered entity must permit individuals to request and must
+//  accommodate reasonable requests by individuals to receive communications of
+//  protected health information from the covered entity by alternative means or
+//  at alternative locations, if the individual clearly states that the
+//  disclosure of all or part of that information could endanger the individual."
+
+// requested_confidential_communication: oracle -- the individual made a
+// reasonable request, clearly stating that ordinary-channel disclosure could
+// endanger them, per §164.522(b)(1). Scoped to (p1, q) -- the request is made to
+// a specific covered entity about how that entity communicates with the
+// individual, not to a specific message or attribute.
+.decl requested_confidential_communication(p1: Principal, q: Principal)
+
+// accommodated_via_requested_channel: oracle -- THIS SPECIFIC message was sent
+// via the individual's requested alternative means/location. Message-scoped
+// (not just (p1,q)-scoped) because whether a *particular* disclosure honored the
+// request is a fact about that disclosure, not a permanent trait of the
+// covered-entity/individual pair.
+.decl accommodated_via_requested_channel(m: Message, p1: Principal, q: Principal)
+
+// sent_via_non_requested_channel is declared in hipaa_macros.dl, carrying m (the
+// message) so two different messages of the same attribute type to the same
+// recipient (one honoring the request, one not) can be distinguished. This is
+// its only derivation rule.
+sent_via_non_requested_channel(p1, p2, q, m, t) :-
+    disclosure_attempted(p1, p2, q, m, t, _),
+    requested_confidential_communication(p1, q),
+    !accommodated_via_requested_channel(m, p1, q).

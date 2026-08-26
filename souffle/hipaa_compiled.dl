@@ -1,0 +1,64 @@
+#include "hipaa.dl"
+
+// safe_harbor_deidentified is 2-arity: (m: Message, t: Attribute), not just
+// (t: Attribute) -- see hipaa_164_514.dl. Any external fact producer for this
+// relation (e.g. connector/llm1_extractor.py) and any .facts fixtures must emit
+// (message_id, attribute_type) pairs instead of bare attribute types.
+.input activerole
+.input belongstorole
+.input msg_contains
+.input disclosure_attempted
+.input appears_necessary_to_alert_crime
+.input authorized_by_statute_regulation
+.input believes_can_lessen_threat
+.input believes_crime_caused_serious_harm
+.input believes_disclosure_necessary_to_prevent_harm
+.input believes_evidence_of_crime_on_premises
+.input believes_minimum_necessary
+.input believes_necessary_to_lessen_threat
+.input believes_victim_of_abuse
+.input belongstorole
+.input ce_wrongly_denied_access
+.input consistent_with_applicable_law
+.input determines_access_would_endanger
+.input has_authority_to_act
+.input has_court_order
+.input has_given_notice_of_workplace_disclosure
+.input has_irb_or_privacy_board_waiver
+.input has_lawful_process_with_assurance
+.input has_not_objected_to_directory
+.input in_compliance_with_court_order
+.input is_access_request
+.input is_admission_of_crime
+.input is_authorized_by_law_for_purpose
+.input is_authorized_for_disaster_relief
+.input is_authorized_to_receive_abuse_reports
+.input is_business_associate_of
+.input is_defective_authorization
+.input is_employee_of
+.input is_employer_of_subject
+.input is_guardian
+.input is_identified_by_individual
+.input is_in_designated_record_set
+.input is_in_lawful_custody
+.input is_incident_to_use
+.input is_reply_to_request
+.input is_required_by_law
+.input is_valid_authorization
+.input lacks_authorized_relationship
+.input made_reasonable_effort_to_notify
+.input minor_acts_as_individual
+.input obtained_authorization_164_508
+.input obtained_consent_506b
+.input organization_member
+.input permitted_by_other_law
+.input prof_judgment_not_interfere_emergency
+.input professional_judgment_best_interest_510b3
+.input provider_of
+.input providing_emergency_healthcare
+.input received_phi_for_underwriting
+.input receives_remuneration_for_phi
+.input relevant_to_involvement
+.input safe_harbor_deidentified
+.input satisfactory_assurances
+.input sent_via_non_requested_channel

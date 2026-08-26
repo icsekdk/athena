@@ -1,0 +1,68 @@
+// ============================================================================
+// hipaa_stubs.dl — Stub declarations for sections not yet formalized
+// ============================================================================
+// These relations are declared but have NO rules, so they are empty.
+// This means pathways through un-formalized sections will not permit
+// any disclosures — a conservative, safe default.
+//
+// When a section is formalized, its stub should be replaced by the
+// actual rules and the _stub suffix removed.
+// ============================================================================
+
+// === §164.508: Uses and disclosures for which authorization is required ===
+// Used by: §164.502(a)(1)(iv), §164.506(a)
+// require_authorization_by_164_508 — rules in hipaa_164_508.dl
+.decl require_authorization_by_164_508(DECL_ARGS)
+.decl obtained_authorization_164_508(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// === §164.510: Uses and disclosures requiring opportunity to agree/object ===
+// Used by: §164.502(a)(1)(v)
+// Rules in hipaa_164_510.dl
+.decl permitted_by_164_510(DECL_ARGS, e: Expl)
+
+// === §164.512: Uses and disclosures not requiring authorization or opportunity ===
+// Used by: §164.502(a)(1)(vi), §164.502(j)(2)(ii)
+// Rules in hipaa_164_512.dl
+.decl permitted_by_164_512(DECL_ARGS, e: Expl)
+.decl required_by_164_512_a(DECL_ARGS)
+// §164.512(f)(2)(i): info limited for crime victim disclosures
+.decl permitted_by_164_512_f_2_i(DECL_ARGS)
+
+// === §164.514: Other requirements ===
+// Rules in hipaa_164_514.dl
+.decl permitted_by_164_514_d(DECL_ARGS)
+.decl permitted_by_164_514_e(DECL_ARGS, e: Expl)
+.decl permitted_by_164_514_f(DECL_ARGS, e: Expl)
+.decl permitted_by_164_514_g(DECL_ARGS, e: Expl)
+// §164.514(a),(b): de-identification standards
+.decl permitted_by_164_514(DECL_ARGS, e: Expl)
+
+// §164.520: permitted_by_164_520 was a stub delegated to by
+// permitted_by_164_502_i; both are replaced by the top-level negated guard
+// inconsistent_with_notice_of_privacy_practices (hipaa_macros.dl / hipaa_top.dl).
+
+// §164.522: implemented in hipaa_164_522.dl as top-level negated guards
+// (violates_restriction_agreement, sent_via_non_requested_channel) rather than
+// permitted_by_164_522_a_1/a/b stubs -- see that file for the full rationale.
+
+// === §164.524: Access of individuals to PHI ===
+// Used by: §164.502(a)(2)(i)
+// Rules in hipaa_164_524.dl
+.decl required_by_164_524(DECL_ARGS)
+
+// §164.528: implemented in hipaa_164_528.dl (required_by_164_528 --
+// oracle-backed unfulfilled-accounting-request and fee-violation rules,
+// mirroring required_by_164_524's scope/depth).
+
+// === §164.530(c): Administrative requirements — safeguards ===
+// Used by: §164.502(a)(1)(iii)
+.decl permitted_by_164_530_c(DECL_ARGS)
+
+// === §164.504(f): Group health plan requirements ===
+// Used by: §164.502(e)(1)(ii)(B)
+.decl permitted_by_164_504_f(DECL_ARGS)
+
+// === Subpart C of Part 160 ===
+// Used by: §164.502(a), §164.502(a)(2)(ii), §164.502(b)(2)(iv)
+.decl permitted_by_160_C(DECL_ARGS)

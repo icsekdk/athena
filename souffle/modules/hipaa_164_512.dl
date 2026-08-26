@@ -1,0 +1,996 @@
+// ============================================================================
+// hipaa_164_512.dl — §164.512: Uses and disclosures for which an
+//                    authorization or opportunity to agree/object
+//                    is not required
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.6 (pages 70–97)
+//
+// This is the largest section. Sub-sections:
+//   (a) Required by law
+//   (b) Public health activities
+//   (c) Victims of abuse, neglect, or domestic violence
+//   (d) Health oversight activities
+//   (e) Judicial and administrative proceedings
+//   (f) Law enforcement purposes
+//   (g) Decedents — coroners, medical examiners, funeral directors
+//   (h) Cadaveric organ, eye, or tissue donation
+//   (i) Research
+//   (j) To avert a serious threat to health or safety
+//   (k) Specialized government functions
+//   (l) Workers' compensation
+// ============================================================================
+
+// =============================================
+// §164.512 — Top-level
+// =============================================
+// permitted_by_164_512 is declared in hipaa_stubs.dl.
+// We provide rules here that populate it.
+
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_a(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_b(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_c(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_d(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_e(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_f(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_g(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_h(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_i(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_j(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_k(ARGS, E).
+permitted_by_164_512(ARGS, E) :- permitted_by_164_512_l(ARGS, E).
+
+// =============================================
+// §164.512(a) — Required by law
+// =============================================
+// PDF (page 70):
+//   phi+_512a1: activerole(p1, covered-entity) ^
+//     (t in phi) ^ is-required-by-law(p1, p2, (q, t), u)
+
+// is_required_by_law: oracle — disclosure is required by law
+.decl is_required_by_law(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// permitted_by_164_512_a is forward-declared in hipaa_164_508.dl
+// Rules provided here:
+permitted_by_164_512_a(ARGS,
+    $Leaf("164.512(a): required by law")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_required_by_law(p1, p2, q, t, u).
+
+// required_by_164_512_a is declared in hipaa_stubs.dl — provide rule
+required_by_164_512_a(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_required_by_law(p1, p2, q, t, u).
+
+// =============================================
+// §164.512(b) — Public health activities
+// =============================================
+// PDF (pages 71–73)
+.decl permitted_by_164_512_b(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_i(ARGS, E).
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_ii(ARGS, E).
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_iii(ARGS, E).
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_iv(ARGS, E).
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_v(ARGS, E).
+permitted_by_164_512_b(ARGS, E) :- permitted_by_164_512_b_1_vi(ARGS, E).
+
+// --- §164.512(b)(1)(i): To public health authority ---
+// PDF (page 71): phi+_512b1i
+.decl permitted_by_164_512_b_1_i(DECL_ARGS, e: Expl)
+
+// is_authorized_by_law_for_purpose: authority authorized by law for purpose u
+.decl is_authorized_by_law_for_purpose(p: Principal, u: Purpose)
+
+// is_for_public_health(U): purpose is public health related
+.decl is_for_public_health(u: Purpose)
+is_for_public_health("disease-prevention-or-control").
+is_for_public_health("public-health-surveillance").
+is_for_public_health("public-health-investigation").
+is_for_public_health("public-health-intervention").
+// Generic "public-health" purpose used by some models (R93, R101)
+is_for_public_health("public-health").
+is_for_public_health("notify-for-public-health-intervention").
+is_for_public_health("fda-quality-safety-effectiveness").
+
+permitted_by_164_512_b_1_i(ARGS,
+    $Leaf("164.512(b)(1)(i): to public health authority for disease prevention/control")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_public_health_authority(p2),
+    is_authorized_by_law_for_purpose(p2, u),
+    is_for_public_health(u).
+
+// --- §164.512(b)(1)(ii): Child abuse reports ---
+// PDF (page 71): phi+_512b1ii
+.decl permitted_by_164_512_b_1_ii(DECL_ARGS, e: Expl)
+
+// is_authorized_to_receive_abuse_reports: authority authorized to receive reports
+.decl is_authorized_to_receive_abuse_reports(p: Principal)
+
+permitted_by_164_512_b_1_ii(ARGS,
+    $Leaf("164.512(b)(1)(ii): child abuse report to authorized authority")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (is_public_health_authority(p2) ; has_role(p2, "government-authority")),
+    is_authorized_to_receive_abuse_reports(p2),
+    u = "reports-of-child-abuse".
+
+// --- §164.512(b)(1)(iii): FDA activities ---
+// PDF (page 72): phi+_512b1iii
+.decl permitted_by_164_512_b_1_iii(DECL_ARGS, e: Expl)
+
+// is_responsible_for_fda_product: p2 is responsible for FDA-regulated product
+.decl is_responsible_for_fda_product(p: Principal)
+
+// is_for_fda_activity(U): purpose is FDA quality/safety/effectiveness
+.decl is_for_fda_activity(u: Purpose)
+is_for_fda_activity("fda-quality-safety-effectiveness").
+
+permitted_by_164_512_b_1_iii(ARGS,
+    $Leaf("164.512(b)(1)(iii): FDA-regulated product activities")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_responsible_for_fda_product(p2),
+    is_for_fda_activity(u).
+
+// --- §164.512(b)(1)(iv): Disease notification ---
+// PDF (page 72): phi+_512b1iv
+.decl permitted_by_164_512_b_1_iv(DECL_ARGS, e: Expl)
+
+// is_at_risk_of_disease(P): person at risk of contracting/spreading disease
+.decl is_at_risk_of_disease(p: Principal)
+
+permitted_by_164_512_b_1_iv(ARGS,
+    $Leaf("164.512(b)(1)(iv): disease notification to at-risk person")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_at_risk_of_disease(p2),
+    u = "notify-for-public-health-intervention".
+
+// --- §164.512(b)(1)(v): Workplace medical surveillance ---
+// PDF (page 73): phi+_512b1v
+.decl permitted_by_164_512_b_1_v(DECL_ARGS, e: Expl)
+
+// is_employer_of(P2, Q): P2 is employer of subject Q
+.decl is_employer_of_subject(p2: Principal, q: Principal)
+
+// is_for_workplace_surveillance(U): purpose is workplace medical surveillance
+.decl is_for_workplace_surveillance(u: Purpose)
+is_for_workplace_surveillance("obligation-to-record-workplace-injury").
+is_for_workplace_surveillance("obligation-to-perform-medical-surveillance").
+
+// has_given_notice_of_workplace_disclosure: provider gave notice
+.decl has_given_notice_of_workplace_disclosure(p1: Principal, q: Principal)
+
+permitted_by_164_512_b_1_v(ARGS,
+    $Leaf("164.512(b)(1)(v): workplace medical surveillance to employer")) :-
+    is_health_care_provider(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_employer_of_subject(p2, q),
+    is_for_workplace_surveillance(u),
+    has_given_notice_of_workplace_disclosure(p1, q).
+
+// --- §164.512(b)(1)(vi): School immunization records ---
+.decl permitted_by_164_512_b_1_vi(DECL_ARGS, e: Expl)
+
+// is_school(P): P is a school
+.decl is_school(p: Principal)
+is_school(P) :- activerole(P, "school").
+
+// is_immunization_record(T): attribute limited to proof of immunization
+.decl is_immunization_record(t: Attribute)
+is_immunization_record("immunization-records").
+
+// school_requires_immunization_by_law: oracle — school is required by
+// State or other law to have proof of immunization before admitting q
+.decl school_requires_immunization_by_law(p2: Principal, q: Principal)
+
+// has_immunization_disclosure_agreement: oracle — CE obtained/documented
+// agreement from the parent/guardian (unemancipated minor) or the
+// individual (adult/emancipated minor)
+.decl has_immunization_disclosure_agreement(p1: Principal, q: Principal)
+
+permitted_by_164_512_b_1_vi(ARGS,
+    $Leaf("164.512(b)(1)(vi): school immunization records")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_school(p2),
+    is_immunization_record(t),
+    u = "school-immunization-proof",
+    school_requires_immunization_by_law(p2, q),
+    has_immunization_disclosure_agreement(p1, q).
+
+// =============================================
+// §164.512(c) — Abuse, neglect, or domestic violence
+// =============================================
+// PDF (pages 74–75)
+.decl permitted_by_164_512_c(DECL_ARGS, e: Expl)
+
+// believes_victim_of_abuse(P1, Q): CE believes Q is victim of abuse
+.decl believes_victim_of_abuse(p1: Principal, q: Principal)
+
+// individual_has_agreed_to_disclosure: oracle
+.decl individual_has_agreed_to_disclosure(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// authorized_by_statute_regulation: disclosure authorized by statute
+.decl authorized_by_statute_regulation(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_disclosure_necessary_to_prevent_harm: oracle
+.decl believes_disclosure_necessary_to_prevent_harm(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_c(ARGS,
+    $Leaf("164.512(c): abuse/neglect/domestic violence report to government authority")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    has_role(p2, "government-authority"),
+    is_authorized_by_law_for_purpose(p2, u),
+    believes_victim_of_abuse(p1, q),
+    u = "reports-of-abuse",
+    // §512(c)(1): (i) required by law, (ii) individual agrees, or (iii) authorized + necessary
+    (is_required_by_law(p1, p2, q, t, u) ;
+     individual_has_agreed_to_disclosure(p1, p2, q, t, u) ;
+     (authorized_by_statute_regulation(p1, p2, q, t, u),
+      believes_disclosure_necessary_to_prevent_harm(p1, p2, q, t, u))).
+
+// =============================================
+// §164.512(d) — Health oversight activities
+// =============================================
+// PDF (pages 76–77)
+// permitted_by_164_512_d is forward-declared in hipaa_164_508.dl
+
+// is_health_oversight_agency(P): P is a health oversight agency
+.decl is_health_oversight_agency(p: Principal)
+is_health_oversight_agency(P) :- has_role(P, "oversight-agency").
+
+// is_for_oversight(U): purpose is health oversight
+.decl is_for_oversight(u: Purpose)
+is_for_oversight("health-oversight").
+
+// --- §164.512(d)(2)/(3): Exception — individual as subject of investigation ---
+// (d)(2): health oversight does NOT include an investigation where the
+// individual who is the subject of the PHI is also the subject of the
+// investigation, UNLESS the investigation arises out of and is directly
+// related to their receipt of health care or a claim for public benefits
+// related to health.
+// (d)(3): joint investigations combining a health-related claim with a
+// non-health-benefit claim still count as health oversight — i.e. the
+// exception does not apply to a qualifying joint investigation. Folded
+// into this negated oracle (asserted true only when the individual is the
+// subject of an investigation that is neither health-care-related nor a
+// qualifying joint investigation), consistent with how other multi-clause
+// carve-backs are modeled as a single fact elsewhere in this file (e.g.
+// believes_emergency_result_of_abuse for §512(f)(6)(ii)).
+.decl is_subject_of_unrelated_oversight_investigation(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_d(ARGS,
+    $Leaf("164.512(d)(1): health oversight activities")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_health_oversight_agency(p2),
+    is_authorized_by_law_for_purpose(p2, u),
+    is_for_oversight(u),
+    !is_subject_of_unrelated_oversight_investigation(p1, p2, q, t, u).
+
+// =============================================
+// §164.512(e) — Judicial and administrative proceedings
+// =============================================
+// PDF (pages 78–80)
+.decl permitted_by_164_512_e(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_e(ARGS, E) :- permitted_by_164_512_e_1_i(ARGS, E).
+permitted_by_164_512_e(ARGS, E) :- permitted_by_164_512_e_1_ii(ARGS, E).
+permitted_by_164_512_e(ARGS, E) :- permitted_by_164_512_e_1_vi(ARGS, E).
+
+// is_for_judicial_proceeding(U): purpose is judicial/administrative proceeding
+// legal-defense is a sub-case of §512(e) — CE defending itself in litigation
+.decl is_for_judicial_proceeding(u: Purpose)
+is_for_judicial_proceeding("judicial-administrative-proceeding").
+is_for_judicial_proceeding("legal-defense").
+
+// --- §164.512(e)(1)(i): Court order ---
+// PDF (page 78): phi+_512e1i
+.decl permitted_by_164_512_e_1_i(DECL_ARGS, e: Expl)
+
+// has_court_order: CE has received a court order for disclosure
+.decl has_court_order(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_e_1_i(ARGS,
+    $Leaf("164.512(e)(1)(i): in response to court order")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_judicial_proceeding(u),
+    has_court_order(p1, p2, q, t, u).
+
+// --- §164.512(e)(1)(ii): Subpoena with satisfactory assurance ---
+// PDF (pages 78–79): phi+_512e1ii
+.decl permitted_by_164_512_e_1_ii(DECL_ARGS, e: Expl)
+
+// has_lawful_process_with_assurance: subpoena/discovery with satisfactory assurance
+.decl has_lawful_process_with_assurance(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_e_1_ii(ARGS,
+    $Leaf("164.512(e)(1)(ii): subpoena with satisfactory assurance")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_judicial_proceeding(u),
+    has_lawful_process_with_assurance(p1, p2, q, t, u).
+
+// --- §164.512(e)(1)(vi): Reasonable effort to notify ---
+// PDF (page 80): phi+_512e1vi
+.decl permitted_by_164_512_e_1_vi(DECL_ARGS, e: Expl)
+
+// made_reasonable_effort_to_notify: CE made reasonable effort
+.decl made_reasonable_effort_to_notify(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_e_1_vi(ARGS,
+    $Leaf("164.512(e)(1)(vi): reasonable effort to notify individual")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_judicial_proceeding(u),
+    made_reasonable_effort_to_notify(p1, p2, q, t, u).
+
+// =============================================
+// §164.512(f) — Law enforcement purposes
+// =============================================
+// PDF (pages 81–85)
+.decl permitted_by_164_512_f(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_1(ARGS, E).
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_2(ARGS, E).
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_3(ARGS, E).
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_4(ARGS, E).
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_5(ARGS, E).
+permitted_by_164_512_f(ARGS, E) :- permitted_by_164_512_f_6(ARGS, E).
+
+// is_for_law_enforcement(U): purpose is law enforcement
+.decl is_for_law_enforcement(u: Purpose)
+is_for_law_enforcement("law-enforcement").
+// §164.512(f)(2) identification/location requests are also LE purposes for §512(f)(1) pathways
+is_for_law_enforcement("law-enforcement-identification-or-location").
+
+// --- §164.512(f)(1) — Required by law or court order ---
+.decl permitted_by_164_512_f_1(DECL_ARGS, e: Expl)
+
+// --- §164.512(f)(1)(i): Required by law ---
+// PDF (page 81): phi+_512f1i
+// Required by law (e.g., reporting wounds), except for (b)(1)(ii) and (c)(1)(i)
+permitted_by_164_512_f_1(ARGS,
+    $Leaf("164.512(f)(1)(i): required by law to law enforcement")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_law_enforcement(u),
+    is_required_by_law(p1, p2, q, t, u).
+
+// --- §164.512(f)(1)(ii): Court order/warrant/subpoena ---
+// PDF (page 82): phi+_512f1ii
+// in_compliance_with_court_order used to be its own oracle-asked leaf,
+// duplicating the exact same real-world evidence has_court_order already
+// asks about for §164.512(e)(1)(i) -- a genuine court order compelling
+// disclosure is one fact, not two, regardless of which HIPAA exception
+// (judicial-proceeding vs. law-enforcement) ends up applying it. Now
+// derived from has_court_order so the oracle is asked once; kept as its
+// own relation (rather than deleted) purely so existing gold-fact CSVs
+// and .dl fixtures keyed to this name still resolve.
+.decl in_compliance_with_court_order(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+in_compliance_with_court_order(p1, p2, q, t, u) :- has_court_order(p1, p2, q, t, u).
+
+permitted_by_164_512_f_1(ARGS,
+    $Leaf("164.512(f)(1)(ii): court order/warrant/subpoena to law enforcement")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_law_enforcement(u),
+    has_court_order(p1, p2, q, t, u).
+
+// --- §164.512(f)(2): Identify/locate suspect (limited info) ---
+// PDF (pages 82–83): phi+_512f2
+.decl permitted_by_164_512_f_2(DECL_ARGS, e: Expl)
+
+// is_limited_identifying_info(T): info allowed for identification/location
+.decl is_limited_identifying_info(t: Attribute)
+is_limited_identifying_info("name-and-address").
+is_limited_identifying_info("date-and-place-of-birth").
+is_limited_identifying_info("social-security-number").
+is_limited_identifying_info("ABO-blood-type-and-rh-factor").
+is_limited_identifying_info("type-of-injury").
+is_limited_identifying_info("date-and-time-of-treatment").
+is_limited_identifying_info("date-and-time-of-death").
+is_limited_identifying_info("distinguishing-physical-characteristics").
+
+// is_request_for_identification: law enforcement request for identification
+.decl is_request_for_identification(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_f_2(ARGS,
+    $Leaf("164.512(f)(2): identify/locate suspect — limited info")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_limited_identifying_info(t),
+    u = "law-enforcement-identification-or-location",
+    is_request_for_identification(p2, p1, q, t, u).
+
+// Also populate the stub for permitted_by_164_512_f_2_i
+permitted_by_164_512_f_2_i(ARGS) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_limited_identifying_info(t),
+    msg_contains(m, q, t),
+    is_request_for_identification(p2, p1, q, t, u).
+
+// --- §164.512(f)(3): Crime victim ---
+// PDF (pages 83–84): phi+_512f3i, phi+_512f3ii
+.decl permitted_by_164_512_f_3(DECL_ARGS, e: Expl)
+
+// individual_agrees_to_le_disclosure: victim agrees to disclosure
+.decl individual_agrees_to_le_disclosure(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// represents_needed_emergency: law enforcement represents urgency
+.decl represents_needed_emergency(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_in_best_interest_le: CE believes in best interest
+.decl believes_in_best_interest_le(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// §512(f)(3)(i): individual agrees
+permitted_by_164_512_f_3(ARGS,
+    $Leaf("164.512(f)(3)(i): crime victim agrees to law enforcement disclosure")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_law_enforcement(u),
+    (belongs_to(q, "victim-of-crime") ; belongs_to(q, "suspected-victim-of-crime")),
+    individual_agrees_to_le_disclosure(p1, p2, q, t, u).
+
+// §512(f)(3)(ii): unable to obtain agreement due to emergency
+permitted_by_164_512_f_3(ARGS,
+    $Leaf("164.512(f)(3)(ii): crime victim — emergency, unable to obtain agreement")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_law_enforcement(u),
+    (belongs_to(q, "victim-of-crime") ; belongs_to(q, "suspected-victim-of-crime")),
+    belongs_to(q, "emergency-circumstance"),
+    represents_needed_emergency(p2, p1, q, t, u),
+    believes_in_best_interest_le(p1, p2, q, t, u).
+
+// --- §164.512(f)(4): Suspicious death ---
+// PDF (page 84): phi+_512f4
+.decl permitted_by_164_512_f_4(DECL_ARGS, e: Expl)
+
+// believes_death_may_be_result_of_crime: oracle
+.decl believes_death_may_be_result_of_crime(p1: Principal, q: Principal)
+
+permitted_by_164_512_f_4(ARGS,
+    $Leaf("164.512(f)(4): suspicious death notification to law enforcement")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    belongs_to(q, "deceased"),
+    u = "suspicious-death-notification",
+    believes_death_may_be_result_of_crime(p1, q).
+
+// --- §164.512(f)(5): Crime on premises ---
+// PDF (page 85): phi+_512(f)(5)
+.decl permitted_by_164_512_f_5(DECL_ARGS, e: Expl)
+
+// believes_evidence_of_crime_on_premises: oracle
+.decl believes_evidence_of_crime_on_premises(p1: Principal, q: Principal, t: Attribute)
+
+permitted_by_164_512_f_5(ARGS,
+    $Leaf("164.512(f)(5): evidence of crime on premises")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "report-crime-on-premises",
+    believes_evidence_of_crime_on_premises(p1, q, t).
+
+// --- §164.512(f)(6): Medical emergency ---
+// PDF (page 85): phi+_512f6 = phi+_512f6i ^ phi-_512f6ii
+.decl permitted_by_164_512_f_6(DECL_ARGS, e: Expl)
+
+// providing_emergency_healthcare: provider is providing emergency care
+.decl providing_emergency_healthcare(p1: Principal, q: Principal)
+
+// appears_necessary_to_alert_crime: disclosure appears necessary to alert LE
+.decl appears_necessary_to_alert_crime(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_emergency_result_of_abuse: oracle (negative norm — blocks f(6)(i))
+.decl believes_emergency_result_of_abuse(p1: Principal, q: Principal)
+
+permitted_by_164_512_f_6(ARGS,
+    $Leaf("164.512(f)(6): medical emergency — alert law enforcement of crime")) :-
+    is_health_care_provider(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "alert-law-enforcement-of-crime",
+    providing_emergency_healthcare(p1, q),
+    appears_necessary_to_alert_crime(p1, p2, q, t, u),
+    !believes_emergency_result_of_abuse(p1, q).
+
+// =============================================
+// §164.512(g) — Decedents
+// =============================================
+// PDF (pages 86): phi+_512g1, phi+_512g2
+.decl permitted_by_164_512_g(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_g(ARGS, E) :- permitted_by_164_512_g_1(ARGS, E).
+permitted_by_164_512_g(ARGS, E) :- permitted_by_164_512_g_2(ARGS, E).
+
+// --- §164.512(g)(1): Coroner/medical examiner ---
+// permitted_by_164_512_g_1 is forward-declared in hipaa_164_508.dl
+
+// is_coroner_or_medical_examiner(P): P is a coroner or medical examiner
+.decl is_coroner_or_medical_examiner(p: Principal)
+is_coroner_or_medical_examiner(P) :- activerole(P, "coroner").
+is_coroner_or_medical_examiner(P) :- activerole(P, "medical-examiner").
+
+// is_for_decedent_purpose(U): purpose related to identifying deceased or cause of death
+.decl is_for_decedent_purpose(u: Purpose)
+is_for_decedent_purpose("identification-of-deceased").
+is_for_decedent_purpose("determining-cause-of-death").
+
+permitted_by_164_512_g_1(ARGS,
+    $Leaf("164.512(g)(1): disclosure to coroner/medical examiner")) :-
+    is_covered_entity(p1),
+    is_coroner_or_medical_examiner(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    belongs_to(q, "deceased"),
+    (is_for_decedent_purpose(u) ; is_authorized_by_law_for_purpose(p2, u)).
+
+// --- §164.512(g)(2): Funeral directors ---
+// PDF (page 86): phi+_512g2
+.decl permitted_by_164_512_g_2(DECL_ARGS, e: Expl)
+
+// necessary_for_funeral_duties: oracle
+.decl necessary_for_funeral_duties(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_g_2(ARGS,
+    $Leaf("164.512(g)(2): disclosure to funeral director")) :-
+    is_covered_entity(p1),
+    activerole(p2, "funeral-director"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (belongs_to(q, "deceased") ; belongs_to(q, "anticipated-death")),
+    u = "funeral-director-duties",
+    necessary_for_funeral_duties(p1, p2, q, t, u).
+
+// =============================================
+// §164.512(h) — Organ/tissue donation
+// =============================================
+// PDF (page 86): phi+_512h
+.decl permitted_by_164_512_h(DECL_ARGS, e: Expl)
+
+// is_organ_procurement_entity(P): P is an organ procurement organization
+.decl is_organ_procurement_entity(p: Principal)
+is_organ_procurement_entity(P) :- activerole(P, "organ-procurement-organization").
+
+permitted_by_164_512_h(ARGS,
+    $Leaf("164.512(h): organ/eye/tissue donation")) :-
+    is_covered_entity(p1),
+    is_organ_procurement_entity(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "facilitate-organ-donation-transplantation".
+
+// =============================================
+// §164.512(i) — Research
+// =============================================
+// PDF (pages 87–90)
+.decl permitted_by_164_512_i(DECL_ARGS, e: Expl)
+
+// has_irb_or_privacy_board_waiver: oracle — IRB/privacy board approved waiver
+.decl has_irb_or_privacy_board_waiver(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// represents_research_only_for_preparation: researcher represents preparatory use
+.decl represents_research_only_for_preparation(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// represents_decedent_research: researcher represents research on decedent info
+.decl represents_decedent_research(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_for_research(U): purpose is research
+.decl is_for_research(u: Purpose)
+is_for_research("research").
+is_for_research(U) :- purpose_subtype(U, "research").
+
+// §164.512(i)(1)(i): Board approval of waiver
+permitted_by_164_512_i(ARGS,
+    $Leaf("164.512(i)(1)(i): research with IRB/privacy board waiver")) :-
+    is_covered_entity(p1),
+    activerole(p2, "researcher"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_research(u),
+    has_irb_or_privacy_board_waiver(p1, p2, q, t, u).
+
+// §164.512(i)(1)(ii): Preparatory to research
+permitted_by_164_512_i(ARGS,
+    $Leaf("164.512(i)(1)(ii): preparatory to research")) :-
+    is_covered_entity(p1),
+    activerole(p2, "researcher"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_research(u),
+    represents_research_only_for_preparation(p2, p1, q, t, u).
+
+// §164.512(i)(1)(iii): Research on decedent's information
+permitted_by_164_512_i(ARGS,
+    $Leaf("164.512(i)(1)(iii): research on decedent information")) :-
+    is_covered_entity(p1),
+    activerole(p2, "researcher"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_research(u),
+    belongs_to(q, "deceased"),
+    represents_decedent_research(p2, p1, q, t, u).
+
+// =============================================
+// §164.512(j) — Serious threat to health or safety
+// =============================================
+// PDF (pages 91–92)
+.decl permitted_by_164_512_j(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_j(ARGS, E) :- permitted_by_164_512_j_1_i(ARGS, E).
+permitted_by_164_512_j(ARGS, E) :- permitted_by_164_512_j_1_ii(ARGS, E).
+
+// --- §164.512(j)(1)(i): Prevent/lessen serious threat ---
+// permitted_by_164_512_j_1_i is forward-declared in hipaa_164_508.dl
+
+// consistent_with_applicable_law: oracle
+.decl consistent_with_applicable_law(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_necessary_to_lessen_threat: oracle
+.decl believes_necessary_to_lessen_threat(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// believes_can_lessen_threat: oracle
+.decl believes_can_lessen_threat(p1: Principal, p2: Principal, u: Purpose)
+
+permitted_by_164_512_j_1_i(ARGS,
+    $Leaf("164.512(j)(1)(i): prevent/lessen serious and imminent threat")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "lessen-health-threat",
+    consistent_with_applicable_law(p1, p2, q, t, u),
+    believes_necessary_to_lessen_threat(p1, p2, q, t, u),
+    believes_can_lessen_threat(p1, p2, u).
+
+// --- §164.512(j)(1)(ii): Identify/apprehend ---
+.decl permitted_by_164_512_j_1_ii(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_j_1_ii(ARGS, E) :-
+    permitted_by_164_512_j_1_ii_A(ARGS, E).
+permitted_by_164_512_j_1_ii(ARGS, E) :-
+    permitted_by_164_512_j_1_ii_B(ARGS, E).
+
+// §164.512(j)(1)(ii)(A): Violent crime admission
+// PDF (page 91): phi+_512j1iiA
+.decl permitted_by_164_512_j_1_ii_A(DECL_ARGS, e: Expl)
+
+// is_admission_of_crime(M): message contains admission of crime
+.decl is_admission_of_crime(q: Principal, p1: Principal)
+
+// believes_crime_caused_serious_harm: oracle
+.decl believes_crime_caused_serious_harm(p1: Principal, q: Principal)
+
+// learned_while_treating_propensity_for_crime: negative constraint
+.decl learned_while_treating_propensity_for_crime(p1: Principal, q: Principal, t: Attribute)
+
+// learned_through_request_for_treatment: negative constraint
+.decl learned_through_request_for_treatment(p1: Principal, q: Principal, t: Attribute)
+
+permitted_by_164_512_j_1_ii_A(ARGS,
+    $Leaf("164.512(j)(1)(ii)(A): identify/apprehend — violent crime admission")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    // §512(j)(3): disclosure must be limited to the admission statement
+    // itself plus the (f)(2)(i) limited-identifying-info list.
+    (is_crime_admission_statement(t) ; is_limited_identifying_info(t)),
+    msg_contains(m, q, t),
+    u = "identify-apprehend",
+    consistent_with_applicable_law(p1, p2, q, t, u),
+    is_admission_of_crime(q, p1),
+    believes_crime_caused_serious_harm(p1, q),
+    !learned_while_treating_propensity_for_crime(p1, q, t),
+    !learned_through_request_for_treatment(p1, q, t).
+
+// is_crime_admission_statement(T): the admission statement itself, per §512(j)(3)
+.decl is_crime_admission_statement(t: Attribute)
+is_crime_admission_statement("crime-admission-statement").
+
+// §164.512(j)(1)(ii)(B): Escaped custody
+// PDF (page 92): phi+_512j1iiB
+.decl permitted_by_164_512_j_1_ii_B(DECL_ARGS, e: Expl)
+
+// believes_escaped_lawful_custody: oracle
+.decl believes_escaped_lawful_custody(p1: Principal, q: Principal)
+
+permitted_by_164_512_j_1_ii_B(ARGS,
+    $Leaf("164.512(j)(1)(ii)(B): identify/apprehend — escaped custody")) :-
+    is_covered_entity(p1),
+    is_law_enforcement_for(p1, p2, q, t, u),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "identify-apprehend",
+    consistent_with_applicable_law(p1, p2, q, t, u),
+    believes_escaped_lawful_custody(p1, q).
+
+// =============================================
+// §164.512(k) — Specialized government functions
+// =============================================
+// PDF (pages 93–97)
+.decl permitted_by_164_512_k(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_1(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_2(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_3(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_4(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_5(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_6(ARGS, E).
+permitted_by_164_512_k(ARGS, E) :- permitted_by_164_512_k_7(ARGS, E).
+
+// --- §164.512(k)(1): Military/veterans ---
+// PDF (pages 93–95)
+.decl permitted_by_164_512_k_1(DECL_ARGS, e: Expl)
+
+// deemed_necessary_for_mission: military authority deems disclosure necessary
+.decl deemed_necessary_for_mission(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// §512(k)(1)(i): Armed Forces personnel
+permitted_by_164_512_k_1(ARGS,
+    $Leaf("164.512(k)(1)(i): Armed Forces personnel")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    belongs_to(q, "armed-forces-personnel"),
+    deemed_necessary_for_mission(p1, p2, q, t, u).
+
+// §512(k)(1)(ii): Veterans — DoD/DHS to DVA
+.decl is_component_of_dod_or_dhs(p: Principal)
+
+permitted_by_164_512_k_1(ARGS,
+    $Leaf("164.512(k)(1)(ii): veterans benefits determination")) :-
+    is_covered_entity(p1),
+    is_component_of_dod_or_dhs(p1),
+    activerole(p2, "DVA"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "eligibility-determination-for-veterans-benefits".
+
+// §512(k)(1)(iii): DVA internal
+permitted_by_164_512_k_1(ARGS,
+    $Leaf("164.512(k)(1)(iii): DVA internal benefits determination")) :-
+    is_covered_entity(p1),
+    activerole(p1, "component-of-DVA"),
+    activerole(p2, "component-of-DVA"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (u = "eligibility-determination-for-veterans-benefits" ;
+     u = "provision-of-veterans-benefits").
+
+// §512(k)(1)(iv): Foreign military personnel
+.decl is_foreign_military_authority(p: Principal)
+is_foreign_military_authority(P) :- activerole(P, "foreign-military-authority").
+
+// deemed_appropriate_by_secretary_foreign_military: oracle -- disclosure is
+// for the same purposes as (k)(1)(i)'s published Federal Register notice
+.decl deemed_appropriate_by_secretary_foreign_military(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_k_1(ARGS,
+    $Leaf("164.512(k)(1)(iv): foreign military personnel")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    belongs_to(q, "foreign-military-personnel"),
+    is_foreign_military_authority(p2),
+    deemed_appropriate_by_secretary_foreign_military(p1, p2, q, t, u).
+
+// --- §164.512(k)(2): National security ---
+// PDF (page 95): phi+_512k2
+.decl permitted_by_164_512_k_2(DECL_ARGS, e: Expl)
+
+// NSA_authorized_recipient: oracle
+.decl NSA_authorized_recipient(p: Principal)
+
+// NSA_authorized_purpose: oracle
+.decl NSA_authorized_purpose(u: Purpose)
+
+permitted_by_164_512_k_2(ARGS,
+    $Leaf("164.512(k)(2): national security activities")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "national-security-activities",
+    NSA_authorized_recipient(p2),
+    NSA_authorized_purpose(u).
+
+// --- §164.512(k)(3): Protective services ---
+// PDF (page 95): phi+_512k3
+.decl permitted_by_164_512_k_3(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_k_3(ARGS,
+    $Leaf("164.512(k)(3): protective services for President/officials")) :-
+    is_covered_entity(p1),
+    activerole(p2, "authorized-federal-official"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (u = "provision-of-protective-services" ;
+     u = "conduct-investigations-18USC871-and-879").
+
+// --- §164.512(k)(4): DoS medical suitability ---
+// PDF (page 96): phi+_512k4
+.decl permitted_by_164_512_k_4(DECL_ARGS, e: Expl)
+
+permitted_by_164_512_k_4(ARGS,
+    $Leaf("164.512(k)(4): DoS medical suitability determination")) :-
+    is_covered_entity(p1),
+    activerole(p1, "component-of-DoS"),
+    activerole(p2, "DoS-official"),
+    is_phi(t),
+    msg_contains(m, q, t),
+    (u = "security-clearance-EO-10450-and-12698" ;
+     u = "determine-availability-for-foreign-service" ;
+     u = "determine-family-accompaniment-FSA").
+
+// --- §164.512(k)(5): Correctional institutions ---
+// PDF (pages 96–97): phi+_512k5i
+.decl permitted_by_164_512_k_5(DECL_ARGS, e: Expl)
+
+// is_in_lawful_custody(Q, P2): Q is in lawful custody of P2
+.decl is_in_lawful_custody(q: Principal, p2: Principal)
+
+// represents_necessary_for_custody_purpose: oracle
+.decl represents_necessary_for_custody_purpose(p2: Principal, p1: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_k_5(ARGS,
+    $Leaf("164.512(k)(5): correctional institution — inmate health/safety")) :-
+    is_covered_entity(p1),
+    (activerole(p2, "correctional-institution") ; is_law_enforcement_for(p1, p2, q, t, u)),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_in_lawful_custody(q, p2),
+    represents_necessary_for_custody_purpose(p2, p1, q, t, u).
+
+// --- §164.512(k)(6): Government programs providing public benefits ---
+// PDF (page 97): phi+_512k6i
+.decl permitted_by_164_512_k_6(DECL_ARGS, e: Expl)
+
+// is_government_benefits_program(P): P is a government public benefits program
+.decl is_government_benefits_program(p: Principal)
+
+// disclosure_required_or_authorized_by_statute: oracle
+.decl disclosure_required_or_authorized_by_statute(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_k_6(ARGS,
+    $Leaf("164.512(k)(6)(i): government program providing public benefits — eligibility/enrollment sharing")) :-
+    is_health_plan(p1),
+    is_government_benefits_program(p1),
+    is_government_benefits_program(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    disclosure_required_or_authorized_by_statute(p1, p2, q, t, u).
+
+// §164.512(k)(6)(ii): Government agency program coordination -- broader
+// than (i): any government agency (not just a health plan), gated on
+// serving the same/similar populations and coordination necessity, not
+// statute authorization.
+.decl programs_serve_same_population(p1: Principal, p2: Principal)
+
+.decl disclosure_necessary_to_coordinate(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// The CFR text is "a government agency administering a government program
+// providing public benefits may disclose... to another such agency
+// administering a government program" -- it does not require either agency
+// to independently be a HIPAA covered entity, matching (k)(6)(i)'s own
+// pattern above, which requires is_health_plan(p1) but never requires p2 to
+// independently be a health plan or covered entity.
+// is_government_benefits_program(p1)/(p2) is the purpose-built gate for
+// this provision.
+permitted_by_164_512_k_6(ARGS,
+    $Leaf("164.512(k)(6)(ii): government agency program coordination")) :-
+    is_government_benefits_program(p1),
+    is_government_benefits_program(p2),
+    is_phi(t),
+    msg_contains(m, q, t),
+    programs_serve_same_population(p1, p2),
+    disclosure_necessary_to_coordinate(p1, p2, q, t, u).
+
+// --- §164.512(k)(7): NICS firearm background check reporting ---
+.decl permitted_by_164_512_k_7(DECL_ARGS, e: Expl)
+
+// is_nics_reporting_entity(P): P is a State-designated NICS reporter, or a
+// court/board/commission that made the commitment/adjudication under
+// 18 U.S.C. 922(g)(4) -- satisfies §512(k)(7)(i)
+.decl is_nics_reporting_entity(p: Principal)
+
+// is_nics_or_state_reporting_entity(P): P is the NICS system itself, or an
+// entity designated by the State to report on its behalf -- satisfies
+// §512(k)(7)(ii)'s permitted-recipient list
+.decl is_nics_or_state_reporting_entity(p: Principal)
+
+// is_prohibited_from_firearm_possession(Q): Q is prohibited from
+// possessing a firearm under 18 U.S.C. 922(g)(4)
+.decl is_prohibited_from_firearm_possession(q: Principal)
+
+// is_limited_nics_info(T): limited demographic info permitted for NICS
+// reporting -- §512(k)(7)(iii) explicitly excludes diagnostic/clinical info
+.decl is_limited_nics_info(t: Attribute)
+is_limited_nics_info("nics-demographic-info").
+
+permitted_by_164_512_k_7(ARGS,
+    $Leaf("164.512(k)(7): NICS firearm background check reporting")) :-
+    is_covered_entity(p1),
+    is_nics_reporting_entity(p1),
+    is_nics_or_state_reporting_entity(p2),
+    is_phi(t),
+    is_limited_nics_info(t),
+    msg_contains(m, q, t),
+    is_prohibited_from_firearm_possession(q),
+    u = "nics-firearm-background-check-reporting".
+
+// =============================================
+// §164.512(l) — Workers' compensation
+// =============================================
+// PDF (page 98): phi+_512l
+.decl permitted_by_164_512_l(DECL_ARGS, e: Expl)
+
+// authorized_for_workers_comp: oracle
+.decl authorized_for_workers_comp(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+permitted_by_164_512_l(ARGS,
+    $Leaf("164.512(l): workers' compensation")) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    u = "workers-compensation",
+    authorized_for_workers_comp(p1, p2, q, t, u).

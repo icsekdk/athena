@@ -1,0 +1,303 @@
+// ============================================================================
+// hipaa_164_508.dl — §164.508: Uses and disclosures for which an
+//                    authorization is required
+// ============================================================================
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.4 (pages 55–62)
+//
+// Structure:
+//   164.508(a)  — When authorization is required
+//   164.508(a)(2) — Psychotherapy notes require authorization
+//   164.508(a)(3) — Marketing requires authorization
+//   164.508(b)  — Authorization validity (oracle predicates)
+//   164.508(c)  — Authorization content requirements (oracle predicates)
+//
+// The key output of this section is require_authorization_by_164_508. It is
+// wired into hipaa_top.dl's top-level gate, not scoped to §164.506(a) alone
+// -- meaning it blocks ANY disclosure pathway (including §164.506(c)(3)
+// payment disclosures), not just TPO disclosures under §506(a). This is
+// intentional and matches 45 CFR 164.508(a)(2): the enumerated exceptions
+// to the psychotherapy-notes authorization requirement are the CE's own
+// training programs and legal defense (see exception_508a2 below) -- there
+// is no payment or general-TPO exception. So a psychotherapy-notes
+// disclosure for payment purposes still requires authorization.
+// ============================================================================
+
+// =============================================
+// Oracle predicates for §164.508
+// =============================================
+
+// obtained_authorization_164_508 is declared in hipaa_stubs.dl
+// It is an oracle: the individual has sent a valid authorization message.
+// PDF (page 58): obtained-authorization-164.508(p1, p2, (q, t), u)
+
+// is_for_marketing(U): purpose is marketing
+.decl is_for_marketing(u: Purpose)
+is_for_marketing("marketing").
+is_for_marketing(U) :- purpose_subtype(U, "marketing").
+
+// is_for_counseling_training(P, U): CE's own training programs for counseling
+// PDF (page 56): u in counseling-training-programs(p1)
+.decl is_for_counseling_training(p: Principal, u: Purpose)
+is_for_counseling_training(P, "training-programs") :- is_covered_entity(P).
+
+// is_for_legal_defense(P, Q, U): CE defending itself in legal proceeding by Q
+// PDF (page 56): u in defense-in-legal-proceeding(p1, q)
+.decl is_for_legal_defense(p: Principal, q: Principal, u: Purpose)
+// Oracle — asserted as facts
+.decl legal_defense_purpose(p1: Principal, q: Principal, u: Purpose)
+is_for_legal_defense(P, Q, U) :- legal_defense_purpose(P, Q, U).
+
+// face_to_face: disclosure is a face-to-face communication
+// PDF (page 57): face-to-face(p1, p2, (q, t), u)
+.decl face_to_face(p1: Principal, p2: Principal, q: Principal,
+    t: Attribute, u: Purpose)
+
+// promotional_gift_of_nominal_value: disclosure involves a promotional gift
+// PDF (page 57): promotional-gift-of-nominal-value(p1, p2, (q, t), u)
+.decl promotional_gift_of_nominal_value(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// =============================================
+// §164.508(a)(2) — Psychotherapy notes require authorization
+// =============================================
+// PDF (page 56):
+//   phi-_508a2: activerole(p1, covered-entity) ^
+//     (t in psychotherapy-notes) =>
+//     obtained-authorization-164.508(p1, p2, (q, t), u)
+//
+// Exceptions (45 CFR 164.508(a)(2)):
+//   (i)(A) Use by the originator of the notes for treatment
+//   (i)(B) CE training programs for counseling
+//   (i)(C) Legal defense by CE
+//   (ii) Required by 502(a)(2)(ii) or permitted by 512(a)/512(d)/512(g)(1)/512(j)(1)(i)
+//         -- NOTE: 512(e) (judicial/administrative proceedings) is deliberately NOT
+//         in this list: the regulation text does not include it, since allowing a
+//         court order/subpoena to bypass authorization for psychotherapy notes is
+//         not permitted.
+//
+// The negative norm fires (requiring authorization) when:
+// - CE is disclosing psychotherapy notes
+// - UNLESS an exception applies
+.decl exception_508a2(DECL_ARGS)
+
+// §508(a)(2)(i)(A): Use by the originator of the psychotherapy notes for treatment.
+// This formalization does not separately track note authorship/origination (no
+// per-note "who created this" fact exists in the schema). "Use by the originator"
+// is modeled the same way §506(c)(1)'s "its own" TPO exception models internal
+// use: the message stays within the covered entity (p1=p2, self-use, or same
+// organization). This covers the common case (a provider's own internal use of
+// psychotherapy notes they hold, for that patient's treatment) but does NOT
+// distinguish a CE using notes it originated from a CE using another CE's
+// previously-created notes -- that latter case is not "by the originator" and
+// correctly still requires authorization (or must qualify via the (ii)
+// cross-references below).
+exception_508a2(ARGS) :-
+    is_covered_entity(p1),
+    is_psychotherapy_notes(t),
+    msg_contains(m, q, t),
+    is_for_treatment(u),
+    (p1 = p2 ; organization_member(p2, p1)),
+    disclosure_attempted(ARGS).
+
+// §508(a)(2)(i)(B): CE's own training programs
+exception_508a2(ARGS) :-
+    is_covered_entity(p1),
+    is_psychotherapy_notes(t),
+    msg_contains(m, q, t),
+    is_for_counseling_training(p1, u),
+    disclosure_attempted(ARGS).
+
+// §508(a)(2)(i)(C): Legal defense by CE against individual
+exception_508a2(ARGS) :-
+    is_covered_entity(p1),
+    is_psychotherapy_notes(t),
+    msg_contains(m, q, t),
+    is_for_legal_defense(p1, q, u),
+    disclosure_attempted(ARGS).
+
+// §508(a)(2)(ii): Required by 502(a)(2)(ii) or permitted by 512(a), 512(d),
+// 512(g)(1), 512(j)(1)(i). These are cross-references to other sections that
+// independently permit disclosure of psychotherapy notes without authorization.
+// 512(e) deliberately excluded -- see note above.
+exception_508a2(ARGS) :-
+    is_covered_entity(p1),
+    is_psychotherapy_notes(t),
+    msg_contains(m, q, t),
+    (required_by_164_502_a_2_ii(ARGS, _) ;
+     permitted_by_164_512_a(ARGS, _) ;
+     permitted_by_164_512_d(ARGS, _) ;
+     permitted_by_164_512_g_1(ARGS, _) ;
+     permitted_by_164_512_j_1_i(ARGS, _)).
+
+// Forward declarations for cross-referenced predicates
+// (permitted_by_164_512_e is declared in hipaa_164_512.dl — no duplicate needed)
+.decl permitted_by_164_512_a(DECL_ARGS, e: Expl)
+.decl permitted_by_164_512_d(DECL_ARGS, e: Expl)
+.decl permitted_by_164_512_g_1(DECL_ARGS, e: Expl)
+.decl permitted_by_164_512_j_1_i(DECL_ARGS, e: Expl)
+
+// =============================================
+// §164.508(a)(3) — Marketing requires authorization
+// =============================================
+// PDF (page 57):
+//   phi-_508a3i: activerole(p1, covered-entity) ^
+//     (t in phi) ^ (u in marketing) =>
+//     obtained-authorization-164.508(p1, p2, (q, t), u)
+//
+// Exceptions:
+//   (A) face-to-face communication
+//   (B) promotional gift of nominal value
+.decl exception_508a3(DECL_ARGS)
+
+// §508(a)(3)(i)(A): Face-to-face communication
+exception_508a3(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_marketing(u),
+    (p2 = q ; is_personal_representative(p2, q)),
+    face_to_face(p1, p2, q, t, u).
+
+// §508(a)(3)(i)(B): Promotional gift of nominal value
+exception_508a3(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_marketing(u),
+    promotional_gift_of_nominal_value(p1, p2, q, t, u).
+
+// =============================================
+// require_authorization_by_164_508 — The negative norm
+// =============================================
+// This predicate fires when authorization IS REQUIRED but NOT obtained.
+// It is wired into hipaa_top.dl's top-level gate, applying to ANY
+// disclosure pathway, not scoped to §164.506(a) alone (see header
+// comment above for the full explanation).
+//
+// Authorization is required for:
+// (1) Psychotherapy notes (508(a)(2)) unless exception applies
+// (2) Marketing (508(a)(3)) unless exception applies
+// (3) Sale of PHI (508(a)(4)) -- see below
+
+// Psychotherapy notes require authorization (unless exception)
+require_authorization_by_164_508(ARGS) :-
+    is_covered_entity(p1),
+    is_psychotherapy_notes(t),
+    msg_contains(m, q, t),
+    known_purpose(u),
+    disclosure_attempted(ARGS),
+    !exception_508a2(ARGS),
+    !obtained_authorization_164_508(p1, p2, q, t, u).
+
+// Marketing requires authorization (unless exception)
+require_authorization_by_164_508(ARGS) :-
+    is_covered_entity(p1),
+    is_phi(t),
+    msg_contains(m, q, t),
+    is_for_marketing(u),
+    disclosure_attempted(ARGS),
+    !exception_508a3(ARGS),
+    !obtained_authorization_164_508(p1, p2, q, t, u).
+
+// =============================================
+// §164.508(a)(4) / §164.502(a)(5)(ii) — Sale of PHI
+// =============================================
+// §502(a)(5)(ii)(A): "Except pursuant to and in compliance
+// with §508(a)(4), a covered entity or business associate may not sell
+// protected health information." §502(a)(5)(ii)(B) defines "sale" as a
+// disclosure where the CE/BA receives remuneration in exchange for the
+// PHI, with 8 named statutory exclusions. §508(a)(4) requires an
+// authorization (stating the disclosure results in remuneration) for any
+// disclosure that IS a sale.
+//
+// Implemented as a single mechanism, consistent with how psychotherapy
+// notes and marketing already work above: is_sale_of_phi fires when
+// remuneration was received and none of the 8 exclusions apply, then
+// feeds into this same require_authorization_by_164_508 predicate. This
+// simultaneously implements §508(a)(4)'s authorization requirement AND
+// §502(a)(5)(ii)(A)'s prohibition, since blocking an unauthorized sale via
+// this top-level gate is exactly "may not sell... except pursuant to and
+// in compliance with §508(a)(4)." No separate rule needed in
+// hipaa_164_502.dl.
+//
+// No forward declarations needed here (unlike permitted_by_164_512_a/d/
+// g_1/j_1_i above, which are only ever declared in this file) --
+// permitted_by_164_512_b, permitted_by_164_512_i, permitted_by_164_502_e,
+// permitted_by_164_514_e, and required_by_164_524 all already have a
+// native .decl elsewhere in the standard include chain; Soufflé does
+// whole-program analysis, not textual forward-reference checking, so nothing
+// extra was needed. (Verified by trying it: forward-declaring
+// permitted_by_164_502_e here caused a hard "Redefinition of relation"
+// compile error against its real .decl in hipaa_164_502.dl.)
+
+// receives_remuneration_for_phi: oracle -- the CE/BA directly or indirectly
+// receives remuneration from or on behalf of the recipient, in exchange
+// for the PHI (§502(a)(5)(ii)(B)(1)). Per (B)(2)(ii)/(viii), a reasonable
+// cost-based fee to cover preparation/transmission costs does NOT count as
+// remuneration for this purpose -- this predicate should only be asserted
+// for genuine profit-motivated payment, not cost recovery. That modeling
+// choice is what implements exclusion (viii) ("any other purpose... where
+// the only remuneration is a reasonable cost-based fee") without a
+// separate rule.
+.decl receives_remuneration_for_phi(p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_sale_of_phi: fires when remuneration was received and the disclosure
+// doesn't fall under any of the 8 statutory exclusions in
+// §502(a)(5)(ii)(B)(2)(i)-(vii) (viii is folded into the oracle above).
+.decl is_sale_of_phi(DECL_ARGS)
+
+is_sale_of_phi(ARGS) :-
+    receives_remuneration_for_phi(p1, p2, q, t, u),
+    disclosure_attempted(ARGS),
+    !permitted_by_164_512_b(ARGS, _),   // (i) public health via §512(b)
+    !permitted_by_164_514_e(ARGS, _),   // (i)/(ii) public health or research via limited data set
+    !permitted_by_164_512_i(ARGS, _),   // (ii) research via §512(i)
+    // (iii)/(iv) treatment/payment/business-sale-diligence "pursuant to
+    // §506(a)": checks permitted_by_164_506_c (the underlying TPO-content
+    // condition), NOT permitted_by_164_506_a directly -- 506_a itself
+    // depends on !require_authorization_by_164_508, and this predicate
+    // feeds require_authorization_by_164_508, so using 506_a here would
+    // create an unstratifiable negative cycle (confirmed: Soufflé rejected
+    // it with "Unable to stratify relation(s) {is_sale_of_phi,
+    // permitted_by_164_506_a, require_authorization_by_164_508}").
+    // permitted_by_164_506_c doesn't depend on the authorization gate at
+    // all, so this is both correct and cycle-free.
+    !permitted_by_164_506_c(ARGS, _),
+    !permitted_by_164_502_e(ARGS, _),   // (v) business associate activities
+    !required_by_164_524(ARGS),         // (vi) to individual under §524
+    !required_by_164_528(ARGS),         // (vi) to individual under §528
+    !permitted_by_164_512_a(ARGS, _).   // (vii) required by law
+
+// Sale of PHI requires authorization (unless it's not actually a sale, per
+// the exclusions above)
+require_authorization_by_164_508(ARGS) :-
+    is_sale_of_phi(ARGS),
+    !obtained_authorization_164_508(p1, p2, q, t, u).
+
+// =============================================
+// §164.508(b) — Authorization validity
+// =============================================
+// PDF (page 58): An authorization is valid if it is valid under
+// 508(b)(1) and not defective under 508(b)(2).
+// All sub-predicates are oracles since they involve document content checks.
+
+// is_valid_authorization: oracle — the authorization document is valid
+// per §508(b)(1) and not defective per §508(b)(2)
+.decl is_valid_authorization(m_auth: Message, p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// is_defective_authorization: oracle — authorization has defects per §508(b)(2)
+// (i) expiration passed, (ii) incomplete, (iii) revoked, (iv) violates (b)(3)/(b)(4),
+// (v) material info known to be false
+.decl is_defective_authorization(m_auth: Message, p1: Principal, p2: Principal,
+    q: Principal, t: Attribute, u: Purpose)
+
+// =============================================
+// §164.508(c) — Authorization content requirements
+// =============================================
+// PDF (pages 61–62): These are all oracle predicates checking document contents.
+// §508(c)(1): description, senders, recipients, purpose, expiration, signature
+// §508(c)(2): right to revoke, conditioning statement, redisclosure potential
+// §508(c)(3): plain language
+// All modeled as oracles in is_valid_authorization above.

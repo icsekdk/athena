@@ -1,0 +1,145 @@
+// ============================================================================
+// hipaa_top.dl — Top-level disclosure rule and output directives
+// ============================================================================
+// This file defines the top-level predicate is_disclosure_allowed which
+// combines all permission pathways from §164.502 and §164.506.
+//
+// Reference: HIPAA_FORMALIZATION.pdf, Section 4.1 (page 28)
+// Top-level formula: G ∀p1,p2:prin. ∀m:msg.
+//   send(p1,p2,m) ⊃ (∨_i φ+_i ∧ ∧_i φ-_i)
+// ============================================================================
+
+// =============================================
+// Top-level: Is this disclosure allowed?
+// =============================================
+// A disclosure is allowed if it is permitted by §164.502 (which internally
+// delegates to §164.506 and other sections as appropriate).
+//
+// The explanation tree E captures the full chain of reasoning.
+.decl is_disclosure_allowed(DECL_ARGS, e: Expl)
+
+// ce_wrongly_denied_access is an EDB (fact-only) predicate, populated not by a
+// .dl rule but by ground facts injected from connector/llm1_extractor.py
+// whenever narrative text matches access-denial keyword patterns without a
+// valid §164.524 denial ground. (.decl lives in hipaa_macros.dl alongside the
+// other negation guards.)
+//
+// §164.502(b): minimum necessary (minimum_necessary_satisfied --
+// believes_minimum_necessary OR one of the six excluded_164_502_b_2
+// exceptions) applies broadly across disclosure pathways, so it is checked
+// here at the top-level gate rather than in any single pathway.
+// §164.514(g): health-plan underwriting restriction (see hipaa_164_514.dl's
+// violates_underwriting_restriction for the full rationale). Placed here,
+// alongside the other cross-cutting negation guards, since it must override
+// any positive pathway.
+// §164.502(a)(5)(i): genetic info used for underwriting. "Notwithstanding any
+// other provision of this subpart" makes this an absolute prohibition (see
+// hipaa_164_502.dl's uses_genetic_info_for_underwriting).
+// §164.522(a): restriction agreements. Modeled as a negated guard rather than
+// a positive OR-branch of permitted_by_164_502 -- a positive branch would be
+// true for nearly all ordinary disclosures (no restriction request in play at
+// all), letting is_disclosure_allowed fire with no other legal basis. See
+// hipaa_164_522.dl for the full rationale and derivation.
+// §164.502(i)/§164.520: notice consistency. Same architectural pattern as
+// §164.522(a) above -- a negated guard rather than a positive OR-branch. See
+// hipaa_macros.dl's declaration of inconsistent_with_notice_of_privacy_practices.
+//
+// lacks_authorized_relationship is deliberately NOT a guard here: its actual
+// purpose (see hipaa_macros.dl) is blocking a *workforce member* from using PHI
+// without a legitimate treatment/operational need under the guise of TPO -- a
+// §164.502(a)(1)(ii)/§164.506 TPO-pathway concept specifically, not a global
+// one. Applying it unconditionally to every OR-branch of permitted_by_164_502
+// would deny pathways (law enforcement, public health, judicial process,
+// disaster relief, etc.) whose entire point is to permit disclosure to
+// recipients with no treatment/payment/operations relationship at all. It
+// instead gates permitted_by_164_502_a_1_ii specifically (hipaa_164_502.dl)
+// -- see that file's comment for why this is the correct, narrow scope. The
+// is_dii shortcut clause below still uses this guard, unchanged.
+is_disclosure_allowed(ARGS, E) :-
+    disclosure_attempted(ARGS),
+    permitted_by_164_502(ARGS, E),
+    !require_authorization_by_164_508(ARGS),
+    !ce_wrongly_denied_access(p1, p2, q, t),
+    !sent_via_non_requested_channel(p1, p2, q, m, t),
+    !violates_underwriting_restriction(ARGS),
+    !uses_genetic_info_for_underwriting(ARGS),
+    !violates_restriction_agreement(ARGS),
+    !inconsistent_with_notice_of_privacy_practices(ARGS),
+    minimum_necessary_satisfied(ARGS).
+
+// §164.514(a): De-identified health information is not PHI — the Privacy Rule does
+// not apply. Any disclosure of dii is unconditionally permitted.
+// is_dii(m, t) is message-scoped (hipaa_macros.dl) -- m and t are already bound via
+// disclosure_attempted(ARGS), so this checks THIS message's own de-identification
+// evidence, not any other message sharing the same attribute type.
+is_disclosure_allowed(ARGS,
+    $Leaf("164.514(a): de-identified health information — HIPAA Privacy Rule does not apply")) :-
+    disclosure_attempted(ARGS),
+    is_dii(m, t),
+    !lacks_authorized_relationship(p1, p2, q, t).
+
+// =============================================
+// Denial reporting (informational)
+// =============================================
+// A disclosure attempt that has no matching is_disclosure_allowed tuple
+// is implicitly denied (closed-world assumption). For debugging, we also
+// track explicit scenarios where a disclosure was attempted.
+.decl disclosure_attempted(DECL_ARGS)
+.decl is_disclosure_denied(DECL_ARGS)
+
+// A disclosure is denied if it was attempted but not allowed
+is_disclosure_denied(ARGS) :-
+    disclosure_attempted(ARGS),
+    !is_disclosure_allowed(ARGS, _).
+
+// =============================================
+// §164.524 access-request outcome
+// =============================================
+// is_disclosure_allowed/is_disclosure_denied answer "is this disclosure
+// permitted?" -- for an individual/personal-representative access request,
+// that's ALWAYS ALLOW via the deliberately-unconditional
+// permitted_by_164_502_a_1_i pathway (§502(a)(1)(i)), regardless of what
+// §524(a)(2)/(a)(3)'s denial-grounds analysis (required_by_164_524)
+// computes. That's legally correct -- "permitted to disclose" and
+// "obligated to fulfill this specific formal request" are different
+// questions -- but it means the top-level output alone can't answer a
+// distinct, legitimate question: "was I wrongfully denied my own
+// records?" These two relations answer that question directly, using
+// required_by_164_524's own (a)(2)/(a)(3)/(a)(4)-aware analysis rather
+// than the keyword-based ce_wrongly_denied_access guard.
+.decl formal_access_request_must_be_granted(DECL_ARGS)
+.decl formal_access_request_properly_denied(DECL_ARGS)
+
+formal_access_request_must_be_granted(ARGS) :-
+    required_by_164_524(ARGS).
+
+// Precise on purpose: fires only when a genuine (a)(2) unreviewable ground,
+// or an (a)(3) reviewable ground not since overturned by review, actually
+// applied -- NOT just whenever required_by_164_524 happens to be false for
+// some other reason (e.g. the info isn't in a designated record set at
+// all, which is a different question from "was this request denied").
+formal_access_request_properly_denied(ARGS) :-
+    is_access_request(p2, p1, q, t),
+    is_covered_entity(p1),
+    (p2 = q ; is_personal_representative(p2, q)),
+    msg_contains(m, q, t),
+    known_purpose(u),
+    (may_deny_without_review_524a2(p2, p1, q, t) ;
+     (may_deny_with_review_524a3(p2, p1, q, t), !review_overturns_denial(p2, p1, t))).
+
+// =============================================
+// Output directives
+// =============================================
+.output is_disclosure_allowed
+.output is_disclosure_denied
+.output disclosure_attempted
+
+// Diagnostic outputs for debugging
+.output permitted_by_164_502
+.output permitted_by_164_506
+.output minimum_necessary_satisfied
+.output is_personal_representative
+.output excluded_164_502_b_2
+.output required_by_164_524
+.output formal_access_request_must_be_granted
+.output formal_access_request_properly_denied
