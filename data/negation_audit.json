@@ -1,0 +1,347 @@
+[
+  {
+    "predicate": "abuse_exception",
+    "type": "EDB",
+    "negated_in": [
+      "is_personal_representative"
+    ]
+  },
+  {
+    "predicate": "accommodated_via_requested_channel",
+    "type": "EDB",
+    "negated_in": [
+      "sent_via_non_requested_channel"
+    ]
+  },
+  {
+    "predicate": "accounting_request_fulfilled",
+    "type": "EDB",
+    "negated_in": [
+      "required_by_164_528"
+    ]
+  },
+  {
+    "predicate": "believes_emergency_result_of_abuse",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_512_f_6"
+    ]
+  },
+  {
+    "predicate": "belongs_to",
+    "type": "IDB",
+    "negated_in": [
+      "professional_judgment_510b3"
+    ]
+  },
+  {
+    "predicate": "ce_wrongly_denied_access",
+    "type": "EDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "exception_508a2",
+    "type": "IDB",
+    "negated_in": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "exception_508a3",
+    "type": "IDB",
+    "negated_in": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "excluded_164_502_e_1_ii",
+    "type": "IDB",
+    "negated_in": [
+      "permitted_by_164_502_e"
+    ]
+  },
+  {
+    "predicate": "has_opted_out_of_fundraising",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_514_f"
+    ]
+  },
+  {
+    "predicate": "health_insurance_placed_with",
+    "type": "EDB",
+    "negated_in": [
+      "violates_underwriting_restriction"
+    ]
+  },
+  {
+    "predicate": "inconsistent_with_notice_of_privacy_practices",
+    "type": "EDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "inconsistent_with_prior_preference",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_510_b_5"
+    ]
+  },
+  {
+    "predicate": "is_defective_authorization",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_502_a_1_i"
+    ]
+  },
+  {
+    "predicate": "is_disclosure_allowed",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_denied"
+    ]
+  },
+  {
+    "predicate": "is_entire_medical_record",
+    "type": "EDB",
+    "negated_in": [
+      "minimum_necessary_satisfied"
+    ]
+  },
+  {
+    "predicate": "is_for_underwriting",
+    "type": "EDB",
+    "negated_in": [
+      "violates_underwriting_restriction"
+    ]
+  },
+  {
+    "predicate": "is_incident_to_use",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_506_a"
+    ]
+  },
+  {
+    "predicate": "is_long_term_care_policy_issuer",
+    "type": "EDB",
+    "negated_in": [
+      "uses_genetic_info_for_underwriting"
+    ]
+  },
+  {
+    "predicate": "is_medical_appropriateness_determination",
+    "type": "EDB",
+    "negated_in": [
+      "uses_genetic_info_for_underwriting"
+    ]
+  },
+  {
+    "predicate": "is_required_by_law",
+    "type": "EDB",
+    "negated_in": [
+      "violates_underwriting_restriction"
+    ]
+  },
+  {
+    "predicate": "is_subject_of_unrelated_oversight_investigation",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_512_d"
+    ]
+  },
+  {
+    "predicate": "lacks_authorized_relationship",
+    "type": "EDB",
+    "negated_in": [
+      "is_disclosure_allowed",
+      "permitted_by_164_502_a_1_ii"
+    ]
+  },
+  {
+    "predicate": "lacks_reasonable_safeguards",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_530_c"
+    ]
+  },
+  {
+    "predicate": "learned_through_request_for_treatment",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_512_j_1_ii_A"
+    ]
+  },
+  {
+    "predicate": "learned_while_treating_propensity_for_crime",
+    "type": "EDB",
+    "negated_in": [
+      "permitted_by_164_512_j_1_ii_A"
+    ]
+  },
+  {
+    "predicate": "may_deny_with_review_524a3",
+    "type": "IDB",
+    "negated_in": [
+      "required_by_164_524"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2",
+    "type": "IDB",
+    "negated_in": [
+      "required_by_164_524"
+    ]
+  },
+  {
+    "predicate": "minor_acts_as_individual",
+    "type": "EDB",
+    "negated_in": [
+      "is_personal_representative"
+    ]
+  },
+  {
+    "predicate": "msg_contains_identifier",
+    "type": "EDB",
+    "negated_in": [
+      "safe_harbor_deidentified_derived"
+    ]
+  },
+  {
+    "predicate": "obtained_authorization_164_508",
+    "type": "EDB",
+    "negated_in": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_e",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_a",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_i",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_514_e",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "permitted_emergency_treatment_exception_522a2",
+    "type": "IDB",
+    "negated_in": [
+      "violates_restriction_agreement"
+    ]
+  },
+  {
+    "predicate": "reidentification_code_violates_514c",
+    "type": "EDB",
+    "negated_in": [
+      "is_dii"
+    ]
+  },
+  {
+    "predicate": "request_accepted",
+    "type": "EDB",
+    "negated_in": [
+      "required_by_164_524"
+    ]
+  },
+  {
+    "predicate": "require_authorization_by_164_508",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_allowed",
+      "permitted_by_164_506_a"
+    ]
+  },
+  {
+    "predicate": "required_by_164_524",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "required_by_164_528",
+    "type": "IDB",
+    "negated_in": [
+      "is_sale_of_phi"
+    ]
+  },
+  {
+    "predicate": "restriction_terminated",
+    "type": "EDB",
+    "negated_in": [
+      "restriction_binds"
+    ]
+  },
+  {
+    "predicate": "review_overturns_denial",
+    "type": "EDB",
+    "negated_in": [
+      "formal_access_request_properly_denied"
+    ]
+  },
+  {
+    "predicate": "sent_via_non_requested_channel",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "uses_genetic_info_for_underwriting",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "violates_restriction_agreement",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "violates_underwriting_restriction",
+    "type": "IDB",
+    "negated_in": [
+      "is_disclosure_allowed"
+    ]
+  }
+]

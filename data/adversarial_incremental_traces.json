@@ -1,0 +1,973 @@
+[
+  {
+    "scenario": "adv-P04",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P08",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P09",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P11",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P13",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P15",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P16",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P17",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P19",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R01",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R03",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R04",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R05",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R06",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 6,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R07",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R08",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R10",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R11",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R13",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R14",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R15",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R16",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R17",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R18",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 90,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": "activerole",
+        "args": [
+          "the_hospital",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": "sent_via_non_requested_channel",
+        "args": [
+          "the_hospital",
+          "the_patient",
+          "the_patient",
+          "msg_voicemail",
+          "phi"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R19",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R21",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R22",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R23",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R25",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R26",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R27",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R29",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R30",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 6,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R51",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R52",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R53",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 150,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": "activerole",
+        "args": [
+          "healthcare_provider",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": "is_defective_authorization",
+        "args": [
+          "msg_lesha",
+          "lesha_carter",
+          "healthcare_provider",
+          "lesha_carter",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R54",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-R55",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P21",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P22",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P23",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P24",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P25",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P26",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P27",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P28",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P29",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P30",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P31",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "adv-P32",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,1652 @@
+[
+  {
+    "scenario": "gold-001",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "optimal_questions": 2,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "msg_r001",
+          "medical-record",
+          "consultation"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "medical-record"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 1.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "msg_r001",
+          "medical-record",
+          "consultation"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-002",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "optimal_questions": 2,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "msg_r003",
+          "medical-record",
+          "claims-processing"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "medical-record"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 1.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "msg_r003",
+          "medical-record",
+          "claims-processing"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-003",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 2,
+    "optimal_questions": 3,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "obtained_authorization_164_508",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "msg8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      }
+    ],
+    "oracle_accuracy": 0.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "obtained_authorization_164_508",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "obtained_authorization_164_508",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "msg8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 2,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-004",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_PERMITTED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "optimal_questions": 2,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "msg_r002",
+          "diagnosis",
+          "treatment"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "diagnosis"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      }
+    ],
+    "oracle_accuracy": 0.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "msg_r002",
+          "diagnosis",
+          "treatment"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "diagnosis"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 2,
+        "status": "PROVED_PERMITTED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-005",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_PERMITTED",
+    "correct_final": true,
+    "n_questions_asked": 1,
+    "optimal_questions": 1,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "riverside_hospital",
+          "pastor_davis",
+          "helen_thompson",
+          "msg_r012",
+          "patient-location",
+          "directory"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      }
+    ],
+    "oracle_accuracy": 0.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "riverside_hospital",
+          "pastor_davis",
+          "helen_thompson",
+          "msg_r012",
+          "patient-location",
+          "directory"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 1,
+        "status": "PROVED_PERMITTED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-006",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "optimal_questions": 2,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "msg_r018",
+          "patient-location",
+          "notification-164-510b"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "patient-location"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.5,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "msg_r018",
+          "patient-location",
+          "notification-164-510b"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "patient-location"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-007",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 3,
+    "optimal_questions": 3,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "is_required_by_law",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "msg_r004",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.3333333333333333,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "is_required_by_law",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "is_required_by_law",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "msg_r004",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-008",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "optimal_questions": 2,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "msg_r007",
+          "lab-results",
+          "disease-prevention-or-control"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "lab-results"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 1.0,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "msg_r007",
+          "lab-results",
+          "disease-prevention-or-control"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "lab-results"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-009",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 3,
+    "optimal_questions": 3,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "medical-record"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.6666666666666666,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "believes_minimum_necessary",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "believes_minimum_necessary",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-010",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-011",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-012",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 3,
+    "optimal_questions": 3,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "medical-record"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.6666666666666666,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "believes_minimum_necessary",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "believes_minimum_necessary",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-013",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 3,
+    "optimal_questions": 3,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "medical-record"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.6666666666666666,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "believes_minimum_necessary",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "believes_minimum_necessary",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-014",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 4,
+    "optimal_questions": 4,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [
+      {
+        "predicate": "consistent_with_applicable_law",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "llm_answer": "TRUE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "llm_answer": "FALSE",
+        "ground_truth": "UNKNOWN",
+        "agrees": false
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement"
+        ],
+        "llm_answer": "UNKNOWN",
+        "ground_truth": "UNKNOWN",
+        "agrees": true
+      }
+    ],
+    "oracle_accuracy": 0.25,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "consistent_with_applicable_law",
+          "believes_minimum_necessary",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "consistent_with_applicable_law",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "believes_minimum_necessary",
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "believes_minimum_necessary",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "answer": "TRUE"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "inconsistent_with_notice_of_privacy_practices",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "answer": "FALSE"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 4,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "gold-015",
+    "expected_verdict": "PERMITTED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-016",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-017",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-018",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-019",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-020",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-021",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-022",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-023",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-024",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-025",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-026",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-027",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-028",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-029",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "gold-030",
+    "expected_verdict": "DENIED",
+    "model": "gemma3:4b",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "optimal_questions": 0,
+    "unnecessary_questions_asked": 0,
+    "soundness_failures_vs_own_state": [],
+    "dangerous_false_proof": false,
+    "oracle_calls": [],
+    "oracle_accuracy": null,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,1126 @@
+{
+  "$schema_note": "ATHENA Phase 2 gold benchmark (30 scenarios, 15 ALLOW / 15 DENY). 24 scenarios reused from COMPLIANCEGPT-V1's hand-verified GOLDCOIN_TEST_CASES and REALISTIC_TEST_CASES corpora (datalog_engine/), re-verified against ATHENA's own copy of the Datalog formalization (souffle/hipaa.dl), not V1's -- one fixture (G002) required a small fact-name fix for a since-deduplicated relation (see its source.note). 6 scenarios are newly authored to cover cross-cutting negation guards (genetic-info underwriting ban, §514(g) underwriting restriction, minimum-necessary, sale-of-PHI, insider-access, non-requested-channel) that none of the reused scenarios exercised; each was verified to deny as written and to flip to ALLOW when its single blocking fact is removed/reversed, confirming that fact carries the verdict.",
+  "engine": "souffle 2.5, souffle/hipaa.dl",
+  "verified_date": "2026-08-04",
+  "scenarios": [
+    {
+      "id": "athena-gold-001",
+      "title": "Cardiology Referral for Second Opinion",
+      "narrative": {
+        "situation": "Dr. Sarah Chen is a general cardiologist at Memorial Hospital in Hartford, Connecticut. One of her patients, James Walker, a 62-year-old retired postal worker, came in last Tuesday complaining of shortness of breath and occasional chest pain during light exercise. After performing an echocardiogram and a cardiac MRI, Dr. Chen identified what appears to be moderate-to-severe aortic valve regurgitation with early signs of left ventricular dilation.\n\nGiven the complexity of the case and the possibility that James may need a valve replacement, Dr. Chen wants to send his imaging results, echocardiogram report, and relevant medical history to Dr. Priya Patel, a cardiac surgeon at University Medical Center across town, for a second opinion. James verbally agreed to the referral during his last appointment, though no formal written authorization was signed.\n\nThe hospital's medical records department is preparing to transmit the records electronically through their secure health information exchange system. The records include James's cardiac MRI images, echocardiogram measurements, medication list (including warfarin and metoprolol), and a summary note from Dr. Chen describing her clinical findings and concerns.",
+        "question": "Is Memorial Hospital permitted to send James Walker's cardiac imaging results and medical history to Dr. Priya Patel at University Medical Center for a second opinion on potential valve replacement surgery?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"memorial_hospital\", \"hospital\").",
+        "activerole(\"dr_patel\", \"doctor\").",
+        "activerole(\"james_walker\", \"patient\").",
+        "belongstorole(\"james_walker\", \"adult\").",
+        "provider_of(\"memorial_hospital\", \"james_walker\").",
+        "msg_contains(\"msg_r001\", \"james_walker\", \"medical-record\").",
+        "disclosure_attempted(\"memorial_hospital\", \"dr_patel\", \"james_walker\", \"msg_r001\", \"medical-record\", \"consultation\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(ii): TPO per 164.506",
+          "164.506(c)(2): treatment activities of health care provider"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(ii): TPO per 164.506 -> 164.506(c)(2): treatment activities of health care provider",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(ii): TPO per 164.506, $Leaf(164.506(c)(2): treatment activities of health care provider)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(ii)",
+        "164.506",
+        "164.506(c)(2)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R001"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-002",
+      "title": "Insurance Company Requesting Surgical Records",
+      "narrative": {
+        "situation": "Robert Kim, a 55-year-old software engineer, underwent a total knee replacement at St. Luke's Medical Center in Houston three months ago. The surgery was performed by Dr. Jennifer Walsh, an orthopedic surgeon, after conservative treatments failed to manage Robert's severe osteoarthritis.\n\nBlueCross BlueShield of Texas, Robert's health insurer, has sent a formal request to St. Luke's medical records department for the complete surgical records associated with Robert's knee replacement. The insurer needs the operative report, anesthesia records, pre-operative assessments, post-operative notes, and physical therapy referrals to process Robert's claim, which totals approximately $47,000. Robert's employer-sponsored plan requires documentation of medical necessity for joint replacement procedures exceeding $30,000.\n\nSt. Luke's billing department has confirmed that Robert's policy is active and that the claim is pending. The medical records coordinator, Angela Torres, is preparing the records package. She wants to make sure the hospital can legally send these records to the insurer without needing Robert to sign a specific authorization form for this disclosure. Angela cross-checks the insurer's request against Robert's full chart and includes only the specific items BlueCross BlueShield asked for -- the operative report, anesthesia records, pre-operative assessments, post-operative notes, and physical therapy referrals -- leaving out unrelated portions of his medical history, such as an unrelated dermatology visit from earlier in the year.",
+        "question": "Can St. Luke's Hospital send Robert Kim's complete knee replacement surgical records to BlueCross BlueShield to process his insurance claim without a separate written authorization from Robert?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"st_lukes\", \"hospital\").",
+        "activerole(\"bcbs_texas\", \"health-insurance-issuer\").",
+        "activerole(\"robert_kim\", \"patient\").",
+        "belongstorole(\"robert_kim\", \"adult\").",
+        "msg_contains(\"msg_r003\", \"robert_kim\", \"medical-record\").",
+        "disclosure_attempted(\"st_lukes\", \"bcbs_texas\", \"robert_kim\", \"msg_r003\", \"medical-record\", \"claims-processing\").",
+        "believes_minimum_necessary(\"st_lukes\", \"bcbs_texas\", \"robert_kim\", \"msg_r003\", \"medical-record\", \"claims-processing\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(ii): TPO per 164.506",
+          "164.506(c)(3): payment activities of receiving entity"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(ii): TPO per 164.506 -> 164.506(c)(3): payment activities of receiving entity",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(ii): TPO per 164.506, $Leaf(164.506(c)(3): payment activities of receiving entity)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(ii)",
+        "164.506",
+        "164.506(c)(3)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R003"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-003",
+      "title": "Evenson — Psychotherapy Notes with Release + Court Order",
+      "narrative": {
+        "situation": "Therapist discloses psychotherapy notes of deceased patient per spouse's authorization and court order.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"howorth_8\", \"doctor\").  // psychotherapist = provider",
+        "activerole(\"hartford_8\", \"individual\").  // insurance company (party in lawsuit)",
+        "belongstorole(\"david_8\", \"deceased\").",
+        "belongstorole(\"david_8\", \"adult\").",
+        "msg_contains(\"msg8\", \"david_8\", \"psychotherapy-notes\").",
+        "disclosure_attempted(\"howorth_8\", \"hartford_8\", \"david_8\", \"msg8\", \"psychotherapy-notes\", \"judicial-administrative-proceeding\").",
+        "has_court_order(\"howorth_8\", \"hartford_8\", \"david_8\", \"psychotherapy-notes\", \"judicial-administrative-proceeding\").",
+        "activerole(\"lori_8\", \"individual\").",
+        "has_authority_to_act(\"lori_8\", \"david_8\").",
+        "obtained_authorization_164_508(\"howorth_8\", \"hartford_8\", \"david_8\", \"psychotherapy-notes\", \"judicial-administrative-proceeding\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(iv): valid authorization per 164.508"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(iv): valid authorization per 164.508",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Leaf(164.502(a)(1)(iv): valid authorization per 164.508))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(iv)",
+        "164.508"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G008"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-004",
+      "title": "Mother Asking About Child's ER Visit",
+      "narrative": {
+        "situation": "Maria Rodriguez brought her six-year-old daughter, Sofia, to the emergency department at Children's Hospital of Philadelphia after Sofia fell off the monkey bars during recess at Elm Street Elementary School. The school nurse called Maria at work, and she rushed to the hospital where an ambulance had already transported Sofia.\n\nUpon arrival, Maria found Sofia in a treatment room with a temporary splint on her left arm. The ER attending physician, Dr. Kevin Park, had already ordered X-rays and was waiting for the radiologist's read. Sofia was tearful but stable, with no signs of head injury or loss of consciousness.\n\nMaria is Sofia's biological mother and sole legal custodian — Sofia's parents divorced two years ago, and Maria has full custody per the family court order. Maria wants to know exactly what the X-rays showed, what the treatment plan is, whether Sofia will need surgery, and how long recovery might take. She's also asking for copies of all records to share with Sofia's pediatrician, Dr. Hernandez, at her next follow-up visit.\n\nDr. Park is preparing to discuss the imaging findings with Maria. The X-rays show a displaced fracture of the distal radius that will likely require closed reduction under sedation.",
+        "question": "Can Dr. Park share Sofia's X-ray results, diagnosis, and treatment plan with Maria, Sofia's mother and legal custodian?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"childrens_hospital\", \"hospital\").",
+        "activerole(\"maria_rodriguez\", \"parent\").",
+        "activerole(\"sofia_rodriguez\", \"patient\").",
+        "belongstorole(\"sofia_rodriguez\", \"unemancipated-minor\").",
+        "is_guardian(\"maria_rodriguez\", \"sofia_rodriguez\").",
+        "has_authority_to_act(\"maria_rodriguez\", \"sofia_rodriguez\").",
+        "msg_contains(\"msg_r002\", \"sofia_rodriguez\", \"diagnosis\").",
+        "disclosure_attempted(\"childrens_hospital\", \"maria_rodriguez\", \"sofia_rodriguez\", \"msg_r002\", \"diagnosis\", \"treatment\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(i): disclosure to the individual or personal representative"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(i): disclosure to the individual or personal representative",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Leaf(164.502(a)(1)(i): disclosure to the individual or personal representative))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(i)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R002"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-005",
+      "title": "Pastor Checking on Hospitalized Parishioner",
+      "narrative": {
+        "situation": "Pastor William Davis of First Baptist Church in Springfield received a call from Marge Henderson, a longtime church member, informing him that their fellow parishioner Helen Thompson, age 78, had been admitted to Riverside Hospital after a fall at home that resulted in a hip fracture. Marge heard about it from Helen's neighbor but didn't have specific details about Helen's room number or current condition.\n\nPastor Davis drives to Riverside Hospital to visit Helen. At the information desk, he identifies himself as Helen's pastor and asks which room she's in and how she's doing. The volunteer at the desk checks the facility directory system. Helen Thompson was admitted the previous day and, during the admission process, was informed that the hospital maintains a facility directory and was given the opportunity to opt out. Helen did not object to being listed — in fact, she specifically mentioned she hoped her pastor and church friends would come visit.\n\nThe hospital's facility directory includes Helen's name, her room number (4th floor, Room 412), her general condition (listed as \"stable\"), and her religious affiliation (Baptist). Pastor Davis is wearing his clerical collar and has a church photo ID.",
+        "question": "Can the hospital's information desk share Helen Thompson's room number, condition, and religious affiliation with Pastor Davis from her church?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"riverside_hospital\", \"hospital\").",
+        "activerole(\"pastor_davis\", \"clergy\").",
+        "activerole(\"helen_thompson\", \"patient\").",
+        "has_not_objected_to_directory(\"riverside_hospital\", \"pastor_davis\", \"helen_thompson\", \"patient-location\", \"directory\").",
+        "msg_contains(\"msg_r012\", \"helen_thompson\", \"patient-location\").",
+        "disclosure_attempted(\"riverside_hospital\", \"pastor_davis\", \"helen_thompson\", \"msg_r012\", \"patient-location\", \"directory\").",
+        "believes_minimum_necessary(\"riverside_hospital\", \"pastor_davis\", \"helen_thompson\", \"msg_r012\", \"patient-location\", \"directory\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(v): agreement or permission per 164.510",
+          "164.510: permitted via facility directory or care involvement",
+          "164.510(a): directory disclosure to clergy (all directory info)"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(v): agreement or permission per 164.510 -> 164.510: permitted via facility directory or care involvement -> 164.510(a): directory disclosure to clergy (all directory info)",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(v): agreement or permission per 164.510, $Step1(164.510: permitted via facility directory or care involvement, $Leaf(164.510(a): directory disclosure to clergy (all directory info)))))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(v)",
+        "164.510",
+        "164.510(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R012"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-006",
+      "title": "Red Cross Disaster Relief",
+      "narrative": {
+        "situation": "After a devastating tornado struck downtown Millbrook, dozens of injured residents were transported to Millbrook Regional Hospital. The American Red Cross disaster response team has arrived to help families locate their injured loved ones. Many patients are unconscious or unable to communicate. The hospital's emergency management coordinator has determined that sharing basic patient location and condition information with the Red Cross will not interfere with the emergency response.",
+        "question": "Can the hospital share patient location and condition information with the Red Cross disaster relief team to help families find injured relatives?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"millbrook_regional\", \"hospital\").",
+        "activerole(\"red_cross\", \"individual\").",
+        "activerole(\"tornado_patient\", \"patient\").",
+        "belongstorole(\"tornado_patient\", \"incapacitated\").",
+        "is_authorized_for_disaster_relief(\"red_cross\").",
+        "prof_judgment_not_interfere_emergency(\"millbrook_regional\", \"red_cross\", \"tornado_patient\", \"patient-location\", \"notification-164-510b\").",
+        "msg_contains(\"msg_r018\", \"tornado_patient\", \"patient-location\").",
+        "disclosure_attempted(\"millbrook_regional\", \"red_cross\", \"tornado_patient\", \"msg_r018\", \"patient-location\", \"notification-164-510b\").",
+        "believes_minimum_necessary(\"millbrook_regional\", \"red_cross\", \"tornado_patient\", \"msg_r018\", \"patient-location\", \"notification-164-510b\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(v): agreement or permission per 164.510",
+          "164.510: permitted via care involvement/notification",
+          "164.510(b)(4): disaster relief disclosure to authorized entity"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(v): agreement or permission per 164.510 -> 164.510: permitted via care involvement/notification -> 164.510(b)(4): disaster relief disclosure to authorized entity",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(v): agreement or permission per 164.510, $Step1(164.510: permitted via care involvement/notification, $Leaf(164.510(b)(4): disaster relief disclosure to authorized entity))))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(v)",
+        "164.510",
+        "164.510(b)(4)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R018"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-007",
+      "title": "Police Requesting Blood Alcohol Results After Highway Accident",
+      "narrative": {
+        "situation": "At approximately 2:15 AM on a Saturday morning, a multi-vehicle accident occurred on Interstate 95 near Exit 42 in Bridgeport, Connecticut. Three vehicles were involved, resulting in two fatalities and several serious injuries. The suspected at-fault driver, Thomas Wright, age 34, was transported by ambulance to Mercy General Hospital's emergency department with a broken collarbone and lacerations.\n\nAs part of standard emergency protocol, the ER team drew blood from Thomas upon arrival for a toxicology panel. Detective Maria Santos from the Connecticut State Police arrived at the hospital around 4 AM as part of the crash investigation. She presented her badge and official identification and requested Thomas Wright's blood alcohol concentration (BAC) test results.\n\nWhen the ER charge nurse asked Detective Santos whether she had a court order or warrant, the detective explained that under Connecticut General Statutes §14-227a, hospitals are required by state law to report blood alcohol results to law enforcement when a driver involved in a fatal motor vehicle accident is brought in for treatment. She provided a copy of the statute and a formal written request on State Police letterhead.\n\nThe hospital's compliance officer, Dr. Richard Yang, has been called to review the request and determine whether disclosure is appropriate under HIPAA.",
+        "question": "Is Mercy General Hospital permitted to disclose Thomas Wright's blood alcohol test results to Detective Santos under the state mandatory reporting law for fatal DUI accidents?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"mercy_general\", \"hospital\").",
+        "activerole(\"det_santos\", \"law-enforcement-official\").",
+        "activerole(\"thomas_wright\", \"patient\").",
+        "belongstorole(\"thomas_wright\", \"adult\").",
+        "is_required_by_law(\"mercy_general\", \"det_santos\", \"thomas_wright\", \"blood-test-results\", \"law-enforcement\").",
+        "msg_contains(\"msg_r004\", \"thomas_wright\", \"blood-test-results\").",
+        "disclosure_attempted(\"mercy_general\", \"det_santos\", \"thomas_wright\", \"msg_r004\", \"blood-test-results\", \"law-enforcement\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(a): required by law"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(a): required by law",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(a): required by law)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R004"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-008",
+      "title": "County Health Department Requesting TB Patient Data",
+      "narrative": {
+        "situation": "The Maricopa County Department of Public Health in Arizona has identified a cluster of tuberculosis cases traced to a shared workplace — a large distribution warehouse employing over 200 workers. Eight confirmed cases have been reported in the past six weeks, suggesting active transmission within the facility.\n\nDr. Elena Vasquez, the county epidemiologist, has sent an official request to Valley Medical Center, where most of the affected workers received care, requesting the names, contact information, and TB test results of all patients who tested positive for TB at the facility in the past 90 days. This information is needed to conduct contact tracing, identify additional exposed individuals, and implement infection control measures at the warehouse.\n\nThe health department cites Arizona Revised Statutes §36-714, which requires health care providers to report cases of tuberculosis to the local health department, and the federal Public Health Service Act, which authorizes health departments to collect disease surveillance data. Dr. Vasquez has provided the statutory references in her request letter.\n\nValley Medical Center's infection control nurse, Patricia Huang, has compiled the requested information and is seeking approval from the hospital's compliance office before releasing it.",
+        "question": "May Valley Medical Center disclose the names, contact information, and TB test results of positive patients to the Maricopa County Department of Public Health for outbreak investigation and contact tracing?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"valley_medical\", \"hospital\").",
+        "activerole(\"maricopa_health\", \"public-health-authority\").",
+        "activerole(\"tb_patients\", \"patient\").",
+        "belongstorole(\"tb_patients\", \"adult\").",
+        "is_authorized_by_law_for_purpose(\"maricopa_health\", \"disease-prevention-or-control\").",
+        "msg_contains(\"msg_r007\", \"tb_patients\", \"lab-results\").",
+        "disclosure_attempted(\"valley_medical\", \"maricopa_health\", \"tb_patients\", \"msg_r007\", \"lab-results\", \"disease-prevention-or-control\").",
+        "believes_minimum_necessary(\"valley_medical\", \"maricopa_health\", \"tb_patients\", \"msg_r007\", \"lab-results\", \"disease-prevention-or-control\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(b)(1)(i): to public health authority for disease prevention/control"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(b)(1)(i): to public health authority for disease prevention/control",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(b)(1)(i): to public health authority for disease prevention/control)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(b)(1)(i)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R007"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-009",
+      "title": "McGill — Hospital Records via Court Order",
+      "narrative": {
+        "situation": "Hospital discloses medical records to court/prosecutor pursuant to court order in criminal case.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"reynolds_25\", \"hospital\").",
+        "activerole(\"court_25\", \"individual\").  // court/prosecutor",
+        "belongstorole(\"mcgill_25\", \"adult\").",
+        "msg_contains(\"msg25\", \"mcgill_25\", \"medical-record\").",
+        "disclosure_attempted(\"reynolds_25\", \"court_25\", \"mcgill_25\", \"msg25\", \"medical-record\", \"judicial-administrative-proceeding\").",
+        "has_court_order(\"reynolds_25\", \"court_25\", \"mcgill_25\", \"medical-record\", \"judicial-administrative-proceeding\").",
+        "believes_minimum_necessary(\"reynolds_25\", \"court_25\", \"mcgill_25\", \"msg25\", \"medical-record\", \"judicial-administrative-proceeding\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(e)(1)(i): in response to court order"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(e)(1)(i): in response to court order",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(e)(1)(i): in response to court order)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(e)(1)(i)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G025"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-010",
+      "title": "Subpoena for Psychiatric Records in Divorce Case",
+      "narrative": {
+        "situation": "Mark and Karen Williams are going through a contentious divorce in Fairfield County Superior Court. During custody proceedings, Mark's attorney, James Sullivan, filed a motion arguing that Karen's mental health history is relevant to her fitness as a custodial parent. The court granted a limited order permitting discovery of Karen's treatment records.\n\nAttorney Sullivan served a subpoena on Behavioral Health Associates, where Karen has been receiving treatment for generalized anxiety disorder from psychiatrist Dr. Rachel Hoffman. The subpoena is accompanied by a qualified protective order issued by the court, which restricts the use of the records to the custody proceeding, requires the records to be returned or destroyed after the litigation, and prohibits re-disclosure. The subpoena specifically requests treatment notes (excluding psychotherapy notes), medication history, and attendance records for the past two years.\n\nBehavioral Health Associates' office manager, Diane Cruz, received the subpoena and protective order. She's consulting with the practice's HIPAA compliance consultant about whether they can release the records. The consultant notes that the subpoena includes satisfactory assurances as defined in the HIPAA regulations.",
+        "question": "May Behavioral Health Associates disclose Karen Williams's treatment records (excluding psychotherapy notes) to Attorney Sullivan pursuant to the subpoena with qualified protective order?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"behavioral_health\", \"doctor\").",
+        "activerole(\"atty_sullivan\", \"individual\").",
+        "activerole(\"karen_williams\", \"patient\").",
+        "belongstorole(\"karen_williams\", \"adult\").",
+        "has_lawful_process_with_assurance(\"behavioral_health\", \"atty_sullivan\", \"karen_williams\", \"medical-record\", \"judicial-administrative-proceeding\").",
+        "msg_contains(\"msg_r009\", \"karen_williams\", \"medical-record\").",
+        "disclosure_attempted(\"behavioral_health\", \"atty_sullivan\", \"karen_williams\", \"msg_r009\", \"medical-record\", \"judicial-administrative-proceeding\").",
+        "believes_minimum_necessary(\"behavioral_health\", \"atty_sullivan\", \"karen_williams\", \"msg_r009\", \"medical-record\", \"judicial-administrative-proceeding\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(e)(1)(ii): subpoena with satisfactory assurance"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(e)(1)(ii): subpoena with satisfactory assurance",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(e)(1)(ii): subpoena with satisfactory assurance)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(e)(1)(ii)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R009"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-011",
+      "title": "Zamora — DUI Blood Test Subpoena",
+      "narrative": {
+        "situation": "Hospital discloses medical records (blood alcohol) to law enforcement pursuant to court subpoena in DUI criminal investigation.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"bay_area_2\", \"hospital\").",
+        "activerole(\"govt_2\", \"law-enforcement-official\").",
+        "belongstorole(\"zamora_2\", \"adult\").",
+        "msg_contains(\"msg2\", \"zamora_2\", \"medical-record\").",
+        "disclosure_attempted(\"bay_area_2\", \"govt_2\", \"zamora_2\", \"msg2\", \"medical-record\", \"law-enforcement\").",
+        "has_court_order(\"bay_area_2\", \"govt_2\", \"zamora_2\", \"medical-record\", \"law-enforcement\").",
+        "believes_minimum_necessary(\"bay_area_2\", \"govt_2\", \"zamora_2\", \"msg2\", \"medical-record\", \"law-enforcement\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(f)(1)(ii): court order/warrant/subpoena to law enforcement"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(f)(1)(ii): court order/warrant/subpoena to law enforcement",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(f)(1)(ii): court order/warrant/subpoena to law enforcement)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(f)(1)(ii)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G002",
+        "note": "Original V1 fixture asserted in_compliance_with_court_order directly. hipaa_164_512.dl:404 now derives that relation only from has_court_order (the oracle-asked leaf was deduplicated so the same real-world evidence isn't asked twice under two names). Fact rewritten to assert has_court_order so the §164.512(f)(1)(ii) pathway still fires; verified against ATHENA's copy of the engine, not just V1's."
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-012",
+      "title": "Medical Examiner Investigating Suspicious Death",
+      "narrative": {
+        "situation": "Margaret Collins, age 45, died unexpectedly at University Hospital after a routine outpatient procedure. The attending physician, Dr. Robert Hayes, noted unusual post-operative complications inconsistent with the procedure performed. The county medical examiner's office has opened an investigation to determine cause of death and has requested Margaret's complete medical records including operative notes, anesthesia records, and medication administration records.",
+        "question": "Can University Hospital release the deceased patient's medical records to the county medical examiner to investigate the cause of death?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"university_hospital\", \"hospital\").",
+        "activerole(\"medical_examiner\", \"medical-examiner\").",
+        "activerole(\"margaret_collins\", \"patient\").",
+        "belongstorole(\"margaret_collins\", \"deceased\").",
+        "msg_contains(\"msg_r014\", \"margaret_collins\", \"medical-record\").",
+        "disclosure_attempted(\"university_hospital\", \"medical_examiner\", \"margaret_collins\", \"msg_r014\", \"medical-record\", \"determining-cause-of-death\").",
+        "believes_minimum_necessary(\"university_hospital\", \"medical_examiner\", \"margaret_collins\", \"msg_r014\", \"medical-record\", \"determining-cause-of-death\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(g)(1): disclosure to coroner/medical examiner"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(g)(1): disclosure to coroner/medical examiner",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(g)(1): disclosure to coroner/medical examiner)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(g)(1)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R014"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-013",
+      "title": "Clinical Trial Researcher with IRB Waiver",
+      "narrative": {
+        "situation": "Dr. Michael Torres, a neurologist and principal investigator at Johns Hopkins University School of Medicine, is leading a Phase III clinical trial studying the efficacy of a new monoclonal antibody treatment for early-stage Alzheimer's disease. The trial, funded by the National Institute on Aging, requires access to detailed cognitive assessment records, brain imaging data, and genetic testing results from patients diagnosed with mild cognitive impairment at partnering institutions.\n\nSinai Hospital, a large community hospital in Baltimore, has agreed to participate as a study site. Dr. Torres needs to access existing patient records at Sinai Hospital to identify eligible participants and review their baseline cognitive assessments. The Johns Hopkins IRB has reviewed the research protocol and granted a waiver of individual patient authorization under 45 CFR §164.512(i)(2), determining that the research involves no more than minimal risk to privacy, the research could not practicably be conducted without the waiver, and adequate safeguards are in place.\n\nDr. Torres has provided Sinai Hospital with the IRB approval letter, the waiver documentation, and the approved research protocol. Sinai Hospital's IRB coordinator, Dr. Sandra Mitchell, has verified the documentation and confirmed that it meets the regulatory requirements.",
+        "question": "May Sinai Hospital disclose patient medical records to Dr. Torres at Johns Hopkins for the Alzheimer's clinical trial, based on the IRB waiver of authorization?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"sinai_hospital\", \"hospital\").",
+        "activerole(\"dr_torres\", \"researcher\").",
+        "activerole(\"patients_r011\", \"patient\").",
+        "belongstorole(\"patients_r011\", \"adult\").",
+        "has_irb_or_privacy_board_waiver(\"sinai_hospital\", \"dr_torres\", \"patients_r011\", \"medical-record\", \"research\").",
+        "msg_contains(\"msg_r011\", \"patients_r011\", \"medical-record\").",
+        "disclosure_attempted(\"sinai_hospital\", \"dr_torres\", \"patients_r011\", \"msg_r011\", \"medical-record\", \"research\").",
+        "believes_minimum_necessary(\"sinai_hospital\", \"dr_torres\", \"patients_r011\", \"msg_r011\", \"medical-record\", \"research\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(i)(1)(i): research with IRB/privacy board waiver"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(i)(1)(i): research with IRB/privacy board waiver",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(i)(1)(i): research with IRB/privacy board waiver)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(i)(1)(i)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R011"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-014",
+      "title": "ER Doctor Reports Violent Crime Admission",
+      "narrative": {
+        "situation": "Jake Morris, 22, arrived at the ER at City Medical Center with multiple stab wounds. While Dr. Lee was treating him, Jake became agitated and blurted out that he and his gang had just attacked a rival group member, leaving the victim with life-threatening injuries at an abandoned warehouse on 5th Street. Dr. Lee believes the crime caused serious physical harm to another person. The information was learned during emergency treatment — not through treating any propensity for criminal behavior. Dr. Lee wants to notify the police about the confession and the potential second victim's location.",
+        "question": "Can the ER doctor disclose the patient's statements about a violent crime to law enforcement?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"city_medical\", \"doctor\").",
+        "activerole(\"detective_r022\", \"law-enforcement-official\").",
+        "activerole(\"jake_morris\", \"patient\").",
+        "belongstorole(\"jake_morris\", \"adult\").",
+        "is_admission_of_crime(\"jake_morris\", \"city_medical\").",
+        "believes_crime_caused_serious_harm(\"city_medical\", \"jake_morris\").",
+        "consistent_with_applicable_law(\"city_medical\", \"detective_r022\", \"jake_morris\", \"crime-admission-statement\", \"identify-apprehend\").",
+        "msg_contains(\"msg_r022\", \"jake_morris\", \"crime-admission-statement\").",
+        "disclosure_attempted(\"city_medical\", \"detective_r022\", \"jake_morris\", \"msg_r022\", \"crime-admission-statement\", \"identify-apprehend\").",
+        "believes_minimum_necessary(\"city_medical\", \"detective_r022\", \"jake_morris\", \"msg_r022\", \"crime-admission-statement\", \"identify-apprehend\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.502(a): permitted use by covered entity",
+          "164.502(a)(1)(vi): per 164.512",
+          "164.512(j)(1)(ii)(A): identify/apprehend — violent crime admission"
+        ],
+        "explanation": "164.502(a): permitted use by covered entity -> 164.502(a)(1)(vi): per 164.512 -> 164.512(j)(1)(ii)(A): identify/apprehend — violent crime admission",
+        "raw_expl": "$Step1(164.502(a): permitted use by covered entity, $Step1(164.502(a)(1)(vi): per 164.512, $Leaf(164.512(j)(1)(ii)(A): identify/apprehend — violent crime admission)))"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.502(a)(1)(vi)",
+        "164.512",
+        "164.512(j)(1)(ii)(A)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R022"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "implicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-015",
+      "title": "University Researcher Requesting De-Identified Records",
+      "narrative": {
+        "situation": "Professor Lisa Park from the School of Public Health at State University is conducting a five-year longitudinal study on opioid prescribing patterns and their correlation with emergency department visits across rural communities. The study has been funded by the National Institutes of Health and has received IRB approval from the university.\n\nProfessor Park has approached Regional Medical Center, a 200-bed community hospital serving three rural counties, about obtaining patient data for her research. After discussions with the hospital's research coordinator, they agreed to provide a dataset that has been fully de-identified in accordance with HIPAA's safe harbor method — all 18 categories of identifiers have been removed, including names, dates (generalized to year only), geographic data below state level, and all other identifiers. The dataset contains aggregated statistical information about prescription patterns, ED visit frequencies, and demographic categories (age ranges, gender distributions).\n\nThe hospital's biostatistician, Dr. Marcus Webb, personally oversaw the de-identification process and has certified in writing that the dataset meets the safe harbor standard under §164.514(b)(2). The resulting dataset is labeled as \"de-identified\" in the hospital's data governance system.",
+        "question": "Can Regional Medical Center share this fully de-identified statistical dataset with Professor Park for her opioid research study?"
+      },
+      "expected_verdict": "ALLOW",
+      "facts": [
+        "activerole(\"regional_medical\", \"hospital\").",
+        "activerole(\"prof_park\", \"individual\").",
+        "activerole(\"patients_r008\", \"patient\").",
+        "belongstorole(\"patients_r008\", \"adult\").",
+        "msg_contains(\"msg_r008\", \"patients_r008\", \"statistical-data\").",
+        "disclosure_attempted(\"regional_medical\", \"prof_park\", \"patients_r008\", \"msg_r008\", \"statistical-data\", \"research\")."
+      ],
+      "expected_proof": {
+        "citation_chain": [
+          "164.514(a): de-identified health information — HIPAA Privacy Rule does not apply"
+        ],
+        "explanation": "164.514(a): de-identified health information — HIPAA Privacy Rule does not apply",
+        "raw_expl": "$Leaf(164.514(a): de-identified health information — HIPAA Privacy Rule does not apply)"
+      },
+      "provisions": [
+        "164.514(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R008"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-016",
+      "title": "Michelson v. City of Plainfield",
+      "narrative": {
+        "situation": "Citizen requests health insurance details of city employees for transparency. City denies due to privacy.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"city_plainfield_1\", \"hospital\").  // covered entity (public entity acting as health plan)",
+        "activerole(\"michelson_1\", \"individual\").       // citizen requester — not a HIPAA-recognized recipient",
+        "belongstorole(\"employees_1\", \"adult\").",
+        "msg_contains(\"msg1\", \"employees_1\", \"phi\").",
+        "disclosure_attempted(\"city_plainfield_1\", \"michelson_1\", \"employees_1\", \"msg1\", \"phi\", \"payment\")."
+      ],
+      "expected_proof": {
+        "explanation": "No positive pathway fires. Random citizen is not a covered entity, provider, or government authority. No authorization, no court order, not TPO, not required by law."
+      },
+      "provisions": [
+        "164.502(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G001"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-017",
+      "title": "Florida Nursing Facilities — Deceased Residents to Spouses",
+      "narrative": {
+        "situation": "Nursing facilities deny disclosure of deceased patients' records to spouses who are not HIPAA personal representatives (lacking legal authority over estate).",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"nursing_12\", \"hospital\").",
+        "activerole(\"spouse_12\", \"individual\").",
+        "belongstorole(\"deceased_12\", \"deceased\").",
+        "belongstorole(\"deceased_12\", \"adult\").",
+        "msg_contains(\"msg12\", \"deceased_12\", \"medical-record\").",
+        "disclosure_attempted(\"nursing_12\", \"spouse_12\", \"deceased_12\", \"msg12\", \"medical-record\", \"treatment\")."
+      ],
+      "expected_proof": {
+        "explanation": "Spouse is not assigned as personal representative (no has_authority_to_act, no executor/administrator role). No 512 exception applies. Correctly denied under closed-world assumption."
+      },
+      "provisions": [
+        "164.502(g)",
+        "164.512"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G012"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-018",
+      "title": "Monarch Fire — BA Discloses PHI to Union Attorneys",
+      "narrative": {
+        "situation": "Business associate (auditor) shares privileged PHI with attorneys for a union, beyond the scope of the Business Associate Agreement.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"freedom_13\", \"billing-company\").  // business associate",
+        "activerole(\"haynes_13\", \"individual\").  // attorney for union",
+        "belongstorole(\"plan_members_13\", \"adult\").",
+        "msg_contains(\"msg13\", \"plan_members_13\", \"phi\").",
+        "disclosure_attempted(\"freedom_13\", \"haynes_13\", \"plan_members_13\", \"msg13\", \"phi\", \"compliance-audit\").",
+        "activerole(\"monarch_13\", \"group-health-plan\").",
+        "is_business_associate_of(\"freedom_13\", \"monarch_13\")."
+      ],
+      "expected_proof": {
+        "explanation": "BA can only disclose to CE under 502(e), not to third-party attorneys. No whistleblower exception applies (no believes_unlawful_conduct asserted). Correctly denied."
+      },
+      "provisions": [
+        "164.502(e)",
+        "164.502(j)(1)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G013"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-019",
+      "title": "Moss v. Amira — Defense Counsel Letter to Physician",
+      "narrative": {
+        "situation": "Defense counsel (attorney, NOT a covered entity) sends letter with medical opinions to treating physician without patient consent.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"defense_counsel_17\", \"individual\").  // attorney — NOT a covered entity",
+        "activerole(\"dr_moser_17\", \"doctor\").",
+        "belongstorole(\"moss_17\", \"adult\").",
+        "msg_contains(\"msg17\", \"moss_17\", \"medical-record\").",
+        "disclosure_attempted(\"defense_counsel_17\", \"dr_moser_17\", \"moss_17\", \"msg17\", \"medical-record\", \"judicial-administrative-proceeding\")."
+      ],
+      "expected_proof": {
+        "explanation": "Defense counsel is not a covered entity. The formalization correctly requires is_covered_entity(p1) for all permission pathways. Since the attorney has no HIPAA-recognized role as a covered entity, all pathways are blocked."
+      },
+      "provisions": [
+        "164.502(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G017"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-020",
+      "title": "Colonial Orthopaedics — Filing Medical Info in Bankruptcy Court",
+      "narrative": {
+        "situation": "Creditor (healthcare provider) files proof of claim containing medical information in public bankruptcy court without consent.",
+        "question": "Is this disclosure of protected health information permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"colonial_18\", \"doctor\").  // health care provider",
+        "activerole(\"court_18\", \"individual\").",
+        "belongstorole(\"maple_18\", \"adult\").",
+        "msg_contains(\"msg18\", \"maple_18\", \"phi\").",
+        "disclosure_attempted(\"colonial_18\", \"court_18\", \"maple_18\", \"msg18\", \"phi\", \"payment\")."
+      ],
+      "expected_proof": {
+        "explanation": "No applicable pathway. The court is not a covered entity or provider (for 506(c)(3)), there is no court order, no authorization, and no 512 exception. The public filing of medical information without consent is correctly denied. (Note: 164.520(a) is not formalized, but the result is correct through closed-world assumption.)"
+      },
+      "provisions": [
+        "164.502(a)",
+        "164.520(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G018"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-021",
+      "title": "Brown v. Reinholds — Dentist to Credit Agencies",
+      "narrative": {
+        "situation": "Dentist/debt collector discloses complete dental history to credit reporting agencies for debt collection. No consent or authorization obtained.",
+        "question": "Is this disclosure permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"reinholds_26\", \"doctor\").",
+        "activerole(\"credit_agency_26\", \"individual\").",
+        "belongstorole(\"brown_26\", \"adult\").",
+        "msg_contains(\"msg26\", \"brown_26\", \"medical-record\").",
+        "disclosure_attempted(\"reinholds_26\", \"credit_agency_26\", \"brown_26\", \"msg26\", \"medical-record\", \"collections\")."
+      ],
+      "expected_proof": {
+        "explanation": "Credit agency is not a covered entity or provider. Collections is a payment sub-purpose but §506(c)(3) requires the receiver to be a CE or provider."
+      },
+      "provisions": [
+        "164.506(c)(3)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/GOLDCOIN_TEST_CASES",
+        "original_id": "G026"
+      },
+      "entity_provenance": {
+        "sender": "implicit",
+        "receiver": "implicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-022",
+      "title": "Pharmaceutical Company Seeking Patient Records for Marketing",
+      "narrative": {
+        "situation": "PharmaCorp International, a large pharmaceutical manufacturer, recently received FDA approval for Glucovex, a novel GLP-1 receptor agonist for Type 2 diabetes management. The company's marketing division has approached Memorial Hospital's administration with a business proposal: they would like the hospital to provide a list of patients currently diagnosed with Type 2 diabetes, along with their contact information and current medication regimens, so PharmaCorp can send targeted direct mail advertisements about Glucovex.\n\nPharmaCorp's regional sales manager, Derek Foster, met with Memorial Hospital's Chief Medical Officer, Dr. Patricia Nguyen, and the hospital's marketing liaison, Beth Collins, to discuss the arrangement. PharmaCorp offered to pay Memorial Hospital $15 per patient record provided. No patient authorizations have been obtained or planned — PharmaCorp argues that since the information would \"benefit patients by informing them of new treatment options,\" authorization shouldn't be necessary.\n\nThe hospital's privacy officer, Janet Morris, has been asked to review whether this arrangement is permissible. She's aware that marketing uses of PHI have special restrictions under HIPAA but wants to confirm the legal basis for her response.",
+        "question": "Can Memorial Hospital share patient diagnosis records and contact information with PharmaCorp for a direct marketing campaign about their new diabetes drug, without obtaining patient authorizations?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"memorial_hospital\", \"hospital\").",
+        "activerole(\"pharmacorp\", \"individual\").",
+        "activerole(\"diabetes_patients\", \"patient\").",
+        "belongstorole(\"diabetes_patients\", \"adult\").",
+        "msg_contains(\"msg_r006\", \"diabetes_patients\", \"diagnosis\").",
+        "disclosure_attempted(\"memorial_hospital\", \"pharmacorp\", \"diabetes_patients\", \"msg_r006\", \"diagnosis\", \"marketing\")."
+      ],
+      "expected_proof": {
+        "explanation": "Marketing disclosures of PHI require valid authorization under §164.508(a)(3). No authorization has been obtained. The face-to-face and nominal-value gift exceptions under §164.508(a)(3)(i) don't apply here (this is direct mail, not face-to-face). The payment arrangement ($15/record) constitutes sale of PHI, which is separately prohibited under §164.502(a)(5)(ii). No other pathway permits marketing disclosures without authorization."
+      },
+      "provisions": [
+        "164.508(a)(3)",
+        "164.508(a)(3)(i)",
+        "164.502(a)(5)(ii)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R006"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-023",
+      "title": "Adult Daughter's Psychotherapy Notes — Parent Denied",
+      "narrative": {
+        "situation": "Emily Watson, 23, has been seeing therapist Dr. Maria Santos at Clearview Counseling Center for treatment of PTSD following a car accident. Emily has explicitly told Dr. Santos that she does not want any information shared with her family. Emily's mother Carol calls the clinic saying she's 'very worried' about Emily and demands to see her daughter's therapy records. Emily is a competent adult and has not signed any authorization. Carol has no legal authority over Emily's healthcare decisions.",
+        "question": "Can Clearview Counseling Center release Emily's psychotherapy notes to her mother Carol without Emily's authorization?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"clearview_counseling\", \"hospital\").",
+        "activerole(\"carol_watson\", \"individual\").",
+        "activerole(\"emily_watson\", \"patient\").",
+        "belongstorole(\"emily_watson\", \"adult\").",
+        "msg_contains(\"msg_r015\", \"emily_watson\", \"psychotherapy-notes\").",
+        "disclosure_attempted(\"clearview_counseling\", \"carol_watson\", \"emily_watson\", \"msg_r015\", \"psychotherapy-notes\", \"treatment\")."
+      ],
+      "expected_proof": {
+        "explanation": "Per §164.508."
+      },
+      "provisions": [
+        "164.508"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R015"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-024",
+      "title": "Anonymous Caller — Not By Name — DENY",
+      "narrative": {
+        "situation": "Someone calls Riverside Hospital's front desk asking about 'the woman who was in a car accident yesterday.' The caller does not identify themselves, doesn't provide the patient's name, and claims to be a 'family friend.' The patient, Angela Davis, did not object to the facility directory, but the directory system requires requests to be made by the patient's name. The caller cannot provide the name and instead describes physical characteristics and the accident details. The receptionist is unsure whether to provide any information.",
+        "question": "Can the hospital share patient information with an anonymous caller who doesn't ask for the patient by name?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"riverside_hospital\", \"hospital\").",
+        "activerole(\"anonymous_caller\", \"individual\").",
+        "activerole(\"angela_davis\", \"patient\").",
+        "msg_contains(\"msg_r024\", \"angela_davis\", \"patient-location\").",
+        "disclosure_attempted(\"riverside_hospital\", \"anonymous_caller\", \"angela_davis\", \"msg_r024\", \"patient-location\", \"directory\")."
+      ],
+      "expected_proof": {
+        "explanation": "§164.510(a): facility-directory disclosure requires the requester to ask for the patient by name. An anonymous caller who cannot name the patient -- only describing physical characteristics and circumstances -- does not satisfy that condition, so the directory exception does not apply. No other pathway (authorization, TPO, 512 exception) applies either; denied under the closed-world assumption."
+      },
+      "provisions": [
+        "164.510(a)"
+      ],
+      "source": {
+        "corpus": "COMPLIANCEGPT-V1/REALISTIC_TEST_CASES",
+        "original_id": "R024"
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "implicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-025",
+      "title": "Meridian Health Plan — Genetic Info Used for Underwriting",
+      "narrative": {
+        "situation": "Meridian Health Plan is reviewing Carla Nguyen's application file. During a prior wellness screening, Meridian obtained Carla's genetic test results (a BRCA gene panel) for an unrelated purpose. Meridian's underwriting team now wants to use those genetic test results internally to help set Carla's premium and coverage terms for a new individual policy.",
+        "question": "May Meridian Health Plan use Carla Nguyen's genetic information for underwriting purposes?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"meridian_health_plan\", \"health-insurance-issuer\").",
+        "msg_contains(\"msg_d1\", \"carla_nguyen\", \"genetic-info\").",
+        "disclosure_attempted(\"meridian_health_plan\", \"meridian_health_plan\", \"carla_nguyen\", \"msg_d1\", \"genetic-info\", \"underwriting-and-related-purposes\").",
+        "believes_minimum_necessary(\"meridian_health_plan\", \"meridian_health_plan\", \"carla_nguyen\", \"msg_d1\", \"genetic-info\", \"underwriting-and-related-purposes\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "attribute = \"genetic-info\" AND purpose = \"underwriting-and-related-purposes\" AND sender is a health plan",
+        "explanation": "§164.502(a)(5)(i): \"Notwithstanding any other provision of this subpart,\" a health plan may not use or disclose genetic information for underwriting purposes -- an absolute prohibition that overrides any positive pathway. Without the genetic-info attribute (i.e. for an ordinary medical record), the identical fact set is otherwise permitted under §164.506(c)(1) as the covered entity's own TPO use -- confirmed by re-running with the attribute swapped to \"medical-record\", which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.502(a)(5)(i)",
+        "164.506(c)(1)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-026",
+      "title": "Access Health Insurance — Underwriting-Restricted PHI Reused for Quality Study",
+      "narrative": {
+        "situation": "Access Health Insurance evaluated Maria Lopez's application for an individual health policy last year and obtained her complete medical history as part of underwriting. Maria ultimately purchased coverage from a competing insurer instead. Access Health's internal quality-improvement team now wants to reuse Maria's medical file, still on hand from the underwriting review, for an unrelated healthcare-operations study on chronic disease trends. For the study, the quality-improvement team extracts only the specific diagnosis codes and chronic-condition indicators relevant to the disease-trends analysis from Maria's file, not her complete underwriting record.",
+        "question": "May Access Health Insurance use Maria Lopez's medical records, originally collected for underwriting, for its quality-improvement study?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"access_health_insurance\", \"health-insurance-issuer\").",
+        "msg_contains(\"msg_d2\", \"maria_lopez\", \"medical-record\").",
+        "disclosure_attempted(\"access_health_insurance\", \"access_health_insurance\", \"maria_lopez\", \"msg_d2\", \"medical-record\", \"quality-improvement\").",
+        "believes_minimum_necessary(\"access_health_insurance\", \"access_health_insurance\", \"maria_lopez\", \"msg_d2\", \"medical-record\", \"quality-improvement\").",
+        "received_phi_for_underwriting(\"access_health_insurance\", \"maria_lopez\", \"medical-record\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "received_phi_for_underwriting holds AND health_insurance_placed_with is absent AND the current purpose is not itself underwriting",
+        "explanation": "§164.514(g): a health plan that received PHI for underwriting may not use it for other purposes when the individual did not end up placing insurance with that plan -- this is a cross-cutting negative norm that overrides any positive pathway (here, §164.506(c)(1), the CE's own healthcare-operations TPO use, would otherwise fire). Confirmed by re-running with health_insurance_placed_with(\"maria_lopez\", \"access_health_insurance\") added, which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.514(g)",
+        "164.506(c)(1)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    },
+    {
+      "id": "athena-gold-027",
+      "title": "Sunrise Health System — Entire Records Pulled for a Business-Planning Report",
+      "narrative": {
+        "situation": "Sunrise Health System's compliance office is preparing a business-planning report for its board of directors. Rather than requesting the aggregated utilization statistics the report actually requires, the compliance office pulls complete, unredacted medical records for every patient in the system, including full psychiatric and substance-abuse treatment histories.",
+        "question": "Is Sunrise Health System permitted to use patients' complete medical records for its business-planning report?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"sunrise_health_system\", \"hospital\").",
+        "msg_contains(\"msg_d3\", \"patients_d3\", \"medical-record\").",
+        "disclosure_attempted(\"sunrise_health_system\", \"sunrise_health_system\", \"patients_d3\", \"msg_d3\", \"medical-record\", \"business-planning\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "no believes_minimum_necessary fact, and none of the six §164.502(b)(2) exceptions apply (not treatment, not to the individual, no authorization, not to the Secretary, not required by law, not a compliance requirement)",
+        "explanation": "§164.502(b): minimum necessary is a constraint on top of any positive pathway, not a pathway of its own. §164.506(c)(1) (own TPO use, since business-planning is a healthcare-operations sub-purpose) fires, but minimum_necessary_satisfied fails because there is neither a belief-fact nor an applicable §164.502(b)(2) exclusion, so the top-level gate blocks it regardless. Confirmed by re-running with believes_minimum_necessary added, which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.502(b)",
+        "164.506(c)(1)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-028",
+      "title": "Lakeview Clinic — Unauthorized Sale of Diagnosis Records to a Data Broker",
+      "narrative": {
+        "situation": "MediData Analytics pays Lakeview Clinic a per-record licensing fee to obtain patients' diagnosis records, which MediData compiles into a database it resells to pharmaceutical marketing firms. Lakeview has not obtained written authorization from any of the affected patients, and the disclosure is not for treatment, payment, healthcare operations, research, or public health purposes. For each patient, Lakeview provides only the diagnosis code -- omitting other chart content such as visit notes, medications, and identifying details beyond what MediData's licensing contract specifies as the data fields covered.",
+        "question": "May Lakeview Clinic disclose patients' diagnosis records to MediData Analytics in exchange for a per-record fee, without patient authorization?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"lakeview_clinic\", \"hospital\").",
+        "msg_contains(\"msg_d4\", \"patients_d4\", \"diagnosis\").",
+        "disclosure_attempted(\"lakeview_clinic\", \"medidata_analytics\", \"patients_d4\", \"msg_d4\", \"diagnosis\", \"third-party-data-licensing\").",
+        "receives_remuneration_for_phi(\"lakeview_clinic\", \"medidata_analytics\", \"patients_d4\", \"diagnosis\", \"third-party-data-licensing\").",
+        "believes_minimum_necessary(\"lakeview_clinic\", \"medidata_analytics\", \"patients_d4\", \"msg_d4\", \"diagnosis\", \"third-party-data-licensing\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "receives_remuneration_for_phi holds and none of the statutory sale-of-PHI exclusions (public health, research, TPO, business associate, individual access, required by law) apply",
+        "explanation": "§164.508: remuneration in exchange for PHI, outside the eight statutory exclusions, is a \"sale of PHI\" requiring specific authorization (§502(a)(5)(ii)); none was obtained, so require_authorization_by_164_508 blocks every pathway. Confirmed by re-running with obtained_authorization_164_508 added for the same parties, attribute, and purpose, which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.508",
+        "164.502(a)(5)(ii)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-029",
+      "title": "County General Hospital — Lab Tech Snooping on a Non-Patient's Chart",
+      "narrative": {
+        "situation": "Dana, a lab technician at County General Hospital, is not assigned to and has never treated a local news anchor who was admitted for surgery. Curious after seeing the anchor's name on a hallway census board, Dana repeatedly looks up the anchor's chart in the hospital's EHR system over several days and shares screenshots with friends, describing her access afterward as \"checking on a patient.\" Each time, Dana views only the anchor's basic admission and status screen -- she does not open the anchor's full chart, lab results, or physician notes.",
+        "question": "Is Dana's repeated access to the news anchor's medical record permitted under HIPAA?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"dana_lab_tech\", \"lab-technician\").",
+        "belongstorole(\"anchor_patient\", \"adult\").",
+        "msg_contains(\"msg_d5\", \"anchor_patient\", \"medical-record\").",
+        "disclosure_attempted(\"dana_lab_tech\", \"dana_lab_tech\", \"anchor_patient\", \"msg_d5\", \"medical-record\", \"treatment\").",
+        "believes_minimum_necessary(\"dana_lab_tech\", \"dana_lab_tech\", \"anchor_patient\", \"msg_d5\", \"medical-record\", \"treatment\").",
+        "lacks_authorized_relationship(\"dana_lab_tech\", \"dana_lab_tech\", \"anchor_patient\", \"medical-record\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "lacks_authorized_relationship holds -- Dana has no genuine treatment/operational need despite the nominal \"treatment\" purpose label",
+        "explanation": "lacks_authorized_relationship is a cross-cutting negation guard in hipaa_top.dl that blocks the TPO pathway when a workforce member's access isn't backed by an actual care relationship, regardless of what purpose label the access is framed under (§164.506(c)(1)/(c)(2) would otherwise both fire on these facts, since self-dispatch by a provider role satisfies both the CE's-own-TPO and treatment-activities leaves). Confirmed by re-running with the lacks_authorized_relationship fact removed, which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.506(c)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "implicit"
+      }
+    },
+    {
+      "id": "athena-gold-030",
+      "title": "Westside OB Clinic — Records Sent to the Wrong Address After a Confidential-Communication Request",
+      "narrative": {
+        "situation": "Jamie Doe, a patient at Westside OB Clinic and a survivor of domestic violence, formally requested that all communications and mailed records be sent only to a confidential P.O. box for her safety, and the clinic agreed. When Jamie later asks for a copy of her own records, Westside OB Clinic mails them to her home address on file instead of the P.O. box she specifically requested.",
+        "question": "Is Westside OB Clinic permitted to send Jamie Doe's records to her home address after she requested confidential communication to a different address?"
+      },
+      "expected_verdict": "DENY",
+      "facts": [
+        "activerole(\"westside_ob_clinic\", \"hospital\").",
+        "belongstorole(\"jamie_doe\", \"adult\").",
+        "msg_contains(\"msg_d6\", \"jamie_doe\", \"medical-record\").",
+        "disclosure_attempted(\"westside_ob_clinic\", \"jamie_doe\", \"jamie_doe\", \"msg_d6\", \"medical-record\", \"patient-access\").",
+        "believes_minimum_necessary(\"westside_ob_clinic\", \"jamie_doe\", \"jamie_doe\", \"msg_d6\", \"medical-record\", \"patient-access\").",
+        "sent_via_non_requested_channel(\"westside_ob_clinic\", \"jamie_doe\", \"jamie_doe\", \"msg_d6\", \"medical-record\")."
+      ],
+      "expected_proof": {
+        "blocking_fact": "sent_via_non_requested_channel holds -- the clinic granted a confidential-communication request but sent via a different channel anyway",
+        "explanation": "§164.522(b): once a covered entity accommodates a reasonable request for confidential communications, sending PHI via a channel the individual did not request violates that accommodation -- a cross-cutting guard that overrides the otherwise-unconditional §164.502(a)(1)(i) individual-access pathway. Confirmed by re-running with the sent_via_non_requested_channel fact removed, which flips the verdict to ALLOW."
+      },
+      "provisions": [
+        "164.522(b)",
+        "164.502(a)(1)(i)"
+      ],
+      "source": {
+        "corpus": "new",
+        "original_id": null
+      },
+      "entity_provenance": {
+        "sender": "explicit",
+        "receiver": "explicit",
+        "subject": "explicit"
+      }
+    }
+  ]
+}

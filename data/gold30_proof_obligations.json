@@ -1,0 +1,930 @@
+[
+  {
+    "scenario": "gold-001",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 5,
+    "n_unknown": 3,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 2,
+    "min_questions": 2,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "msg_r001",
+          "medical-record",
+          "consultation"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "memorial_hospital",
+          "dr_patel",
+          "james_walker",
+          "medical-record"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-002",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 5,
+    "n_unknown": 3,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 2,
+    "min_questions": 2,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "msg_r003",
+          "medical-record",
+          "claims-processing"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "st_lukes",
+          "bcbs_texas",
+          "robert_kim",
+          "medical-record"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-003",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 4,
+    "n_unknown": 8,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices",
+      "obtained_authorization_164_508"
+    ],
+    "n_critical": 3,
+    "min_questions": 3,
+    "consequence_table": [
+      {
+        "predicate": "obtained_authorization_164_508",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "msg8",
+          "psychotherapy-notes",
+          "judicial-administrative-proceeding"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "howorth_8",
+          "hartford_8",
+          "david_8",
+          "psychotherapy-notes"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-004",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 6,
+    "n_unknown": 3,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 2,
+    "min_questions": 2,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "msg_r002",
+          "diagnosis",
+          "treatment"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "childrens_hospital",
+          "maria_rodriguez",
+          "sofia_rodriguez",
+          "diagnosis"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-005",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 6,
+    "n_unknown": 2,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 1,
+    "min_questions": 1,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "riverside_hospital",
+          "pastor_davis",
+          "helen_thompson",
+          "msg_r012",
+          "patient-location",
+          "directory"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-006",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 7,
+    "n_unknown": 3,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 2,
+    "min_questions": 2,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "msg_r018",
+          "patient-location",
+          "notification-164-510b"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "millbrook_regional",
+          "red_cross",
+          "tornado_patient",
+          "patient-location"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-007",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 5,
+    "n_unknown": 4,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices",
+      "is_required_by_law"
+    ],
+    "n_critical": 3,
+    "min_questions": 3,
+    "consequence_table": [
+      {
+        "predicate": "is_required_by_law",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "msg_r004",
+          "blood-test-results",
+          "law-enforcement"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "mercy_general",
+          "det_santos",
+          "thomas_wright",
+          "blood-test-results"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-008",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 6,
+    "n_unknown": 4,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 2,
+    "min_questions": 2,
+    "consequence_table": [
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "msg_r007",
+          "lab-results",
+          "disease-prevention-or-control"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "valley_medical",
+          "maricopa_health",
+          "tb_patients",
+          "lab-results"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-009",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 3,
+    "n_unknown": 5,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "believes_minimum_necessary",
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 3,
+    "min_questions": 3,
+    "consequence_table": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "msg25",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "reynolds_25",
+          "court_25",
+          "mcgill_25",
+          "medical-record"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-010",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 4,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": false,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-011",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 3,
+    "n_unknown": 5,
+    "status": "PROVED_DENIED",
+    "matches_expected": false,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-012",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 4,
+    "n_unknown": 4,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "believes_minimum_necessary",
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 3,
+    "min_questions": 3,
+    "consequence_table": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "msg_r014",
+          "medical-record",
+          "determining-cause-of-death"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "university_hospital",
+          "medical_examiner",
+          "margaret_collins",
+          "medical-record"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-013",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 5,
+    "n_unknown": 5,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "believes_minimum_necessary",
+      "ce_wrongly_denied_access",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 3,
+    "min_questions": 3,
+    "consequence_table": [
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "msg_r011",
+          "medical-record",
+          "research"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "sinai_hospital",
+          "dr_torres",
+          "patients_r011",
+          "medical-record"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-014",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 7,
+    "n_unknown": 5,
+    "status": "UNRESOLVED",
+    "matches_expected": true,
+    "critical_facts": [
+      "believes_minimum_necessary",
+      "ce_wrongly_denied_access",
+      "consistent_with_applicable_law",
+      "inconsistent_with_notice_of_privacy_practices"
+    ],
+    "n_critical": 4,
+    "min_questions": 4,
+    "consequence_table": [
+      {
+        "predicate": "consistent_with_applicable_law",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "believes_minimum_necessary",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "if_true_possible": [
+          "DENIED",
+          "PERMITTED"
+        ],
+        "if_false_possible": [
+          "DENIED"
+        ]
+      },
+      {
+        "predicate": "inconsistent_with_notice_of_privacy_practices",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "msg_r022",
+          "crime-admission-statement",
+          "identify-apprehend"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      },
+      {
+        "predicate": "ce_wrongly_denied_access",
+        "args": [
+          "city_medical",
+          "detective_r022",
+          "jake_morris",
+          "crime-admission-statement"
+        ],
+        "if_true_possible": [
+          "DENIED"
+        ],
+        "if_false_possible": [
+          "DENIED",
+          "PERMITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "gold-015",
+    "expected_verdict": "PERMITTED",
+    "n_known_true": 3,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": false,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-016",
+    "expected_verdict": "DENIED",
+    "n_known_true": 2,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-017",
+    "expected_verdict": "DENIED",
+    "n_known_true": 2,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-018",
+    "expected_verdict": "DENIED",
+    "n_known_true": 2,
+    "n_unknown": 5,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-019",
+    "expected_verdict": "DENIED",
+    "n_known_true": 1,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-020",
+    "expected_verdict": "DENIED",
+    "n_known_true": 1,
+    "n_unknown": 5,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-021",
+    "expected_verdict": "DENIED",
+    "n_known_true": 2,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-022",
+    "expected_verdict": "DENIED",
+    "n_known_true": 3,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-023",
+    "expected_verdict": "DENIED",
+    "n_known_true": 3,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-024",
+    "expected_verdict": "DENIED",
+    "n_known_true": 4,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-025",
+    "expected_verdict": "DENIED",
+    "n_known_true": 1,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-026",
+    "expected_verdict": "DENIED",
+    "n_known_true": 3,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-027",
+    "expected_verdict": "DENIED",
+    "n_known_true": 0,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-028",
+    "expected_verdict": "DENIED",
+    "n_known_true": 3,
+    "n_unknown": 3,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-029",
+    "expected_verdict": "DENIED",
+    "n_known_true": 2,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  },
+  {
+    "scenario": "gold-030",
+    "expected_verdict": "DENIED",
+    "n_known_true": 1,
+    "n_unknown": 4,
+    "status": "PROVED_DENIED",
+    "matches_expected": true,
+    "critical_facts": [],
+    "n_critical": 0,
+    "min_questions": 0,
+    "consequence_table": []
+  }
+]

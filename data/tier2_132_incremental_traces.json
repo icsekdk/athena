@@ -1,0 +1,2794 @@
+[
+  {
+    "scenario": "tier2-goldcoin-1",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-2",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-3",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 3,
+    "n_verifier_evaluations": 252,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "has_authority_to_act",
+          "belongstorole",
+          "has_authority_to_act"
+        ],
+        "asked": "activerole",
+        "args": [
+          "wyoming_state_hospital",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "has_authority_to_act",
+          "belongstorole",
+          "has_authority_to_act"
+        ],
+        "asked": "has_authority_to_act",
+        "args": [
+          "pa_system",
+          "patient_population"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "has_authority_to_act",
+          "belongstorole",
+          "has_authority_to_act"
+        ],
+        "asked": "belongstorole",
+        "args": [
+          "patient_population",
+          "adult"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "has_authority_to_act",
+          "belongstorole",
+          "has_authority_to_act"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-4",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-5",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 117,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "hospital_a",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "dr_b",
+          "doctor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-6",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-7",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-8",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-9",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-11",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-12",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-13",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-14",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-15",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-16",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-17",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-18",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-19",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-20",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-21",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-22",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-23",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 1,
+    "n_verifier_evaluations": 118,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "lackawanna_prison",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-24",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-25",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-26",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-27",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-28",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-29",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 4,
+    "n_verifier_evaluations": 390,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "belongstorole",
+          "is_guardian",
+          "has_authority_to_act",
+          "belongstorole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "scottish_rite_hospital",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "belongstorole",
+          "is_guardian",
+          "has_authority_to_act",
+          "belongstorole"
+        ],
+        "asked": "belongstorole",
+        "args": [
+          "ella_ussery",
+          "unemancipated-minor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "belongstorole",
+          "is_guardian",
+          "has_authority_to_act",
+          "belongstorole"
+        ],
+        "asked": "is_guardian",
+        "args": [
+          "william_ussery",
+          "ella_ussery"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 3,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "belongstorole",
+          "is_guardian",
+          "has_authority_to_act",
+          "belongstorole"
+        ],
+        "asked": "has_authority_to_act",
+        "args": [
+          "william_ussery",
+          "ella_ussery"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 4,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "belongstorole",
+          "is_guardian",
+          "has_authority_to_act",
+          "belongstorole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-30",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-31",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-32",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-33",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-34",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-35",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-36",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 126,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "wellstar",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "prior_treating_provider",
+          "doctor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-37",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-38",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 1,
+    "n_verifier_evaluations": 94,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "dr_dulay",
+          "doctor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-39",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-40",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-41",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-42",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-43",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-44",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_PERMITTED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_PERMITTED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-45",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-46",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-47",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 210,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "emas",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "dr_williams",
+          "doctor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-49",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-50",
+    "expected_verdict": "PERMITTED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 1,
+    "n_verifier_evaluations": 106,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole"
+        ],
+        "asked": "activerole",
+        "args": [
+          "rancho_los_amigos",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-51",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-52",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-53",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-54",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-55",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-56",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-57",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-58",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-59",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-60",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-61",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-62",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-63",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-64",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-65",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-67",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-68",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-69",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-70",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-71",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-72",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-73",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-74",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-75",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-76",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-77",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_PERMITTED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_PERMITTED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-78",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-79",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-80",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-81",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-83",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-84",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-85",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-86",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-87",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-88",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-89",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-90",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-91",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-92",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-93",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-94",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-95",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-96",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-97",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 13,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-98",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-99",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-100",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-101",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 10,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-102",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-103",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-104",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-105",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 150,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": "activerole",
+        "args": [
+          "healthcare_provider",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": "is_defective_authorization",
+        "args": [
+          "msg_lesha",
+          "lesha_carter",
+          "healthcare_provider",
+          "lesha_carter",
+          "medical-record",
+          "judicial-administrative-proceeding"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "is_defective_authorization"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-106",
+    "expected_verdict": "PERMITTED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": false,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-goldcoin-107",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-1",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-3",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-4",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 8,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-5",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-6",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-7",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-8",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-9",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-10",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-11",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-12",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-13",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-14",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 12,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-16",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-17",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-18",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-19",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 132,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "activerole",
+        "args": [
+          "private_practice",
+          "provider"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "private_practice",
+          "patient_a",
+          "patient_a",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-20",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 11,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-21",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-22",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-23",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 90,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": "activerole",
+        "args": [
+          "the_hospital",
+          "hospital"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": "sent_via_non_requested_channel",
+        "args": [
+          "the_hospital",
+          "the_patient",
+          "the_patient",
+          "msg_voicemail",
+          "phi"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "sent_via_non_requested_channel"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-24",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-25",
+    "expected_verdict": "DENIED",
+    "final_status": "UNRESOLVED",
+    "correct_final": true,
+    "n_questions_asked": 2,
+    "n_verifier_evaluations": 90,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "activerole",
+        "args": [
+          "the_physician",
+          "doctor"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 1,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": "ce_wrongly_denied_access",
+        "args": [
+          "the_physician",
+          "the_patient",
+          "the_patient",
+          "medical-record"
+        ],
+        "answer": "UNKNOWN"
+      },
+      {
+        "step": 2,
+        "status": "UNRESOLVED",
+        "critical_obligations": [
+          "activerole",
+          "ce_wrongly_denied_access"
+        ],
+        "asked": null,
+        "answer": null,
+        "note": "all critical obligations already asked; oracle returned UNKNOWN"
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-26",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 9,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-27",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 6,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-28",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-29",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-30",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  },
+  {
+    "scenario": "tier2-hhs-31",
+    "expected_verdict": "DENIED",
+    "final_status": "PROVED_DENIED",
+    "correct_final": true,
+    "n_questions_asked": 0,
+    "n_verifier_evaluations": 7,
+    "synergy_fallback_used": 0,
+    "trace": [
+      {
+        "step": 0,
+        "status": "PROVED_DENIED",
+        "critical_obligations": [],
+        "asked": null,
+        "answer": null
+      }
+    ]
+  }
+]

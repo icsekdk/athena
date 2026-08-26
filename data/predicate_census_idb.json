@@ -1,0 +1,1522 @@
+[
+  {
+    "predicate": "attr_subtype",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "is_demographic_info",
+      "is_dii",
+      "is_directory_info",
+      "is_healthcare_dates",
+      "is_location_condition_death",
+      "is_phi",
+      "is_psychotherapy_notes",
+      "uses_genetic_info_for_underwriting"
+    ]
+  },
+  {
+    "predicate": "belongs_to",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "is_personal_representative",
+      "may_deny_without_review_524a2ii",
+      "permitted_by_164_510_a",
+      "permitted_by_164_510_b_5",
+      "permitted_by_164_512_f_3",
+      "permitted_by_164_512_f_4",
+      "permitted_by_164_512_g_1",
+      "permitted_by_164_512_g_2",
+      "permitted_by_164_512_i",
+      "permitted_by_164_512_k_1",
+      "professional_judgment_510b3"
+    ]
+  },
+  {
+    "predicate": "exception_508a2",
+    "arity": 1,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "exception_508a3",
+    "arity": 1,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "excluded_164_502_b_2",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "minimum_necessary_satisfied"
+    ]
+  },
+  {
+    "predicate": "excluded_164_502_e_1_ii",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_e"
+    ]
+  },
+  {
+    "predicate": "formal_access_request_must_be_granted",
+    "arity": 1,
+    "module": "hipaa_top",
+    "used_by": []
+  },
+  {
+    "predicate": "formal_access_request_properly_denied",
+    "arity": 1,
+    "module": "hipaa_top",
+    "used_by": []
+  },
+  {
+    "predicate": "has_role",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "is_business_associate",
+      "is_covered_entity",
+      "is_health_care_provider",
+      "is_health_oversight_agency",
+      "is_health_plan",
+      "is_law_enforcement",
+      "is_oversight_agency",
+      "is_public_health_authority",
+      "permitted_by_164_512_b_1_ii",
+      "permitted_by_164_512_c"
+    ]
+  },
+  {
+    "predicate": "individual_agrees_or_no_objection_510b2",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4"
+    ]
+  },
+  {
+    "predicate": "is_care_involvement_recipient",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_5"
+    ]
+  },
+  {
+    "predicate": "is_clergy",
+    "arity": 1,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ]
+  },
+  {
+    "predicate": "is_coroner_or_medical_examiner",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_g_1"
+    ]
+  },
+  {
+    "predicate": "is_covered_entity",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "exception_508a2",
+      "exception_508a3",
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "formal_access_request_properly_denied",
+      "is_for_counseling_training",
+      "is_recipient_relevant_to_tpo",
+      "permitted_by_164_502_a",
+      "permitted_by_164_502_a_1_i",
+      "permitted_by_164_502_d",
+      "permitted_by_164_502_e",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_506_a",
+      "permitted_by_164_506_b",
+      "permitted_by_164_506_c_1",
+      "permitted_by_164_506_c_2",
+      "permitted_by_164_506_c_3",
+      "permitted_by_164_506_c_4",
+      "permitted_by_164_506_c_5",
+      "permitted_by_164_510_a",
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4",
+      "permitted_by_164_510_b_5",
+      "permitted_by_164_512_a",
+      "permitted_by_164_512_b_1_i",
+      "permitted_by_164_512_b_1_ii",
+      "permitted_by_164_512_b_1_iii",
+      "permitted_by_164_512_b_1_iv",
+      "permitted_by_164_512_b_1_vi",
+      "permitted_by_164_512_c",
+      "permitted_by_164_512_d",
+      "permitted_by_164_512_e_1_i",
+      "permitted_by_164_512_e_1_ii",
+      "permitted_by_164_512_e_1_vi",
+      "permitted_by_164_512_f_1",
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_2_i",
+      "permitted_by_164_512_f_3",
+      "permitted_by_164_512_f_4",
+      "permitted_by_164_512_f_5",
+      "permitted_by_164_512_g_1",
+      "permitted_by_164_512_g_2",
+      "permitted_by_164_512_h",
+      "permitted_by_164_512_i",
+      "permitted_by_164_512_j_1_i",
+      "permitted_by_164_512_j_1_ii_A",
+      "permitted_by_164_512_j_1_ii_B",
+      "permitted_by_164_512_k_1",
+      "permitted_by_164_512_k_2",
+      "permitted_by_164_512_k_3",
+      "permitted_by_164_512_k_4",
+      "permitted_by_164_512_k_5",
+      "permitted_by_164_512_k_7",
+      "permitted_by_164_512_l",
+      "permitted_by_164_514_d",
+      "permitted_by_164_514_e",
+      "permitted_by_164_514_f",
+      "permitted_by_164_530_c",
+      "require_authorization_by_164_508",
+      "required_by_164_502_a_2_ii",
+      "required_by_164_512_a",
+      "required_by_164_524",
+      "required_by_164_528"
+    ]
+  },
+  {
+    "predicate": "is_demographic_info",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ]
+  },
+  {
+    "predicate": "is_dii",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_disclosure_allowed",
+      "permitted_by_164_502_d"
+    ]
+  },
+  {
+    "predicate": "is_directory_info",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ]
+  },
+  {
+    "predicate": "is_disclosure_allowed",
+    "arity": 2,
+    "module": "hipaa_top",
+    "used_by": [
+      "is_disclosure_denied"
+    ]
+  },
+  {
+    "predicate": "is_disclosure_denied",
+    "arity": 1,
+    "module": "hipaa_top",
+    "used_by": []
+  },
+  {
+    "predicate": "is_for_ba_purpose",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_502_e"
+    ]
+  },
+  {
+    "predicate": "is_for_compliance",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_506_c_4"
+    ]
+  },
+  {
+    "predicate": "is_for_counseling_training",
+    "arity": 2,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2"
+    ]
+  },
+  {
+    "predicate": "is_for_directory",
+    "arity": 1,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ]
+  },
+  {
+    "predicate": "is_for_fraud_detection",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_506_c_4"
+    ]
+  },
+  {
+    "predicate": "is_for_hc_ops",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_for_limited_data_set_purpose",
+      "is_for_tpo",
+      "permitted_by_164_506_c_5",
+      "restriction_binds"
+    ]
+  },
+  {
+    "predicate": "is_for_hc_ops_paras_1_2",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_506_c_4"
+    ]
+  },
+  {
+    "predicate": "is_for_investigation",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "required_by_164_502_a_2_ii"
+    ]
+  },
+  {
+    "predicate": "is_for_legal_defense",
+    "arity": 3,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2"
+    ]
+  },
+  {
+    "predicate": "is_for_limited_data_set_purpose",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "used_by": [
+      "permitted_by_164_514_e"
+    ]
+  },
+  {
+    "predicate": "is_for_marketing",
+    "arity": 1,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a3",
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "is_for_payment",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_for_tpo",
+      "permitted_by_164_506_c_3",
+      "restriction_binds"
+    ]
+  },
+  {
+    "predicate": "is_for_plan_administration_function",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_504_f"
+    ]
+  },
+  {
+    "predicate": "is_for_research",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "is_for_limited_data_set_purpose",
+      "permitted_by_164_512_i"
+    ]
+  },
+  {
+    "predicate": "is_for_tpo",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_for_ba_purpose",
+      "permitted_by_164_502_a_1_ii",
+      "permitted_by_164_506_a",
+      "permitted_by_164_506_b",
+      "permitted_by_164_506_c_1"
+    ]
+  },
+  {
+    "predicate": "is_for_treatment",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "exception_508a2",
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "is_for_tpo",
+      "permitted_by_164_506_c_2"
+    ]
+  },
+  {
+    "predicate": "is_foreign_military_authority",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k_1"
+    ]
+  },
+  {
+    "predicate": "is_health_care_provider",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "may_deny_without_review_524a2ii",
+      "may_deny_without_review_524a2iii",
+      "permitted_by_164_506_c_2",
+      "permitted_by_164_506_c_3",
+      "permitted_by_164_512_b_1_v",
+      "permitted_by_164_512_f_6",
+      "permitted_emergency_treatment_exception_522a2"
+    ]
+  },
+  {
+    "predicate": "is_health_oversight_agency",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_d"
+    ]
+  },
+  {
+    "predicate": "is_health_plan",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "excluded_164_502_e_1_ii",
+      "permitted_by_164_512_k_6",
+      "restriction_binds",
+      "uses_genetic_info_for_underwriting",
+      "violates_underwriting_restriction"
+    ]
+  },
+  {
+    "predicate": "is_healthcare_dates",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ]
+  },
+  {
+    "predicate": "is_law_enforcement",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_law_enforcement_for"
+    ]
+  },
+  {
+    "predicate": "is_law_enforcement_for",
+    "arity": 5,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_512_f_1",
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_2_i",
+      "permitted_by_164_512_f_3",
+      "permitted_by_164_512_f_4",
+      "permitted_by_164_512_f_5",
+      "permitted_by_164_512_f_6",
+      "permitted_by_164_512_j_1_ii_A",
+      "permitted_by_164_512_j_1_ii_B",
+      "permitted_by_164_512_k_5"
+    ]
+  },
+  {
+    "predicate": "is_location_condition_death",
+    "arity": 1,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1_ii"
+    ]
+  },
+  {
+    "predicate": "is_organ_procurement_entity",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_h"
+    ]
+  },
+  {
+    "predicate": "is_oversight_agency",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_502_j_1"
+    ]
+  },
+  {
+    "predicate": "is_personal_representative",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "used_by": [
+      "exception_508a3",
+      "excluded_164_502_b_2",
+      "formal_access_request_properly_denied",
+      "is_care_involvement_recipient",
+      "is_recipient_relevant_to_tpo",
+      "may_deny_with_review_524a3iii",
+      "permitted_by_164_502_a_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "required_by_164_502_a_2_i",
+      "required_by_164_524",
+      "required_by_164_528"
+    ]
+  },
+  {
+    "predicate": "is_phi",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "exception_508a3",
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "permitted_by_164_502_a",
+      "permitted_by_164_502_a_1_i",
+      "permitted_by_164_502_a_1_iv",
+      "permitted_by_164_502_d",
+      "permitted_by_164_502_e",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_506_a",
+      "permitted_by_164_506_b",
+      "permitted_by_164_506_c_1",
+      "permitted_by_164_506_c_2",
+      "permitted_by_164_506_c_3",
+      "permitted_by_164_506_c_4",
+      "permitted_by_164_506_c_5",
+      "permitted_by_164_510",
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4",
+      "permitted_by_164_510_b_5",
+      "permitted_by_164_512_a",
+      "permitted_by_164_512_b_1_i",
+      "permitted_by_164_512_b_1_ii",
+      "permitted_by_164_512_b_1_iii",
+      "permitted_by_164_512_b_1_iv",
+      "permitted_by_164_512_b_1_v",
+      "permitted_by_164_512_b_1_vi",
+      "permitted_by_164_512_c",
+      "permitted_by_164_512_d",
+      "permitted_by_164_512_e_1_i",
+      "permitted_by_164_512_e_1_ii",
+      "permitted_by_164_512_e_1_vi",
+      "permitted_by_164_512_f_1",
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_3",
+      "permitted_by_164_512_f_4",
+      "permitted_by_164_512_f_5",
+      "permitted_by_164_512_f_6",
+      "permitted_by_164_512_g_1",
+      "permitted_by_164_512_g_2",
+      "permitted_by_164_512_h",
+      "permitted_by_164_512_i",
+      "permitted_by_164_512_j_1_i",
+      "permitted_by_164_512_j_1_ii_A",
+      "permitted_by_164_512_j_1_ii_B",
+      "permitted_by_164_512_k_1",
+      "permitted_by_164_512_k_2",
+      "permitted_by_164_512_k_3",
+      "permitted_by_164_512_k_4",
+      "permitted_by_164_512_k_5",
+      "permitted_by_164_512_k_6",
+      "permitted_by_164_512_k_7",
+      "permitted_by_164_512_l",
+      "permitted_by_164_514_d",
+      "permitted_by_164_514_e",
+      "permitted_by_164_514_f",
+      "permitted_by_164_530_c",
+      "require_authorization_by_164_508",
+      "required_by_164_502_a_2_i",
+      "required_by_164_502_a_2_ii",
+      "required_by_164_512_a",
+      "required_by_164_524",
+      "required_by_164_528"
+    ]
+  },
+  {
+    "predicate": "is_psychotherapy_notes",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "exception_508a2",
+      "may_deny_without_review_524a2i",
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "is_public_health_authority",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_512_b_1_i",
+      "permitted_by_164_512_b_1_ii"
+    ]
+  },
+  {
+    "predicate": "is_recipient_relevant_to_tpo",
+    "arity": 3,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_a"
+    ]
+  },
+  {
+    "predicate": "is_sale_of_phi",
+    "arity": 1,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "require_authorization_by_164_508"
+    ]
+  },
+  {
+    "predicate": "is_school",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b_1_vi"
+    ]
+  },
+  {
+    "predicate": "is_secretary",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "required_by_164_502_a_2_ii"
+    ]
+  },
+  {
+    "predicate": "known_purpose",
+    "arity": 1,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "formal_access_request_properly_denied",
+      "permitted_by_164_502_a_1_i",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_510_b_5",
+      "require_authorization_by_164_508",
+      "required_by_164_524",
+      "required_by_164_528"
+    ]
+  },
+  {
+    "predicate": "may_deny_with_review_524a3",
+    "arity": 4,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "formal_access_request_properly_denied",
+      "required_by_164_524"
+    ]
+  },
+  {
+    "predicate": "may_deny_with_review_524a3i",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_with_review_524a3"
+    ]
+  },
+  {
+    "predicate": "may_deny_with_review_524a3ii",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_with_review_524a3"
+    ]
+  },
+  {
+    "predicate": "may_deny_with_review_524a3iii",
+    "arity": 4,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_with_review_524a3"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2",
+    "arity": 4,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "formal_access_request_properly_denied",
+      "required_by_164_524"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2i",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_without_review_524a2"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2ii",
+    "arity": 4,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_without_review_524a2"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2iii",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_without_review_524a2"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2iv",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_without_review_524a2"
+    ]
+  },
+  {
+    "predicate": "may_deny_without_review_524a2v",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "used_by": [
+      "may_deny_without_review_524a2"
+    ]
+  },
+  {
+    "predicate": "minimum_necessary_satisfied",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "is_disclosure_allowed",
+      "permitted_by_164_502_a_1_iii"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_i",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_ii",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_iii",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_iv",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_v",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_a_1_vi",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_a_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_d",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_e",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "is_sale_of_phi",
+      "permitted_by_164_502"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_j",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_j_1",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_j"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_502_j_2",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "permitted_by_164_502_j"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_504_f",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "excluded_164_502_e_1_ii",
+      "permitted_by_164_502"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_502_a_1_ii"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_a",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_b",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "is_sale_of_phi",
+      "permitted_by_164_506",
+      "permitted_by_164_506_a"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c_1",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_c"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c_2",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_c"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c_3",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_c"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c_4",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_c"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_506_c_5",
+    "arity": 2,
+    "module": "hipaa_164_506",
+    "used_by": [
+      "permitted_by_164_506_c"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510",
+    "arity": 2,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "permitted_by_164_502_a_1_v"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_a",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b_1",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b_1_i",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b_1_ii",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b_4",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_510_b_5",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512",
+    "arity": 2,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "permitted_by_164_502_a_1_vi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_a",
+    "arity": 2,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2",
+      "is_sale_of_phi",
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "is_sale_of_phi",
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_i",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_ii",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_iii",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_iv",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_v",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_b_1_vi",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_b"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_c",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_d",
+    "arity": 2,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2",
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_e",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_e_1_i",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_e"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_e_1_ii",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_e"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_e_1_vi",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_e"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_1",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_2",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_3",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_4",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_5",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_f_6",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_f"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_g",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_g_1",
+    "arity": 2,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2",
+      "permitted_by_164_512_g"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_g_2",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_g"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_h",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_i",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "is_sale_of_phi",
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_j",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_j_1_i",
+    "arity": 2,
+    "module": "hipaa_164_508",
+    "used_by": [
+      "exception_508a2",
+      "permitted_by_164_512_j"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_j_1_ii",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_j"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_j_1_ii_A",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_j_1_ii_B",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_1",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_2",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_3",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_4",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_5",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_6",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_k_7",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512_k"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_512_l",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "used_by": [
+      "permitted_by_164_512"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_514_d",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "permitted_by_164_502_a_1_iii"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_514_e",
+    "arity": 2,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "is_sale_of_phi",
+      "permitted_by_164_502_a_1_vi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_514_f",
+    "arity": 2,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "permitted_by_164_502_a_1_vi"
+    ]
+  },
+  {
+    "predicate": "permitted_by_164_530_c",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "permitted_by_164_502_a_1_iii"
+    ]
+  },
+  {
+    "predicate": "permitted_emergency_treatment_exception_522a2",
+    "arity": 1,
+    "module": "hipaa_164_522",
+    "used_by": [
+      "violates_restriction_agreement"
+    ]
+  },
+  {
+    "predicate": "professional_judgment_510b3",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "used_by": [
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4"
+    ]
+  },
+  {
+    "predicate": "purpose_subtype",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "is_for_ba_purpose",
+      "is_for_compliance",
+      "is_for_directory",
+      "is_for_fraud_detection",
+      "is_for_hc_ops",
+      "is_for_hc_ops_paras_1_2",
+      "is_for_investigation",
+      "is_for_marketing",
+      "is_for_payment",
+      "is_for_plan_administration_function",
+      "is_for_research",
+      "is_for_treatment"
+    ]
+  },
+  {
+    "predicate": "require_authorization_by_164_508",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "is_disclosure_allowed",
+      "permitted_by_164_506_a"
+    ]
+  },
+  {
+    "predicate": "required_by_164_502_a_2",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "permitted_by_164_502_a"
+    ]
+  },
+  {
+    "predicate": "required_by_164_502_a_2_i",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "required_by_164_502_a_2"
+    ]
+  },
+  {
+    "predicate": "required_by_164_502_a_2_ii",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "exception_508a2",
+      "required_by_164_502_a_2"
+    ]
+  },
+  {
+    "predicate": "required_by_164_512_a",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "excluded_164_502_b_2"
+    ]
+  },
+  {
+    "predicate": "required_by_164_524",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "used_by": [
+      "formal_access_request_must_be_granted",
+      "is_sale_of_phi",
+      "required_by_164_502_a_2_i"
+    ]
+  },
+  {
+    "predicate": "required_by_164_528",
+    "arity": 1,
+    "module": "hipaa_164_528",
+    "used_by": [
+      "is_sale_of_phi",
+      "required_by_164_502_a_2_i"
+    ]
+  },
+  {
+    "predicate": "restriction_binds",
+    "arity": 1,
+    "module": "hipaa_164_522",
+    "used_by": [
+      "violates_restriction_agreement"
+    ]
+  },
+  {
+    "predicate": "role_subtype",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "used_by": [
+      "belongs_to",
+      "has_role"
+    ]
+  },
+  {
+    "predicate": "safe_harbor_deidentified_derived",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "used_by": [
+      "is_dii"
+    ]
+  },
+  {
+    "predicate": "sent_via_non_requested_channel",
+    "arity": 5,
+    "module": "hipaa_macros",
+    "used_by": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "uses_genetic_info_for_underwriting",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "used_by": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "violates_restriction_agreement",
+    "arity": 1,
+    "module": "hipaa_164_522",
+    "used_by": [
+      "is_disclosure_allowed"
+    ]
+  },
+  {
+    "predicate": "violates_underwriting_restriction",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "used_by": [
+      "is_disclosure_allowed"
+    ]
+  }
+]

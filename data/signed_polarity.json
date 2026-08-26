@@ -1,0 +1,1224 @@
+[
+  {
+    "predicate": "NSA_authorized_purpose",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "NSA_authorized_recipient",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "abuse_exception",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "accommodated_via_requested_channel",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "accounting_request_fulfilled",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "activerole",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "agreed_to_denial_of_access",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "agreed_to_restriction",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "appears_necessary_to_alert_crime",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "attr_isa",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "authorized_by_statute_regulation",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "authorized_for_workers_comp",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_can_lessen_threat",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_crime_caused_serious_harm",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_death_may_be_result_of_crime",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_disclosure_necessary_to_prevent_harm",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_emergency_result_of_abuse",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "believes_escaped_lawful_custody",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_evidence_of_crime_on_premises",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_in_best_interest_directory",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_in_best_interest_le",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_minimum_necessary",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_necessary_to_lessen_threat",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_unlawful_conduct",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_victim_of_abuse",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "believes_victim_of_crime",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "belongstorole",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "ce_wrongly_denied_access",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "charged_impermissible_accounting_fee",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "charged_unreasonable_access_fee",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "compiled_for_legal_proceeding",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "consistent_with_applicable_law",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "consistent_with_prior_preference",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "created_for_current_research",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "deemed_appropriate_by_secretary_foreign_military",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "deemed_necessary_for_mission",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "determines_access_would_endanger",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "determines_likely_to_cause_harm_to_other",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "disclosure_attempted",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "disclosure_necessary_to_coordinate",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "disclosure_required_or_authorized_by_statute",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "expert_determination_deidentified",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "face_to_face",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "full_record_specifically_justified",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_authority_to_act",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "has_court_order",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_given_fundraising_notice",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_given_notice_of_workplace_disclosure",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_immunization_disclosure_agreement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_irb_or_privacy_board_waiver",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_lawful_process_with_assurance",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_limited_data_use_agreement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_not_objected_to_directory",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_obtained_agreement_510b2",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "has_opted_out_of_fundraising",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "has_provided_opportunity_no_objection_510b2",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "health_insurance_placed_with",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "identifier_extraction_enabled",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "identifies_workforce_needing_phi",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "implements_criteria_for_limiting_phi",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "implements_policies_for_routine_disclosures",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "inconsistent_with_notice_of_privacy_practices",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "inconsistent_with_prior_preference",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "individual_agrees_to_le_disclosure",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "individual_has_agreed_to_disclosure",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "informed_of_future_reinstatement",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "inrelationship",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_about_suspected_perpetrator",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_access_request",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_accounting_request",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_admission_of_crime",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_at_risk_of_disease",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_authorized_by_law_for_purpose",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_authorized_for_disaster_relief",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_authorized_to_receive_abuse_reports",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_business_associate_of",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_close_personal_friend",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_component_of_dod_or_dhs",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_crime_admission_statement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_defective_authorization",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "is_directory_request_by_name",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_employee_of",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_employer_of_subject",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_entire_medical_record",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "is_family_member",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_create_deidentified_info",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_decedent_purpose",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_fda_activity",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_fundraising",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_judicial_proceeding",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_law_enforcement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_notification",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_oversight",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_public_health",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_for_underwriting",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_for_workplace_surveillance",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_government_benefits_program",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_guardian",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_identified_by_individual",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_immunization_record",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_in_designated_record_set",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_in_lawful_custody",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_incident_to_use",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "is_limited_data_set",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_limited_identifying_info",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_limited_nics_info",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_long_term_care_policy_issuer",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_medical_appropriateness_determination",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_nics_or_state_reporting_entity",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_nics_reporting_entity",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_prohibited_from_firearm_possession",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_related_foundation",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_reply_to_request",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_request_for_identification",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_required_by_law",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_responsible_for_care",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_responsible_for_fda_product",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "is_subject_of_unrelated_oversight_investigation",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "jeopardizes_health_safety_custody",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "lacks_authorized_relationship",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "lacks_reasonable_safeguards",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "learned_through_request_for_treatment",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "learned_while_treating_propensity_for_crime",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "legal_defense_purpose",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "likely_to_harm_individual_via_rep",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "made_reasonable_effort_to_notify",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "may_deny_under_privacy_act",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "meets_policies_and_criteria",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "minor_acts_as_individual",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "msg_contains",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "msg_contains_identifier",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "necessary_for_funeral_duties",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "obtained_authorization_164_508",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "obtained_consent_506b",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "obtained_under_promise_of_confidentiality",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "organization_member",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "paid_out_of_pocket_in_full",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "participates_in_ohca",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "permitted_by_160_C",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "permitted_by_164_514_g",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "pertains_to",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "plan_documents_amended_164_504_f",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "plan_sponsor_certified_compliance",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "prof_judgment_not_interfere_emergency",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "professional_judgment_best_interest_510b3",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "professional_judgment_no_objection_510b2",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "programs_serve_same_population",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "promotional_gift_of_nominal_value",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "providing_emergency_healthcare",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "purpose_isa",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "reasonably_limits_phi_access",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "received_phi_for_underwriting",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "receiver_is_acting_as_law_enforcement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "receives_remuneration_for_phi",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "reidentification_code_violates_514c",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "relevant_to_involvement",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "represents_decedent_research",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "represents_necessary_for_custody_purpose",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "represents_needed_emergency",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "represents_research_only_for_preparation",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "request_accepted",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "requested_confidential_communication",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "requested_restriction",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "restriction_terminated",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "review_overturns_denial",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "role_isa",
+    "net_signs": [
+      -1,
+      1
+    ],
+    "role": "MIXED"
+  },
+  {
+    "predicate": "safe_harbor_deidentified",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "satisfactory_assurances",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "school_requires_immunization_by_law",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "secretary_investigation_authorized",
+    "net_signs": [
+      1
+    ],
+    "role": "enabler"
+  },
+  {
+    "predicate": "subject_to_privacy_act",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  },
+  {
+    "predicate": "would_reveal_source",
+    "net_signs": [
+      -1
+    ],
+    "role": "blocker"
+  }
+]

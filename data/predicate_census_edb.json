@@ -1,0 +1,1876 @@
+[
+  {
+    "predicate": "NSA_authorized_purpose",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "NSA_authorized_recipient",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "abuse_exception",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "is_personal_representative"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "accommodated_via_requested_channel",
+    "arity": 3,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "sent_via_non_requested_channel"
+    ],
+    "gold30_coverage": "T0/F1/U0"
+  },
+  {
+    "predicate": "accounting_request_fulfilled",
+    "arity": 3,
+    "module": "hipaa_164_528",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_528"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "activerole",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "has_role",
+      "is_clergy",
+      "is_coroner_or_medical_examiner",
+      "is_foreign_military_authority",
+      "is_organ_procurement_entity",
+      "is_personal_representative",
+      "is_school",
+      "is_secretary",
+      "may_deny_without_review_524a2ii",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_512_g_2",
+      "permitted_by_164_512_i",
+      "permitted_by_164_512_k_1",
+      "permitted_by_164_512_k_3",
+      "permitted_by_164_512_k_4",
+      "permitted_by_164_512_k_5"
+    ],
+    "gold30_coverage": "T49/F18/U4"
+  },
+  {
+    "predicate": "agreed_to_denial_of_access",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "agreed_to_restriction",
+    "arity": 4,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "restriction_binds"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "appears_necessary_to_alert_crime",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "attr_isa",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "attr_subtype"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "authorized_by_statute_regulation",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_c"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "authorized_for_workers_comp",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_l"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_can_lessen_threat",
+    "arity": 3,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_crime_caused_serious_harm",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "believes_death_may_be_result_of_crime",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_4"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_disclosure_necessary_to_prevent_harm",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_c"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_emergency_result_of_abuse",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_escaped_lawful_custody",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_B"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_evidence_of_crime_on_premises",
+    "arity": 3,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_5"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_in_best_interest_directory",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_in_best_interest_le",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_minimum_necessary",
+    "arity": 6,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "minimum_necessary_satisfied"
+    ],
+    "gold30_coverage": "T6/F1/U8"
+  },
+  {
+    "predicate": "believes_necessary_to_lessen_threat",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_unlawful_conduct",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "negative",
+    "used_by": [
+      "permitted_by_164_502_j_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_victim_of_abuse",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_c"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "believes_victim_of_crime",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_j_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "belongstorole",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "belongs_to"
+    ],
+    "gold30_coverage": "T11/F0/U15"
+  },
+  {
+    "predicate": "ce_wrongly_denied_access",
+    "arity": 4,
+    "module": "hipaa_macros",
+    "polarity": "negative",
+    "used_by": [
+      "is_disclosure_allowed"
+    ],
+    "gold30_coverage": "T0/F4/U26"
+  },
+  {
+    "predicate": "charged_impermissible_accounting_fee",
+    "arity": 3,
+    "module": "hipaa_164_528",
+    "polarity": "negative",
+    "used_by": [
+      "required_by_164_528"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "charged_unreasonable_access_fee",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "negative",
+    "used_by": [
+      "required_by_164_524"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "compiled_for_legal_proceeding",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "consistent_with_applicable_law",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_i",
+      "permitted_by_164_512_j_1_ii_A",
+      "permitted_by_164_512_j_1_ii_B"
+    ],
+    "gold30_coverage": "T0/F0/U1"
+  },
+  {
+    "predicate": "consistent_with_prior_preference",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "created_for_current_research",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "deemed_appropriate_by_secretary_foreign_military",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "deemed_necessary_for_mission",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "determines_access_would_endanger",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_with_review_524a3i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "determines_likely_to_cause_harm_to_other",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_with_review_524a3ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "disclosure_attempted",
+    "arity": 1,
+    "module": "hipaa_top",
+    "polarity": "positive",
+    "used_by": [
+      "exception_508a2",
+      "is_disclosure_allowed",
+      "is_disclosure_denied",
+      "is_law_enforcement_for",
+      "is_sale_of_phi",
+      "permitted_by_164_502_d",
+      "permitted_by_164_504_f",
+      "permitted_by_164_506_a",
+      "permitted_by_164_506_b",
+      "permitted_by_164_506_c_1",
+      "permitted_by_164_506_c_2",
+      "permitted_by_164_506_c_3",
+      "permitted_by_164_506_c_4",
+      "permitted_by_164_506_c_5",
+      "permitted_by_164_514_d",
+      "permitted_by_164_530_c",
+      "permitted_emergency_treatment_exception_522a2",
+      "require_authorization_by_164_508",
+      "restriction_binds",
+      "sent_via_non_requested_channel",
+      "uses_genetic_info_for_underwriting",
+      "violates_underwriting_restriction"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "disclosure_necessary_to_coordinate",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "disclosure_required_or_authorized_by_statute",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "expert_determination_deidentified",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "is_dii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "face_to_face",
+    "arity": 5,
+    "module": "hipaa_164_508",
+    "polarity": "positive",
+    "used_by": [
+      "exception_508a3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "full_record_specifically_justified",
+    "arity": 5,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "minimum_necessary_satisfied"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_authority_to_act",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "is_personal_representative"
+    ],
+    "gold30_coverage": "T1/F0/U1"
+  },
+  {
+    "predicate": "has_court_order",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "in_compliance_with_court_order",
+      "permitted_by_164_512_e_1_i",
+      "permitted_by_164_512_f_1"
+    ],
+    "gold30_coverage": "T2/F1/U0"
+  },
+  {
+    "predicate": "has_given_fundraising_notice",
+    "arity": 5,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_given_notice_of_workplace_disclosure",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_v"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_immunization_disclosure_agreement",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_irb_or_privacy_board_waiver",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_i"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "has_lawful_process_with_assurance",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_e_1_ii"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "has_limited_data_use_agreement",
+    "arity": 5,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_e"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_not_objected_to_directory",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "has_obtained_agreement_510b2",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "individual_agrees_or_no_objection_510b2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_opted_out_of_fundraising",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "has_provided_opportunity_no_objection_510b2",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "individual_agrees_or_no_objection_510b2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "health_insurance_placed_with",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "violates_underwriting_restriction"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "identifier_extraction_enabled",
+    "arity": 0,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "safe_harbor_deidentified_derived"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "identifies_workforce_needing_phi",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "implements_criteria_for_limiting_phi",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "implements_policies_for_routine_disclosures",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "inconsistent_with_notice_of_privacy_practices",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "polarity": "negative",
+    "used_by": [
+      "is_disclosure_allowed"
+    ],
+    "gold30_coverage": "T0/F0/U30"
+  },
+  {
+    "predicate": "inconsistent_with_prior_preference",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "negative",
+    "used_by": [
+      "permitted_by_164_510_b_5"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "individual_agrees_to_le_disclosure",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "individual_has_agreed_to_disclosure",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_c"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "informed_of_future_reinstatement",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "inrelationship",
+    "arity": 3,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_506_c_4"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_about_suspected_perpetrator",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_j_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_access_request",
+    "arity": 4,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "formal_access_request_properly_denied",
+      "may_deny_without_review_524a2i",
+      "may_deny_without_review_524a2ii",
+      "may_deny_without_review_524a2iv",
+      "may_deny_without_review_524a2v",
+      "required_by_164_524"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_accounting_request",
+    "arity": 3,
+    "module": "hipaa_164_528",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_528"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_admission_of_crime",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "is_at_risk_of_disease",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_iv"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_authorized_by_law_for_purpose",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_i",
+      "permitted_by_164_512_c",
+      "permitted_by_164_512_d",
+      "permitted_by_164_512_g_1"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "is_authorized_for_disaster_relief",
+    "arity": 1,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_b_4"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "is_authorized_to_receive_abuse_reports",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_business_associate_of",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "is_recipient_relevant_to_tpo",
+      "permitted_by_164_502_d",
+      "permitted_by_164_502_e",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_514_f"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "is_close_personal_friend",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "is_care_involvement_recipient"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_component_of_dod_or_dhs",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_crime_admission_statement",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_defective_authorization",
+    "arity": 6,
+    "module": "hipaa_164_508",
+    "polarity": "negative",
+    "used_by": [
+      "permitted_by_164_502_a_1_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_directory_request_by_name",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_a"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_employee_of",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2ii",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_502_j_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_employer_of_subject",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_v"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_entire_medical_record",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "minimum_necessary_satisfied"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_family_member",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "is_care_involvement_recipient",
+      "permitted_by_164_510_b_1_ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_create_deidentified_info",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_decedent_purpose",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_g_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_fda_activity",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_fundraising",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_judicial_proceeding",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_e_1_i",
+      "permitted_by_164_512_e_1_ii",
+      "permitted_by_164_512_e_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_law_enforcement",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "is_law_enforcement_for",
+      "permitted_by_164_512_f_1",
+      "permitted_by_164_512_f_3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_notification",
+    "arity": 1,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_oversight",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_public_health",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "is_for_limited_data_set_purpose",
+      "permitted_by_164_512_b_1_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_underwriting",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "uses_genetic_info_for_underwriting",
+      "violates_underwriting_restriction"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_for_workplace_surveillance",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_v"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_government_benefits_program",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "excluded_164_502_e_1_ii",
+      "permitted_by_164_512_k_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_guardian",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "is_personal_representative"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "is_identified_by_individual",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "is_care_involvement_recipient"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_immunization_record",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_in_designated_record_set",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_524"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_in_lawful_custody",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_5"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_incident_to_use",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_a_1_iii",
+      "permitted_by_164_506_a"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_limited_data_set",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_e"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_limited_identifying_info",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_2_i",
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_limited_nics_info",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_7"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_long_term_care_policy_issuer",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "uses_genetic_info_for_underwriting"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_medical_appropriateness_determination",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "uses_genetic_info_for_underwriting"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_nics_or_state_reporting_entity",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_7"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_nics_reporting_entity",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_7"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_prohibited_from_firearm_possession",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_7"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_related_foundation",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_reply_to_request",
+    "arity": 1,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_502_a_2_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_request_for_identification",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_2_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_required_by_law",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_a",
+      "permitted_by_164_512_c",
+      "permitted_by_164_512_f_1",
+      "required_by_164_512_a",
+      "violates_underwriting_restriction"
+    ],
+    "gold30_coverage": "T0/F0/U1"
+  },
+  {
+    "predicate": "is_responsible_for_care",
+    "arity": 2,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_b_1_ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_responsible_for_fda_product",
+    "arity": 1,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "is_subject_of_unrelated_oversight_investigation",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "jeopardizes_health_safety_custody",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "negative",
+    "used_by": [
+      "may_deny_without_review_524a2ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "lacks_authorized_relationship",
+    "arity": 4,
+    "module": "hipaa_macros",
+    "polarity": "negative",
+    "used_by": [
+      "is_disclosure_allowed",
+      "permitted_by_164_502_a_1_ii"
+    ],
+    "gold30_coverage": "T20/F9/U1"
+  },
+  {
+    "predicate": "lacks_reasonable_safeguards",
+    "arity": 1,
+    "module": "hipaa_164_530",
+    "polarity": "negative",
+    "used_by": [
+      "permitted_by_164_530_c"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "learned_through_request_for_treatment",
+    "arity": 3,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "learned_while_treating_propensity_for_crime",
+    "arity": 3,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_j_1_ii_A"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "legal_defense_purpose",
+    "arity": 3,
+    "module": "hipaa_164_508",
+    "polarity": "positive",
+    "used_by": [
+      "is_for_legal_defense"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "likely_to_harm_individual_via_rep",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_with_review_524a3iii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "made_reasonable_effort_to_notify",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_e_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "may_deny_under_privacy_act",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2iv"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "meets_policies_and_criteria",
+    "arity": 5,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "minor_acts_as_individual",
+    "arity": 2,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "is_personal_representative"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "msg_contains",
+    "arity": 3,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "exception_508a2",
+      "exception_508a3",
+      "excluded_164_502_b_2",
+      "excluded_164_502_e_1_ii",
+      "formal_access_request_properly_denied",
+      "is_dii",
+      "is_recipient_relevant_to_tpo",
+      "may_deny_with_review_524a3",
+      "may_deny_without_review_524a2",
+      "permitted_by_164_502_a",
+      "permitted_by_164_502_a_1_i",
+      "permitted_by_164_502_a_1_iv",
+      "permitted_by_164_502_d",
+      "permitted_by_164_502_e",
+      "permitted_by_164_502_j_1",
+      "permitted_by_164_502_j_2",
+      "permitted_by_164_506_a",
+      "permitted_by_164_506_b",
+      "permitted_by_164_506_c_1",
+      "permitted_by_164_506_c_2",
+      "permitted_by_164_506_c_3",
+      "permitted_by_164_506_c_4",
+      "permitted_by_164_506_c_5",
+      "permitted_by_164_510",
+      "permitted_by_164_510_a",
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_1_ii",
+      "permitted_by_164_510_b_4",
+      "permitted_by_164_510_b_5",
+      "permitted_by_164_512_a",
+      "permitted_by_164_512_b_1_i",
+      "permitted_by_164_512_b_1_ii",
+      "permitted_by_164_512_b_1_iii",
+      "permitted_by_164_512_b_1_iv",
+      "permitted_by_164_512_b_1_v",
+      "permitted_by_164_512_b_1_vi",
+      "permitted_by_164_512_c",
+      "permitted_by_164_512_d",
+      "permitted_by_164_512_e_1_i",
+      "permitted_by_164_512_e_1_ii",
+      "permitted_by_164_512_e_1_vi",
+      "permitted_by_164_512_f_1",
+      "permitted_by_164_512_f_2",
+      "permitted_by_164_512_f_2_i",
+      "permitted_by_164_512_f_3",
+      "permitted_by_164_512_f_4",
+      "permitted_by_164_512_f_5",
+      "permitted_by_164_512_f_6",
+      "permitted_by_164_512_g_1",
+      "permitted_by_164_512_g_2",
+      "permitted_by_164_512_h",
+      "permitted_by_164_512_i",
+      "permitted_by_164_512_j_1_i",
+      "permitted_by_164_512_j_1_ii_A",
+      "permitted_by_164_512_j_1_ii_B",
+      "permitted_by_164_512_k_1",
+      "permitted_by_164_512_k_2",
+      "permitted_by_164_512_k_3",
+      "permitted_by_164_512_k_4",
+      "permitted_by_164_512_k_5",
+      "permitted_by_164_512_k_6",
+      "permitted_by_164_512_k_7",
+      "permitted_by_164_512_l",
+      "permitted_by_164_514_d",
+      "permitted_by_164_514_e",
+      "permitted_by_164_514_f",
+      "permitted_by_164_530_c",
+      "require_authorization_by_164_508",
+      "required_by_164_502_a_2_i",
+      "required_by_164_502_a_2_ii",
+      "required_by_164_512_a",
+      "required_by_164_524",
+      "required_by_164_528",
+      "safe_harbor_deidentified_derived"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "msg_contains_identifier",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "safe_harbor_deidentified_derived"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "necessary_for_funeral_duties",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_g_2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "obtained_authorization_164_508",
+    "arity": 5,
+    "module": "hipaa_stubs",
+    "polarity": "positive",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "permitted_by_164_502_a_1_iv",
+      "require_authorization_by_164_508"
+    ],
+    "gold30_coverage": "T0/F0/U1"
+  },
+  {
+    "predicate": "obtained_consent_506b",
+    "arity": 5,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_506_b"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "obtained_under_promise_of_confidentiality",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2v"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "organization_member",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "exception_508a2",
+      "permitted_by_164_506_c_1"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "paid_out_of_pocket_in_full",
+    "arity": 2,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "restriction_binds"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "participates_in_ohca",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_506_c_5"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "permitted_by_160_C",
+    "arity": 1,
+    "module": "hipaa_stubs",
+    "polarity": "positive",
+    "used_by": [
+      "excluded_164_502_b_2",
+      "permitted_by_164_502_a"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "permitted_by_164_514_g",
+    "arity": 2,
+    "module": "hipaa_stubs",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_a_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "pertains_to",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_506_c_4"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "plan_documents_amended_164_504_f",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_504_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "plan_sponsor_certified_compliance",
+    "arity": 2,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_504_f"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "prof_judgment_not_interfere_emergency",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_b_4"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "professional_judgment_best_interest_510b3",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "professional_judgment_510b3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "professional_judgment_no_objection_510b2",
+    "arity": 5,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "individual_agrees_or_no_objection_510b2"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "programs_serve_same_population",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "promotional_gift_of_nominal_value",
+    "arity": 5,
+    "module": "hipaa_164_508",
+    "polarity": "positive",
+    "used_by": [
+      "exception_508a3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "providing_emergency_healthcare",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_6"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "purpose_isa",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "known_purpose",
+      "purpose_subtype"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "reasonably_limits_phi_access",
+    "arity": 1,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_514_d"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "received_phi_for_underwriting",
+    "arity": 3,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "violates_underwriting_restriction"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "receiver_is_acting_as_law_enforcement",
+    "arity": 5,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "is_law_enforcement_for"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "receives_remuneration_for_phi",
+    "arity": 5,
+    "module": "hipaa_164_508",
+    "polarity": "positive",
+    "used_by": [
+      "is_sale_of_phi"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "reidentification_code_violates_514c",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "is_dii"
+    ],
+    "gold30_coverage": "T0/F0/U30"
+  },
+  {
+    "predicate": "relevant_to_involvement",
+    "arity": 3,
+    "module": "hipaa_164_510",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_510_b_1_i",
+      "permitted_by_164_510_b_5",
+      "professional_judgment_510b3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "represents_decedent_research",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "represents_necessary_for_custody_purpose",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_k_5"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "represents_needed_emergency",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_f_3"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "represents_research_only_for_preparation",
+    "arity": 5,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_i"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "request_accepted",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_524"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "requested_confidential_communication",
+    "arity": 2,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "sent_via_non_requested_channel"
+    ],
+    "gold30_coverage": "T1/F0/U0"
+  },
+  {
+    "predicate": "requested_restriction",
+    "arity": 4,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "restriction_binds"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "restriction_terminated",
+    "arity": 4,
+    "module": "hipaa_164_522",
+    "polarity": "positive",
+    "used_by": [
+      "restriction_binds"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "review_overturns_denial",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "formal_access_request_properly_denied",
+      "required_by_164_524"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "role_isa",
+    "arity": 2,
+    "module": "hipaa_hierarchies",
+    "polarity": "positive",
+    "used_by": [
+      "role_subtype"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "safe_harbor_deidentified",
+    "arity": 2,
+    "module": "hipaa_164_514",
+    "polarity": "positive",
+    "used_by": [
+      "is_dii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "satisfactory_assurances",
+    "arity": 5,
+    "module": "hipaa_macros",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_502_e"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "school_requires_immunization_by_law",
+    "arity": 2,
+    "module": "hipaa_164_512",
+    "polarity": "positive",
+    "used_by": [
+      "permitted_by_164_512_b_1_vi"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "secretary_investigation_authorized",
+    "arity": 1,
+    "module": "hipaa_164_502",
+    "polarity": "positive",
+    "used_by": [
+      "required_by_164_502_a_2_ii"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "subject_to_privacy_act",
+    "arity": 2,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2iv"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  },
+  {
+    "predicate": "would_reveal_source",
+    "arity": 3,
+    "module": "hipaa_164_524",
+    "polarity": "positive",
+    "used_by": [
+      "may_deny_without_review_524a2v"
+    ],
+    "gold30_coverage": "not in gold30 candidate lists"
+  }
+]

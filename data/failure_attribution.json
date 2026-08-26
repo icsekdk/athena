@@ -1,0 +1,49 @@
+{
+  "gemma3_4b": {
+    "SEARCH": [],
+    "FORMALIZATION_OR_LABEL": [
+      "gold-010",
+      "gold-011",
+      "gold-015"
+    ],
+    "ORACLE": [
+      "gold-003"
+    ],
+    "UNEXPLAINED": []
+  },
+  "llama3_1_8b": {
+    "SEARCH": [],
+    "FORMALIZATION_OR_LABEL": [
+      "gold-010",
+      "gold-011",
+      "gold-015"
+    ],
+    "ORACLE": [
+      "gold-003",
+      "gold-009"
+    ],
+    "UNEXPLAINED": []
+  },
+  "claude_sonnet_5": {
+    "SEARCH": [],
+    "FORMALIZATION_OR_LABEL": [
+      "gold-010",
+      "gold-011",
+      "gold-015"
+    ],
+    "ORACLE": [
+      "gold-003"
+    ],
+    "UNEXPLAINED": []
+  },
+  "gpt_5_5": {
+    "SEARCH": [],
+    "FORMALIZATION_OR_LABEL": [
+      "gold-010",
+      "gold-011",
+      "gold-015"
+    ],
+    "ORACLE": [],
+    "UNEXPLAINED": []
+  }
+}
